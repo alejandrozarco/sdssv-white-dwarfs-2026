@@ -5,7 +5,7 @@ from scipy.ndimage import gaussian_filter1d, percentile_filter
 from astropy.io import fits
 from astropy.timeseries import LombScargle
 from astroquery.mast import Observations
-from sdssv import star_spectrum, visits, coadd, C
+from sdssv import visits, coadd, C
 T = "../tables"; F = "../figures"; os.makedirs(F, exist_ok=True)
 
 
@@ -18,7 +18,7 @@ def norm(w, f, iv, width=120, pct=85):
 def spectrum_for(row):
     s = str(row["spectrum"])
     if s == "coadd":
-        return star_spectrum(row["sdss_id"])[:3]
+        return coadd([x for x in visits(row["sdss_id"]) if x["in_stack"]])
     v = [x for x in visits(row["sdss_id"]) if str(x["mjd"]) == s.split()[-1]][0]
     return v["wave"], v["flux"], v["ivar"]
 

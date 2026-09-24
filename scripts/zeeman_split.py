@@ -3,10 +3,12 @@ Model per line: linear continuum x (1 - broad concentric Gaussian - three Gaussi
 widths and depths). B_split = half-separation of the outer components / (4.67e-13 lambda0^2 [A/G]), i.e. 20.13 A/MG (H-alpha)
 and 11.04 A/MG (H-beta); it uses only the separation of the two outer components. Fitted component centres, the common shift of
 the central component and the asymmetry (red minus blue outer offset) are also reported.
+Spectrum: 'coadd' = inverse-variance coadd of the in-stack mwmVisit spectra after removing the XCSAO shift (sdssv.visits, sdssv.coadd);
+S/N = quadrature sum of the visit S/N values. The Astra mwmStar coadd is not used because it is in the XCSAO frame.
 Usage: python zeeman_split.py tables/magnetic_zeeman.csv  (columns gaia_dr3, sdss_id, spectrum = coadd or visit MJD)"""
 import sys, numpy as np, pandas as pd
 from scipy.optimize import least_squares
-from sdssv import star_spectrum, visits
+from sdssv import visits, coadd
 L0 = {"Ha": 6564.61, "Hb": 4862.68}; K = {k: 4.67e-13 * v ** 2 * 1e6 for k, v in L0.items()}
 WIN = {"Ha": (6300, 6830), "Hb": (4660, 5060)}
 
@@ -32,10 +34,11 @@ def fit(x, y, iv, l0, dl0):
 
 
 def measure(sdss_id, spectrum="coadd"):
+    vs = visits(sdss_id)
     if spectrum == "coadd":
-        lam, f, iv, snr = star_spectrum(sdss_id)
+        vs = [x for x in vs if x["in_stack"]]; lam, f, iv = coadd(vs); snr = float(np.sqrt(np.sum([x["snr"] ** 2 for x in vs])))
     else:
-        v = [x for x in visits(sdss_id) if str(x["mjd"]) == str(spectrum)][0]; lam, f, iv, snr = v["wave"], v["flux"], v["ivar"], v["snr"]
+        v = [x for x in vs if str(x["mjd"]) == str(spectrum)][0]; lam, f, iv, snr = v["wave"], v["flux"], v["ivar"], v["snr"]
     out = dict(snr=round(snr, 1))
     for k in ("Ha", "Hb"):
         m = (lam > WIN[k][0]) & (lam < WIN[k][1]); p, C = fit(lam[m], f[m], iv[m], L0[k], 6.0 * K[k])
