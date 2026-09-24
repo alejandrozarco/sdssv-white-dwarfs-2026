@@ -139,6 +139,39 @@ def zz():
     ax[-1].set_xlabel("frequency (c/d)"); plt.tight_layout(); plt.savefig(f"{F}/zz_ceti_tess_amplitude_spectra.png", dpi=80); plt.close()
 
 
+def periodic():
+    import periodic_6021870154194477312 as P6
+    g = P6.GID; t = pd.read_csv(f"{T}/periodic_{g}.csv", dtype={"gaia_dr3": str}); f = float(t.frequency_cd.iloc[0])
+    t0 = float(t[(t.gaia_dr3 == g) & (t.dataset == "ATLAS") & (t.band == "o")].t_max_bjd.iloc[0])
+    at = P6.load_atlas(g); _, (fr, pw) = P6.adopted_frequency(at); ga = P6.load_gaia(); tt, crowd = P6.load_tess()
+    fig = plt.figure(figsize=(11, 10)); gs = fig.add_gridspec(3, 2)
+    a = fig.add_subplot(gs[0, :]); w, fl, iv = coadd(visits("106653583")); s = np.isfinite(fl) & (iv > 0) & (w > 3750) & (w < 9000)
+    a.plot(w[s], gaussian_filter1d(fl[s], 2), "k", lw=0.6)
+    for l in (6564.61, 4862.68, 4341.69, 4102.89):
+        a.axvline(l, color="0.6", lw=0.6, ls=":")
+    a.set_xlabel("wavelength (A)"); a.set_ylabel("flux"); a.set_title(f"Gaia DR3 {g}: SDSS-V spectrum (sdss_id 106653583, all visits); grey dotted: H-alpha to H-delta", fontsize=8)
+    a = fig.add_subplot(gs[1, :]); a.plot(fr, pw, "k", lw=0.4); a.set_xlabel("frequency (c/d)"); a.set_ylabel("GLS power")
+    a.set_title(f"ATLAS c + o, fractional flux; adopted f = {f:.7f} c/d (P = {1440 / f:.3f} min)", fontsize=8)
+    ph = lambda x: ((x - t0) * f) % 1
+    a = fig.add_subplot(gs[2, 0])
+    for b, col in (("c", "c"), ("o", "orange")):
+        p = ph(at[b]["t"]); y = at[b]["f"] / P6.REF[b]; e = at[b]["e"] / P6.REF[b]; edges = np.linspace(0, 1, 21); c = (edges[1:] + edges[:-1]) / 2
+        m = [np.sum(y[(p >= lo) & (p < hi)] / e[(p >= lo) & (p < hi)] ** 2) / np.sum(1 / e[(p >= lo) & (p < hi)] ** 2) for lo, hi in zip(edges[:-1], edges[1:])]
+        se = [1 / np.sqrt(np.sum(1 / e[(p >= lo) & (p < hi)] ** 2)) for lo, hi in zip(edges[:-1], edges[1:])]
+        for k in (0, 1):
+            a.errorbar(c + k, m, se, fmt="o", ms=3, color=col, label=f"ATLAS {b}" if k == 0 else None)
+    a.set_xlabel(f"phase (t_max = BJD_TDB {t0:.5f})"); a.set_ylabel("fractional flux (20 bins)"); a.legend(fontsize=7)
+    a = fig.add_subplot(gs[2, 1]); d = ga["G"]; p = ph(d["t"])
+    for k in (0, 1):
+        a.errorbar(p + k, d["f"], d["e"], fmt="o", ms=3, color="k", label="Gaia DR3 G" if k == 0 else None)
+    p = ph(tt["t"]); edges = np.linspace(0, 1, 21); c = (edges[1:] + edges[:-1]) / 2
+    m = [np.mean(tt["f"][(p >= lo) & (p < hi)]) for lo, hi in zip(edges[:-1], edges[1:])]
+    for k in (0, 1):
+        a.plot(c + k, m, "s", ms=3, color="r", label=f"TESS S{P6.SECTOR} PDCSAP, CROWDSAP {crowd:.3f} (20 bins)" if k == 0 else None)
+    a.set_xlabel("phase"); a.set_ylabel("fractional flux"); a.legend(fontsize=7)
+    plt.tight_layout(); plt.savefig(f"{F}/periodic_{g}.png", dpi=90); plt.close()
+
+
 if __name__ == "__main__":
-    for fn in (zeeman, carbon_optical, carbon_cos, galex, eclipse, balmer, zz):
+    for fn in (zeeman, carbon_optical, carbon_cos, galex, eclipse, balmer, zz, periodic):
         fn(); print(fn.__name__, "done", flush=True)

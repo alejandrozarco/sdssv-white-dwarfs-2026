@@ -1,6 +1,6 @@
-# SDSS-V DR20 white dwarfs: Zeeman splitting, carbon lines, TESS signals, an eclipse and Balmer emission
+# SDSS-V DR20 white dwarfs: Zeeman splitting, carbon lines, TESS signals, an eclipse, Balmer emission and a photometric period
 
-These are measurements of white dwarfs with public SDSS-V DR20 BOSS spectra (Astra 0.8.1; SnowWhite classifications), combined with TESS, HST/COS, GALEX and ATLAS data.
+These are measurements of white dwarfs with public SDSS-V DR20 BOSS spectra (Astra 0.8.1; SnowWhite classifications), combined with TESS, HST/COS, GALEX, ATLAS and Gaia DR3 epoch photometry.
 
 Each table lists the measured quantities together with existing classifications:
 - SIMBAD;
@@ -20,6 +20,7 @@ The scripts download the public data and recompute the tables. Data were retriev
 | `tables/zz_ceti_objects.csv`, `tables/zz_ceti_tess_sectors.csv` | 5 white dwarfs: highest TESS amplitude-spectrum peak per light curve (20-359 or 20-2159 c/d); pixel-level fits | `tess_periodogram.py`, `tess_pixel_test.py` |
 | `tables/eclipsing_4731701084150029824.csv` | eclipse ephemeris from ATLAS forced photometry | `j0353_eclipse.py` |
 | `tables/balmer_emission.csv` | 2 white dwarfs: H-alpha and H-beta emission equivalent widths and double-peak separations | `cv_balmer.py` |
+| `tables/periodic_6021870154194477312.csv` | Gaia DR3 6021870154194477312: sinusoid fits at one frequency to ATLAS photometry of the star and of the three Gaia DR3 sources within 13″, to Gaia DR3 epoch photometry and to TESS sector 65 | `periodic_6021870154194477312.py` |
 
 Figures in `figures/` are made by `scripts/figures.py`.
 
@@ -44,10 +45,18 @@ Figures in `figures/` are made by `scripts/figures.py`.
 - **HST/COS.** Dataset lfac0z010 (G130M, 2024-07-13, program 17420), taken from MAST. Equivalent widths are given against several continuum sideband choices.
 - **TESS.** SPOC PDCSAP light curves, with QUALITY = 0 and a 5σ clip, analysed with a Lomb-Scargle amplitude spectrum (step 0.001 c/d). S/N is the peak amplitude over the mean amplitude, and the false-alarm probability is Baluev's.
 - **TESS pixel test.** A sinusoid at the given frequency is fitted to each pixel of the SPOC target pixel file. The in-phase amplitude map is fitted with a single Gaussian PSF at each Gaia DR3 source, after re-registering the WCS on the median image. The table gives the chi2 for the target and for the best other source.
-- **ATLAS.** Forced-photometry difference fluxes (`data/atlas_forced_photometry_4731701084150029824.txt`).
+- **ATLAS.** Forced-photometry difference fluxes (`data/atlas_forced_photometry_<gaia_dr3>.txt`).
   - Cuts: duJy > 0, err = 0, chi/N < 10.
   - Per-season median subtraction, then conversion to BJD_TDB.
-  - Model: a trapezoid with a common centre and width and a free depth per band.
+  - Eclipse of 4731701084150029824: a trapezoid with a common centre and width and a free depth per band.
+- **Photometric period of 6021870154194477312.**
+  - ATLAS photometry forced at the Gaia DR3 positions of the star and of the three Gaia DR3 sources within 13″ (`data/periodic_6021870154194477312_sources.csv`).
+  - Frequency: generalised Lomb-Scargle of the combined c and o fractional fluxes (0.5-50 c/d), refined by a sinusoid fit with separate band offsets; the uncertainty is the range where chi2 ≤ chi2_min + chi2_r.
+  - Amplitudes: sinusoid plus first harmonic per band at that frequency. Fractional amplitudes use the Gaia synthetic SDSS g, r, i magnitudes (VizieR J/A+A/674/A33, white-dwarf table), with c = (g + r)/2 and o = (r + i)/2 in flux.
+  - Gaia DR3 epoch photometry from VizieR I/355/epphot (`data/gaia_dr3_epoch_photometry_6021870154194477312.csv`), transits with rejection flags removed.
+  - TESS: sector 65 PDCSAP light curve of TIC 1251484163 (CROWDSAP 0.011). PDCSAP amplitudes depend on the crowding correction.
+  - `t_max` is the first maximum of the fitted sinusoid after BJD_TDB 2458000.0, at the common frequency.
+  - Existing classifications of the star: SIMBAD WD* (DA:), MWDD DA:, SDSS-V SnowWhite DZ (sdss_id 106653583).
 - **Balmer emission.** Equivalent widths are measured against sideband continua. Peak separations come from a two-Gaussian fit with equal widths.
 
 ## Reproduction
@@ -64,13 +73,15 @@ python tess_periodogram.py 2055170284 102 120
 python tess_pixel_test.py 6492083311194727168 2055170284 102 82.34 120
 python j0353_eclipse.py
 python cv_balmer.py 65701864
+python periodic_6021870154194477312.py
+python tess_periodogram.py 1251484163 65 120 0.5 50
 python figures.py
 ```
 Arguments for the other TESS light curves and pixel tests are given in the table columns (TIC, sector, cadence, frequency).
 
 ## Data sources
 - SDSS-V DR20.
-- Gaia DR3 (ESA/Gaia/DPAC).
+- Gaia DR3 (ESA/Gaia/DPAC), including epoch photometry (VizieR I/355/epphot) and the Gaia Synthetic Photometry Catalogue (Gaia Collaboration, Montegriffo et al. 2023; VizieR J/A+A/674/A33).
 - TESS SPOC and HST/COS program 17420 (MAST).
 - GALEX GUVcat AIS (Bianchi et al. 2017).
 - ATLAS forced photometry (Tonry et al. 2018; Shingles et al. 2021).
