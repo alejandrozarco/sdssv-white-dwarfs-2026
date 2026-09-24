@@ -13,7 +13,7 @@ The scripts download the public data and recompute the tables. Data were retriev
 
 | file | content | script |
 |---|---|---|
-| `tables/magnetic_zeeman.csv` | 28 white dwarfs: H-alpha and H-beta outer-component separations and fitted component centres | `zeeman_split.py` |
+| `tables/magnetic_zeeman.csv` | 30 white dwarfs: H-alpha and H-beta outer-component separations and fitted component centres | `zeeman_split.py` |
 | `tables/carbon_white_dwarfs.csv` | 3 white dwarfs: line cross-correlation (C II, C I, H I, He I), H-alpha depth, GALEX | `carbon_lines.py`, `galex_colours.py` |
 | `tables/carbon_5208047381438507520_optical_CII_features.csv` | Gaussian fits to 9 optical C II features | `carbon_lines.py` |
 | `tables/carbon_5208047381438507520_cos_features.csv` | HST/COS G130M equivalent widths and C II 1334/1335 core velocities | `cos_lines.py` |
