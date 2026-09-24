@@ -63,7 +63,7 @@ Figures in `figures/` are made by `scripts/figures.py`.
   - ATLAS as above; ZTF light curves from the IRSA light-curve service (catflags = 0), one offset per ZTF object and filter.
   - Frequency: generalised Lomb-Scargle over 0.05-50 c/d, refined by a sinusoid fit; uncertainty from chi2 ≤ chi2_min + chi2_r.
   - Amplitudes and `t_max` (first maximum after BJD_TDB 2458000.0) at that frequency for the ground-based data, Gaia DR3 G epoch photometry and TESS PDCSAP. Fractional ATLAS amplitudes use the Gaia synthetic SDSS magnitudes.
-  - Existing classifications of all six: SIMBAD WD* with spectral type DA, MWDD DA, Gaia XP class DA (Vincent et al. 2024); none has an SDSS-V, SDSS DR19 or LAMOST DR10 spectrum.
+  - Existing classifications of all six: SIMBAD WD* with spectral type DA, MWDD DA, Gaia XP class DA (Vincent et al. 2024); two have SDSS-V DR20 spectra classified DA by SnowWhite (2883364038621038208, sdss_id 72169571; 2888030331609338240, sdss_id 72210484); none has an SDSS DR19 or LAMOST DR10 spectrum.
 - **Balmer emission.** Equivalent widths are measured against sideband continua. Peak separations come from a two-Gaussian fit with equal widths.
 
 ## Reproduction
