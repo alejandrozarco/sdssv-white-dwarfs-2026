@@ -1,6 +1,6 @@
-# SDSS-V DR20 white dwarfs: Zeeman splitting, carbon lines, TESS signals, an eclipse, Balmer emission and a photometric period
+# SDSS-V DR20 white dwarfs: Zeeman splitting, carbon lines, TESS signals, an eclipse, Balmer emission and photometric periods
 
-These are measurements of white dwarfs with public SDSS-V DR20 BOSS spectra (Astra 0.8.1; SnowWhite classifications), combined with TESS, HST/COS, GALEX, ATLAS and Gaia DR3 epoch photometry.
+These are measurements of white dwarfs with public SDSS-V DR20 BOSS spectra (Astra 0.8.1; SnowWhite classifications), combined with TESS, HST/COS, GALEX, ATLAS, ZTF and Gaia DR3 epoch photometry. `tables/periodic_white_dwarfs.csv` lists white dwarfs selected by their Gaia DR3 GLS frequency rather than by an SDSS-V spectrum.
 
 Each table lists the measured quantities together with existing classifications:
 - SIMBAD;
@@ -21,6 +21,7 @@ The scripts download the public data and recompute the tables. Data were retriev
 | `tables/eclipsing_4731701084150029824.csv` | eclipse ephemeris from ATLAS forced photometry | `j0353_eclipse.py` |
 | `tables/balmer_emission.csv` | 2 white dwarfs: H-alpha and H-beta emission equivalent widths and double-peak separations | `cv_balmer.py` |
 | `tables/periodic_6021870154194477312.csv` | Gaia DR3 6021870154194477312: sinusoid fits at one frequency to ATLAS photometry of the star and of the three Gaia DR3 sources within 13″, to Gaia DR3 epoch photometry and to TESS sector 65 | `periodic_6021870154194477312.py` |
+| `tables/periodic_white_dwarfs.csv` | 5 white dwarfs: frequency from ATLAS or ZTF, sinusoid amplitudes and times of maximum in ATLAS/ZTF, Gaia DR3 epoch photometry and TESS | `periodic_white_dwarfs.py` |
 
 Figures in `figures/` are made by `scripts/figures.py`.
 
@@ -57,6 +58,12 @@ Figures in `figures/` are made by `scripts/figures.py`.
   - TESS: sector 65 PDCSAP light curve of TIC 1251484163 (CROWDSAP 0.011). PDCSAP amplitudes depend on the crowding correction.
   - `t_max` is the first maximum of the fitted sinusoid after BJD_TDB 2458000.0, at the common frequency.
   - Existing classifications of the star: SIMBAD WD* (DA:), MWDD DA:, SDSS-V SnowWhite DZ (sdss_id 106653583).
+- **Photometric periods of white dwarfs with a Gaia DR3 GLS frequency.**
+  - Selection: Gaia DR3 `vari_spurious_signals` joined with `gaia_source`, parallax/error > 5, M_G > 4.5(BP-RP) + 9, BP-RP < 1.5, GLS false-alarm probability < 1e-5 (or < 1e-3 with M_G > 9.5), not in the period tables of Steen et al. (2024, ApJ 967, 166) or Jestin et al. (2026, A&A 712, A243), no VSX period. The table lists the stars whose frequency is recovered in an independent survey (`data/periodic_white_dwarfs_sources.csv`).
+  - ATLAS as above; ZTF light curves from the IRSA light-curve service (catflags = 0), one offset per ZTF object and filter.
+  - Frequency: generalised Lomb-Scargle over 0.05-50 c/d, refined by a sinusoid fit; uncertainty from chi2 ≤ chi2_min + chi2_r.
+  - Amplitudes and `t_max` (first maximum after BJD_TDB 2458000.0) at that frequency for the ground-based data, Gaia DR3 G epoch photometry and TESS PDCSAP. Fractional ATLAS amplitudes use the Gaia synthetic SDSS magnitudes.
+  - Existing classifications of all five: SIMBAD WD* with spectral type DA, MWDD DA, Gaia XP class DA (Vincent et al. 2024); none has an SDSS-V, SDSS DR19 or LAMOST DR10 spectrum.
 - **Balmer emission.** Equivalent widths are measured against sideband continua. Peak separations come from a two-Gaussian fit with equal widths.
 
 ## Reproduction
@@ -75,6 +82,7 @@ python j0353_eclipse.py
 python cv_balmer.py 65701864
 python periodic_6021870154194477312.py
 python tess_periodogram.py 1251484163 65 120 0.5 50
+python periodic_white_dwarfs.py
 python figures.py
 ```
 Arguments for the other TESS light curves and pixel tests are given in the table columns (TIC, sector, cadence, frequency).
@@ -85,6 +93,7 @@ Arguments for the other TESS light curves and pixel tests are given in the table
 - TESS SPOC and HST/COS program 17420 (MAST).
 - GALEX GUVcat AIS (Bianchi et al. 2017).
 - ATLAS forced photometry (Tonry et al. 2018; Shingles et al. 2021).
+- Zwicky Transient Facility (ZTF) public data releases (IRSA).
 - NIST Atomic Spectra Database.
 - Montreal White Dwarf Database.
 - SIMBAD.

@@ -172,6 +172,27 @@ def periodic():
     plt.tight_layout(); plt.savefig(f"{F}/periodic_{g}.png", dpi=90); plt.close()
 
 
+def periodic_white_dwarfs():
+    import periodic_white_dwarfs as PW
+    t = pd.read_csv(f"{T}/periodic_white_dwarfs.csv", dtype={"gaia_dr3": str}); ids = list(PW.SRC.index)
+    fig, ax = plt.subplots(len(ids), 2, figsize=(11, 3.0 * len(ids)))
+    for i, gid in enumerate(ids):
+        s = PW.SRC.loc[gid]; r = t[(t.gaia_dr3 == gid) & (t.dataset == s.ground)].iloc[0]; f = float(r.frequency_cd); t0 = float(r.t_max_bjd)
+        x, y, e, g = PW.load_atlas(gid) if s.ground == "ATLAS" else PW.load_ztf(gid); _, (fr, pw) = PW.adopted_frequency(x, y, e, g)
+        ax[i, 0].plot(fr, pw, "k", lw=0.4); ax[i, 0].set_xscale("log"); ax[i, 0].set_ylabel("GLS power")
+        ax[i, 0].set_title(f"Gaia DR3 {gid} ({s['name']}): {s.ground}, f = {f:.6f} c/d, P = {24 / f:.4f} h", fontsize=8)
+        p = ((x - t0) * f) % 1; edges = np.linspace(0, 1, 21); c = (edges[1:] + edges[:-1]) / 2
+        m = [np.sum(y[(p >= lo) & (p < hi)] / e[(p >= lo) & (p < hi)] ** 2) / np.sum(1 / e[(p >= lo) & (p < hi)] ** 2) for lo, hi in zip(edges[:-1], edges[1:])]
+        se = [1 / np.sqrt(np.sum(1 / e[(p >= lo) & (p < hi)] ** 2)) for lo, hi in zip(edges[:-1], edges[1:])]
+        tg, yg, eg = PW.load_gaia(gid); pg = ((tg - t0) * f) % 1
+        for k in (0, 1):
+            ax[i, 1].errorbar(c + k, m, se, fmt="o", ms=3, color="C0", label=f"{s.ground} (20 bins)" if k == 0 else None)
+            ax[i, 1].errorbar(pg + k, yg, eg, fmt=".", ms=3, color="0.4", alpha=0.7, label="Gaia DR3 G" if k == 0 else None)
+        ax[i, 1].set_ylabel("fractional flux"); ax[i, 1].legend(fontsize=7)
+    ax[-1, 0].set_xlabel("frequency (c/d)"); ax[-1, 1].set_xlabel("phase (0 = t_max of the ground-based fit)")
+    plt.tight_layout(); plt.savefig(f"{F}/periodic_white_dwarfs.png", dpi=90); plt.close()
+
+
 if __name__ == "__main__":
-    for fn in (zeeman, carbon_optical, carbon_cos, galex, eclipse, balmer, zz, periodic):
+    for fn in (zeeman, carbon_optical, carbon_cos, galex, eclipse, balmer, zz, periodic, periodic_white_dwarfs):
         fn(); print(fn.__name__, "done", flush=True)
