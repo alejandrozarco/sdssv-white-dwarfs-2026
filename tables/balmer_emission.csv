@@ -1,0 +1,3 @@
+gaia_dr3,name,ra_deg,dec_deg,parallax_mas,e_parallax_mas,G,bp_rp,sdss_id,Halpha_EW_A,e_Halpha_EW_A,Halpha_peak_sep_kms,e_Halpha_peak_sep_kms,Hbeta_EW_A,e_Hbeta_EW_A,Hbeta_peak_sep_kms,e_Hbeta_peak_sep_kms,simbad_type,mwdd_spectype
+2002597083798483200,Gaia DR3 2002597083798483200,344.406354,54.272067,5.095,0.171,18.816,0.583,65701864,318.3,1.3,955,3,88.9,0.6,1057,6,WD*/DQ:,DQ:
+1977447164064222976,Gaia DR3 1977447164064222976,323.275601,46.638718,2.929,0.233,19.454,0.218,65312747,45.9,1.6,1078,18,4.5,0.7,1143,47,WD*/DC:,DC:

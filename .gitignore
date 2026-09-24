@@ -1,0 +1,4 @@
+data/cache/
+scripts/__pycache__/
+scripts/*.json
+scripts/*.csv
