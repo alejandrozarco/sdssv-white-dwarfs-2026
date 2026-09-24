@@ -23,7 +23,7 @@ import astropy.units as u
 D = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
 T0 = 2458000.0; GEO = EarthLocation.from_geocentric(0, 0, 0, unit="m")
 SRC = pd.read_csv(os.path.join(D, "periodic_white_dwarfs_sources.csv"), dtype={"gaia_dr3": str}).set_index("gaia_dr3")
-TESS = {"2883364038621038208": ("705345754", (87, 98)), "2888030331609338240": ("705508671", (98,))}
+TESS = {"2883364038621038208": ("705345754", (87, 98)), "2888030331609338240": ("705508671", (98,)), "6639666736903611136": ("201655627", (27, 67, 94, 103, 104))}
 fl = lambda m: 3631e6 * 10 ** (-0.4 * m)
 
 

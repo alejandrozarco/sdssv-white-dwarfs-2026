@@ -9,7 +9,7 @@ Measurements of white dwarfs from public SDSS-V DR20 spectra (Astra 0.8.1), TESS
 | [TESS amplitude spectra](#tess-amplitude-spectra) | `zz_ceti_objects.csv`, `zz_ceti_tess_sectors.csv` | 5 |
 | [Eclipse](#eclipse) | `eclipsing_4731701084150029824.csv` | 1 |
 | [Balmer emission](#balmer-emission) | `balmer_emission.csv` | 2 |
-| [Photometric periods](#photometric-periods) | `periodic_6021870154194477312.csv`, `periodic_white_dwarfs.csv` | 7 |
+| [Photometric periods](#photometric-periods) | `periodic_6021870154194477312.csv`, `periodic_white_dwarfs.csv` | 8 |
 
 ## Zeeman splitting
 H-alpha and H-beta are fitted with three Gaussian components. B_split is the linear-Zeeman field implied by the separation of the two outer components. Red lines in the figure mark the fitted centres.
@@ -52,7 +52,7 @@ Gaia DR3 6021870154194477312 is shown in the first figure:
 
 <img src="figures/periodic_6021870154194477312.png" width="650">
 
-`periodic_white_dwarfs.csv` covers six white dwarfs selected by their Gaia DR3 GLS frequency. Each frequency was recovered in ATLAS or ZTF, with the Gaia and TESS amplitudes and times of maximum at that frequency.
+`periodic_white_dwarfs.csv` covers seven white dwarfs selected by their Gaia DR3 GLS frequency. Each frequency was recovered in ATLAS or ZTF, with the Gaia and TESS amplitudes and times of maximum at that frequency.
 
 <img src="figures/periodic_white_dwarfs.png" width="650">
 
