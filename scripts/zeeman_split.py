@@ -1,7 +1,8 @@
 """Zeeman splitting of H-alpha and H-beta in SDSS-V spectra.
 Model per line: linear continuum x (1 - broad concentric Gaussian - three Gaussian absorption components with free centres,
 widths and depths). B_split = half-separation of the outer components / (4.67e-13 lambda0^2 [A/G]), i.e. 20.13 A/MG (H-alpha)
-and 11.04 A/MG (H-beta).
+and 11.04 A/MG (H-beta); it uses only the separation of the two outer components. Fitted component centres, the common shift of
+the central component and the asymmetry (red minus blue outer offset) are also reported.
 Usage: python zeeman_split.py tables/magnetic_zeeman.csv  (columns gaia_dr3, sdss_id, spectrum = coadd or visit MJD)"""
 import sys, numpy as np, pandas as pd
 from scipy.optimize import least_squares
@@ -22,11 +23,11 @@ def fit(x, y, iv, l0, dl0):
     for dl in dl0 * np.array([0.6, 0.8, 1.0, 1.25, 1.6]):
         for sw in (40, 80):
             p0 = [med, 0, 0.15, sw, 0.2, 6, 0.15, 8, 0.15, 8, dl, dl, 0]
-            lo = [0, -np.inf, 0, 15, 0, 1.5, 0, 1.5, 0, 1.5, 5, 5, -15]; hi = [np.inf, np.inf, 1, 300, 1, 40, 1, 60, 1, 60, 400, 400, 15]
+            lo = [0, -np.inf, 0, 15, 0, 1.5, 0, 1.5, 0, 1.5, 5, 5, -40]; hi = [np.inf, np.inf, 1, 300, 1, 40, 1, 60, 1, 60, 400, 400, 40]
             r = least_squares(lambda p: (model(p, x, l0) - y) * w, p0, bounds=(lo, hi), max_nfev=4000)
             if best is None or r.cost < best.cost:
                 best = r
-    chi2r = 2 * best.cost / (len(x) - len(best.x)); C = np.linalg.inv(best.jac.T @ best.jac) * max(chi2r, 1)
+    chi2r = 2 * best.cost / (len(x) - len(best.x)); C = np.linalg.pinv(best.jac.T @ best.jac) * max(chi2r, 1)
     return best.x, C
 
 
@@ -40,6 +41,9 @@ def measure(sdss_id, spectrum="coadd"):
         m = (lam > WIN[k][0]) & (lam < WIN[k][1]); p, C = fit(lam[m], f[m], iv[m], L0[k], 6.0 * K[k])
         out[f"B_split_{k}_MG"] = round((p[10] + p[11]) / 2 / K[k], 2)
         out[f"e_B_split_{k}_MG"] = round(0.5 * np.sqrt(C[10, 10] + C[11, 11] + 2 * C[10, 11]) / K[k], 2)
+        l0 = L0[k] + p[12]
+        out[f"{k}_sigma_minus_A"] = round(l0 - p[10], 1); out[f"{k}_pi_A"] = round(l0, 1); out[f"{k}_sigma_plus_A"] = round(l0 + p[11], 1)
+        out[f"{k}_shift_A"] = round(p[12], 1); out[f"{k}_asym_A"] = round(p[11] - p[10], 1)
     return out
 
 

@@ -28,16 +28,16 @@ def zeeman():
     fig, ax = plt.subplots(len(t), 2, figsize=(11, 1.25 * len(t)), sharex="col")
     for i, (_, r) in enumerate(t.iterrows()):
         w, f, iv = spectrum_for(r); m = (iv > 0) & np.isfinite(f)
-        for j, (l0, k, B, lo, hi) in enumerate(((6564.61, 20.13, r.B_split_Ha_MG, 6300, 6830), (4862.68, 11.04, r.B_split_Hb_MG, 4660, 5060))):
+        for j, (ln, l0, lo, hi) in enumerate((("Ha", 6564.61, 6300, 6830), ("Hb", 4862.68, 4660, 5060))):
             s = m & (w > lo) & (w < hi); y = gaussian_filter1d(f[s], 1.5); y = y / np.median(y)
-            ax[i, j].plot(w[s], y, "k", lw=0.6)
-            for x in (l0 - B * k, l0, l0 + B * k):
+            ax[i, j].plot(w[s], y, "k", lw=0.6); ax[i, j].axvline(l0, color="0.6", lw=0.6, ls=":")
+            for x in (r[f"{ln}_sigma_minus_A"], r[f"{ln}_pi_A"], r[f"{ln}_sigma_plus_A"]):
                 ax[i, j].axvline(x, color="r", lw=0.8)
             ax[i, j].set_yticks([])
             if j == 0:
                 ax[i, j].text(0.01, 0.08, f"{r.gaia_dr3}  S/N {r.snr}", transform=ax[i, j].transAxes, fontsize=6)
     ax[-1, 0].set_xlabel("wavelength (A)"); ax[-1, 1].set_xlabel("wavelength (A)")
-    ax[0, 0].set_title("H-alpha; red lines at 6564.61 A and 6564.61 +- 20.13 B_split A", fontsize=8); ax[0, 1].set_title("H-beta; red lines at 4862.68 A and 4862.68 +- 11.04 B_split A", fontsize=8)
+    ax[0, 0].set_title("H-alpha; red: fitted component centres; grey dotted: 6564.61 A", fontsize=8); ax[0, 1].set_title("H-beta; red: fitted component centres; grey dotted: 4862.68 A", fontsize=8)
     plt.tight_layout(h_pad=0.1); plt.savefig(f"{F}/magnetic_zeeman_halpha_hbeta.png", dpi=90); plt.close()
 
 
