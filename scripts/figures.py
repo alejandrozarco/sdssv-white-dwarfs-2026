@@ -193,6 +193,30 @@ def periodic_white_dwarfs():
     plt.tight_layout(); plt.savefig(f"{F}/periodic_white_dwarfs.png", dpi=90); plt.close()
 
 
+def hot_dq_comparison():
+    """SDSS-V spectrum of Gaia DR3 5208047381438507520 between an SDSS-V DA of similar colour and the SDSS DR17 spectrum of the hot DQ
+    SDSS J234843.30-094245.3 (Dufour et al. 2008). Each spectrum is smoothed (Gaussian, 1.5 pixels) and scaled to its median flux at 4500-4600 A."""
+    path = os.path.join("..", "data", "cache", "spec-7166-56602-0536.fits")
+    if not os.path.exists(path):
+        subprocess.run(["curl", "-sL", "-m", "300", "-o", path, "https://data.sdss.org/sas/dr17/eboss/spectro/redux/v5_13_2/spectra/lite/7166/spec-7166-56602-0536.fits"], check=True)
+    d = fits.open(path)[1].data; w_dq, f_dq = 10 ** d["loglam"], d["flux"]
+    specs = [("DA white dwarf Gaia DR3 2293913930823813888 (SDSS-V; BP-RP -0.42)", *coadd([v for v in visits("69198817") if v["in_stack"]])[:2]),
+             ("Gaia DR3 5208047381438507520 (SDSS-V; BP-RP -0.41)", *coadd([v for v in visits("95077848") if v["in_stack"]])[:2]),
+             ("hot DQ SDSS J234843.30-094245.3 (SDSS DR17; Dufour et al. 2008)", w_dq, f_dq)]
+    fig, ax = plt.subplots(figsize=(11, 6.5))
+    for k, (lab, w, f) in enumerate(specs):
+        s = np.isfinite(f) & (w > 3820) & (w < 5000); y = gaussian_filter1d(f[s], 1.5); y = y / np.median(y[(w[s] > 4500) & (w[s] < 4600)])
+        off = 1.3 * (2 - k); ax.plot(w[s], y + off, color=("0.35", "k", "C3")[k], lw=0.9)
+        ax.text(4995, off + 1.32, lab, fontsize=10, ha="right", va="bottom", color=("0.35", "k", "C3")[k], bbox=dict(fc="white", ec="none", alpha=0.85, pad=1))
+    for l in (3920.7, 4075.9, 4267.3, 4372.5, 4619.2):
+        ax.axvline(l, color="C1", lw=0.8, alpha=0.6); ax.text(l + 2, 4.45, "C II", fontsize=8, color="C1", rotation=90, va="bottom")
+    for l, n in ((4862.68, "Hb"), (4341.69, "Hg"), (4102.89, "Hd"), (3971.2, "He")):
+        ax.axvline(l, color="C0", lw=0.8, ls=":"); ax.text(l + 2, 4.45, n, fontsize=8, color="C0", rotation=90, va="bottom")
+    ax.set_xlim(3820, 5000); ax.set_ylim(0.2, 4.9); ax.set_yticks([]); ax.set_xlabel("wavelength (A, vacuum)"); ax.set_ylabel("scaled flux + offset")
+    ax.set_title("Orange: C II line positions; blue dotted: hydrogen Balmer lines", fontsize=9)
+    plt.tight_layout(); plt.savefig(f"{F}/hot_dq_comparison_5208047381438507520.png", dpi=110); plt.close()
+
+
 if __name__ == "__main__":
-    for fn in (zeeman, carbon_optical, carbon_cos, galex, eclipse, balmer, zz, periodic, periodic_white_dwarfs):
+    for fn in (zeeman, carbon_optical, carbon_cos, galex, eclipse, balmer, zz, periodic, periodic_white_dwarfs, hot_dq_comparison):
         fn(); print(fn.__name__, "done", flush=True)

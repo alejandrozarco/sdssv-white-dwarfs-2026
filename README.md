@@ -1,70 +1,60 @@
-# SDSS-V DR20 white dwarfs: Zeeman splitting, carbon lines, TESS signals, an eclipse, Balmer emission and photometric periods
+# SDSS-V DR20 white dwarfs: measurements
 
-These are measurements of white dwarfs with public SDSS-V DR20 BOSS spectra (Astra 0.8.1; SnowWhite classifications), combined with TESS, HST/COS, GALEX, ATLAS, ZTF and Gaia DR3 epoch photometry. `tables/periodic_white_dwarfs.csv` lists white dwarfs selected by their Gaia DR3 GLS frequency rather than by an SDSS-V spectrum.
+Measurements of white dwarfs from public SDSS-V DR20 spectra (Astra 0.8.1), TESS, HST/COS, GALEX, ATLAS, ZTF and Gaia DR3 epoch photometry. Each table gives the measured quantities with existing SIMBAD, MWDD (snapshot 2026-08-05) and SDSS-V SnowWhite classifications. The scripts in `scripts/` download the public data and recompute every table and figure. Data were retrieved 2026-09-23 to 2026-09-25. Methods are in [METHODS.md](METHODS.md).
 
-Each table lists the measured quantities together with existing classifications:
-- SIMBAD;
-- the Montreal White Dwarf Database (MWDD), snapshot of 2026-08-05;
-- SDSS-V SnowWhite.
-
-The scripts download the public data and recompute the tables. Data were retrieved on 2026-09-23 and 2026-09-24.
-
-## Tables
-
-| file | content | script |
+| topic | table(s) | objects |
 |---|---|---|
-| `tables/magnetic_zeeman.csv` | 30 white dwarfs: H-alpha and H-beta outer-component separations and fitted component centres | `zeeman_split.py` |
-| `tables/carbon_white_dwarfs.csv` | 3 white dwarfs: line cross-correlation (C II, C I, H I, He I), H-alpha depth, GALEX | `carbon_lines.py`, `galex_colours.py` |
-| `tables/carbon_5208047381438507520_optical_CII_features.csv` | Gaussian fits to 9 optical C II features | `carbon_lines.py` |
-| `tables/carbon_5208047381438507520_cos_features.csv` | HST/COS G130M equivalent widths and C II 1334/1335 core velocities | `cos_lines.py` |
-| `tables/zz_ceti_objects.csv`, `tables/zz_ceti_tess_sectors.csv` | 5 white dwarfs: highest TESS amplitude-spectrum peak per light curve (20-359 or 20-2159 c/d); pixel-level fits | `tess_periodogram.py`, `tess_pixel_test.py` |
-| `tables/eclipsing_4731701084150029824.csv` | eclipse ephemeris from ATLAS forced photometry | `j0353_eclipse.py` |
-| `tables/balmer_emission.csv` | 2 white dwarfs: H-alpha and H-beta emission equivalent widths and double-peak separations | `cv_balmer.py` |
-| `tables/periodic_6021870154194477312.csv` | Gaia DR3 6021870154194477312: sinusoid fits at one frequency to ATLAS photometry of the star and of the three Gaia DR3 sources within 13″, to Gaia DR3 epoch photometry and to TESS sector 65 | `periodic_6021870154194477312.py` |
-| `tables/periodic_white_dwarfs.csv` | 6 white dwarfs: frequency from ATLAS or ZTF, sinusoid amplitudes and times of maximum in ATLAS/ZTF, Gaia DR3 epoch photometry and TESS | `periodic_white_dwarfs.py` |
+| [Zeeman splitting](#zeeman-splitting) | `magnetic_zeeman.csv` | 30 |
+| [Carbon lines](#carbon-lines) | `carbon_white_dwarfs.csv`, `carbon_5208047381438507520_*.csv` | 3 |
+| [TESS amplitude spectra](#tess-amplitude-spectra) | `zz_ceti_objects.csv`, `zz_ceti_tess_sectors.csv` | 5 |
+| [Eclipse](#eclipse) | `eclipsing_4731701084150029824.csv` | 1 |
+| [Balmer emission](#balmer-emission) | `balmer_emission.csv` | 2 |
+| [Photometric periods](#photometric-periods) | `periodic_6021870154194477312.csv`, `periodic_white_dwarfs.csv` | 7 |
 
-Figures in `figures/` are made by `scripts/figures.py`.
+## Zeeman splitting
+H-alpha and H-beta are fitted with three Gaussian components. B_split is the linear-Zeeman field implied by the separation of the two outer components. Red lines in the figure mark the fitted centres.
 
-## Methods
-- **SDSS-V spectra.** mwmVisit spectra from `data.sdss.org/sas/dr20/spectro/astra/0.8.1`. For visits with `in_stack = True`, the XCSAO velocity shift is removed (wavelength = grid × (1 + v_xcsao/c)); other visits are used as delivered. Coadds of visits are inverse-variance weighted on a common log-wavelength grid (`sdssv.py`). The Astra mwmStar coadds are in the XCSAO frame and are not used.
-- **Zeeman splitting.** H-alpha (6300-6830 Å) and H-beta (4660-5060 Å) are each fitted with:
-  - a linear continuum;
-  - one broad concentric Gaussian;
-  - three Gaussian absorption components with free centres, widths and depths.
+<img src="figures/magnetic_zeeman_halpha_hbeta.png" width="600">
 
-  B_split is the half-separation of the two outer components divided by 4.67×10⁻¹³ λ0² (20.13 Å/MG at H-alpha, 11.04 Å/MG at H-beta); it uses only the outer-component separation. This is a linear-Zeeman scale, not a model-atmosphere field. The table also gives the fitted component centres (`*_sigma_minus_A`, `*_pi_A`, `*_sigma_plus_A`), the shift of the central component from the vacuum laboratory wavelength in the observed frame, without a radial-velocity correction (`*_shift_A`, allowed range ±40 Å), and the asymmetry (red minus blue outer offset, `*_asym_A`).
+## Carbon lines
+Line cross-correlation (C II, C I, H I, He I) for three SDSS-V white dwarfs, Gaussian fits to optical C II lines, HST/COS G130M equivalent widths, and GALEX FUV−NUV colours.
 
-  `spectrum` is either `coadd` (all in-stack visits) or a single visit. For a coadd, `snr` is the quadrature sum of the visit S/N values.
-- **Line cross-correlation.**
-  - The pseudo-continuum is a running 85th percentile over 120 Å.
-  - Templates use the 15 strongest NIST ASD vacuum lines per species (`data/nist_vacuum_lines.json`, regenerated by `nist_lines.py`).
-  - "Contrast" is the correlation peak minus the median, divided by 1.4826 MAD, over velocities more than 1000 km/s from the peak. It is not a false-alarm probability.
-  - Line depths at H and He wavelengths are compared with 400 random windows that avoid C II lines.
-- **GALEX.**
-  - GUVcat AIS (VizieR II/335/galex_ais) is matched via CDS XMatch within 4″, with Gaia DR3 positions propagated to 2007.0.
-  - The comparison samples are SDSS-V SnowWhite DA and DB/DBA spectra (parallax > 4 mas, -0.55 < BP-RP < -0.25, S/N > 10) and MWDD DQ-type white dwarfs with MWDD Teff ≥ 15 kK (`data/mwdd_dq_teff_ge15kK.csv`).
-- **HST/COS.** Dataset lfac0z010 (G130M, 2024-07-13, program 17420), taken from MAST. Equivalent widths are given against several continuum sideband choices.
-- **TESS.** SPOC PDCSAP light curves, with QUALITY = 0 and a 5σ clip, analysed with a Lomb-Scargle amplitude spectrum (step 0.001 c/d). S/N is the peak amplitude over the mean amplitude, and the false-alarm probability is Baluev's.
-- **TESS pixel test.** A sinusoid at the given frequency is fitted to each pixel of the SPOC target pixel file. The in-phase amplitude map is fitted with a single Gaussian PSF at each Gaia DR3 source, after re-registering the WCS on the median image. The table gives the chi2 for the target and for the best other source.
-- **ATLAS.** Forced-photometry difference fluxes (`data/atlas_forced_photometry_<gaia_dr3>.txt`).
-  - Cuts: duJy > 0, err = 0, chi/N < 10.
-  - Per-season median subtraction, then conversion to BJD_TDB.
-  - Eclipse of 4731701084150029824: a trapezoid with a common centre and width and a free depth per band.
-- **Photometric period of 6021870154194477312.**
-  - ATLAS photometry forced at the Gaia DR3 positions of the star and of the three Gaia DR3 sources within 13″ (`data/periodic_6021870154194477312_sources.csv`).
-  - Frequency: generalised Lomb-Scargle of the combined c and o fractional fluxes (0.5-50 c/d), refined by a sinusoid fit with separate band offsets; the uncertainty is the range where chi2 ≤ chi2_min + chi2_r.
-  - Amplitudes: sinusoid plus first harmonic per band at that frequency. Fractional amplitudes use the Gaia synthetic SDSS g, r, i magnitudes (VizieR J/A+A/674/A33, white-dwarf table), with c = (g + r)/2 and o = (r + i)/2 in flux.
-  - Gaia DR3 epoch photometry from VizieR I/355/epphot (`data/gaia_dr3_epoch_photometry_6021870154194477312.csv`), transits with rejection flags removed.
-  - TESS: sector 65 PDCSAP light curve of TIC 1251484163 (CROWDSAP 0.011). PDCSAP amplitudes depend on the crowding correction.
-  - `t_max` is the first maximum of the fitted sinusoid after BJD_TDB 2458000.0, at the common frequency.
-  - Existing classifications of the star: SIMBAD WD* (DA:), MWDD DA:, SDSS-V SnowWhite DZ (sdss_id 106653583).
-- **Photometric periods of white dwarfs with a Gaia DR3 GLS frequency.**
-  - Selection: Gaia DR3 `vari_spurious_signals` joined with `gaia_source`, parallax/error > 5, M_G > 4.5(BP-RP) + 9, BP-RP < 1.5, GLS false-alarm probability < 1e-5 (or < 1e-3 with M_G > 9.5), not in the period tables of Steen et al. (2024, ApJ 967, 166) or Jestin et al. (2026, A&A 712, A243), no VSX period. The table lists the stars whose frequency is recovered in an independent survey (`data/periodic_white_dwarfs_sources.csv`).
-  - ATLAS as above; ZTF light curves from the IRSA light-curve service (catflags = 0), one offset per ZTF object and filter.
-  - Frequency: generalised Lomb-Scargle over 0.05-50 c/d, refined by a sinusoid fit; uncertainty from chi2 ≤ chi2_min + chi2_r.
-  - Amplitudes and `t_max` (first maximum after BJD_TDB 2458000.0) at that frequency for the ground-based data, Gaia DR3 G epoch photometry and TESS PDCSAP. Fractional ATLAS amplitudes use the Gaia synthetic SDSS magnitudes.
-  - Existing classifications of all six: SIMBAD WD* with spectral type DA, MWDD DA, Gaia XP class DA (Vincent et al. 2024); two have SDSS-V DR20 spectra classified DA by SnowWhite (2883364038621038208, sdss_id 72169571; 2888030331609338240, sdss_id 72210484); none has an SDSS DR19 or LAMOST DR10 spectrum.
-- **Balmer emission.** Equivalent widths are measured against sideband continua. Peak separations come from a two-Gaussian fit with equal widths.
+The first figure shows the SDSS-V spectrum of Gaia DR3 5208047381438507520 (middle). Above it is an SDSS-V DA of similar colour, and below it is the hot DQ SDSS J234843.30−094245.3 (Dufour et al. 2008). Orange lines mark C II positions; blue dotted lines mark Balmer positions.
+
+<img src="figures/hot_dq_comparison_5208047381438507520.png" width="700">
+
+<img src="figures/carbon_optical_spectra.png" width="700">
+<img src="figures/carbon_5208047381438507520_cos.png" width="700">
+<img src="figures/galex_fuv_nuv.png" width="450">
+
+## TESS amplitude spectra
+The highest TESS peak per light curve for five SDSS-V white dwarfs, with pixel-level fits to locate the signal.
+
+<img src="figures/zz_ceti_tess_amplitude_spectra.png" width="700">
+
+## Eclipse
+Eclipse ephemeris of Gaia DR3 4731701084150029824 from ATLAS forced photometry.
+
+<img src="figures/eclipsing_4731701084150029824_atlas_phase.png" width="600">
+
+## Balmer emission
+H-alpha and H-beta emission equivalent widths and double-peak separations.
+
+<img src="figures/balmer_emission.png" width="600">
+
+## Photometric periods
+Gaia DR3 6021870154194477312 is shown in the first figure:
+- top: its SDSS-V spectrum;
+- middle: the ATLAS periodogram;
+- bottom: ATLAS, Gaia and TESS light curves folded on one frequency.
+
+`periodic_6021870154194477312.csv` also gives fits for the three Gaia sources within 13″.
+
+<img src="figures/periodic_6021870154194477312.png" width="650">
+
+`periodic_white_dwarfs.csv` covers six white dwarfs selected by their Gaia DR3 GLS frequency. Each frequency was recovered in ATLAS or ZTF, with the Gaia and TESS amplitudes and times of maximum at that frequency.
+
+<img src="figures/periodic_white_dwarfs.png" width="650">
 
 ## Reproduction
 ```
@@ -85,15 +75,7 @@ python tess_periodogram.py 1251484163 65 120 0.5 50
 python periodic_white_dwarfs.py
 python figures.py
 ```
-Arguments for the other TESS light curves and pixel tests are given in the table columns (TIC, sector, cadence, frequency).
+Arguments for the other TESS light curves and pixel tests are in the table columns (TIC, sector, cadence, frequency).
 
 ## Data sources
-- SDSS-V DR20.
-- Gaia DR3 (ESA/Gaia/DPAC), including epoch photometry (VizieR I/355/epphot) and the Gaia Synthetic Photometry Catalogue (Gaia Collaboration, Montegriffo et al. 2023; VizieR J/A+A/674/A33).
-- TESS SPOC and HST/COS program 17420 (MAST).
-- GALEX GUVcat AIS (Bianchi et al. 2017).
-- ATLAS forced photometry (Tonry et al. 2018; Shingles et al. 2021).
-- Zwicky Transient Facility (ZTF) public data releases (IRSA).
-- NIST Atomic Spectra Database.
-- Montreal White Dwarf Database.
-- SIMBAD.
+SDSS-V DR20 and SDSS DR17; Gaia DR3 (ESA/Gaia/DPAC), including epoch photometry (VizieR I/355/epphot) and the Gaia Synthetic Photometry Catalogue (VizieR J/A+A/674/A33); TESS SPOC and HST/COS program 17420 (MAST); GALEX GUVcat AIS (Bianchi et al. 2017); ATLAS forced photometry (Tonry et al. 2018; Shingles et al. 2021); ZTF public data releases (IRSA); NIST Atomic Spectra Database; Montreal White Dwarf Database; SIMBAD.
