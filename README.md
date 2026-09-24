@@ -21,7 +21,7 @@ The scripts download the public data and recompute the tables. Data were retriev
 | `tables/eclipsing_4731701084150029824.csv` | eclipse ephemeris from ATLAS forced photometry | `j0353_eclipse.py` |
 | `tables/balmer_emission.csv` | 2 white dwarfs: H-alpha and H-beta emission equivalent widths and double-peak separations | `cv_balmer.py` |
 | `tables/periodic_6021870154194477312.csv` | Gaia DR3 6021870154194477312: sinusoid fits at one frequency to ATLAS photometry of the star and of the three Gaia DR3 sources within 13″, to Gaia DR3 epoch photometry and to TESS sector 65 | `periodic_6021870154194477312.py` |
-| `tables/periodic_white_dwarfs.csv` | 5 white dwarfs: frequency from ATLAS or ZTF, sinusoid amplitudes and times of maximum in ATLAS/ZTF, Gaia DR3 epoch photometry and TESS | `periodic_white_dwarfs.py` |
+| `tables/periodic_white_dwarfs.csv` | 6 white dwarfs: frequency from ATLAS or ZTF, sinusoid amplitudes and times of maximum in ATLAS/ZTF, Gaia DR3 epoch photometry and TESS | `periodic_white_dwarfs.py` |
 
 Figures in `figures/` are made by `scripts/figures.py`.
 
@@ -63,7 +63,7 @@ Figures in `figures/` are made by `scripts/figures.py`.
   - ATLAS as above; ZTF light curves from the IRSA light-curve service (catflags = 0), one offset per ZTF object and filter.
   - Frequency: generalised Lomb-Scargle over 0.05-50 c/d, refined by a sinusoid fit; uncertainty from chi2 ≤ chi2_min + chi2_r.
   - Amplitudes and `t_max` (first maximum after BJD_TDB 2458000.0) at that frequency for the ground-based data, Gaia DR3 G epoch photometry and TESS PDCSAP. Fractional ATLAS amplitudes use the Gaia synthetic SDSS magnitudes.
-  - Existing classifications of all five: SIMBAD WD* with spectral type DA, MWDD DA, Gaia XP class DA (Vincent et al. 2024); none has an SDSS-V, SDSS DR19 or LAMOST DR10 spectrum.
+  - Existing classifications of all six: SIMBAD WD* with spectral type DA, MWDD DA, Gaia XP class DA (Vincent et al. 2024); none has an SDSS-V, SDSS DR19 or LAMOST DR10 spectrum.
 - **Balmer emission.** Equivalent widths are measured against sideband continua. Peak separations come from a two-Gaussian fit with equal widths.
 
 ## Reproduction
