@@ -5,7 +5,7 @@ Measurements of white dwarfs from public SDSS-V DR20 spectra (Astra 0.8.1), TESS
 | topic | table(s) | objects |
 |---|---|---|
 | [Zeeman splitting](#zeeman-splitting) | `magnetic_zeeman.csv` | 30 |
-| [Carbon lines](#carbon-lines) | `carbon_white_dwarfs.csv`, `carbon_5208047381438507520_*.csv` | 3 |
+| [Carbon lines](#carbon-lines) | `carbon_white_dwarfs.csv`, `carbon_*_optical_CII_features.csv`, `carbon_5208047381438507520_cos_features.csv` | 4 |
 | [TESS amplitude spectra](#tess-amplitude-spectra) | `zz_ceti_objects.csv`, `zz_ceti_tess_sectors.csv` | 5 |
 | [Eclipse](#eclipse) | `eclipsing_4731701084150029824.csv` | 1 |
 | [Balmer emission](#balmer-emission) | `balmer_emission.csv` | 2 |
@@ -17,11 +17,11 @@ H-alpha and H-beta are fitted with three Gaussian components. B_split is the lin
 <img src="figures/magnetic_zeeman_halpha_hbeta.png" width="600">
 
 ## Carbon lines
-Line cross-correlation (C II, C I, H I, He I) for three SDSS-V white dwarfs, Gaussian fits to optical C II lines, HST/COS G130M equivalent widths, and GALEX FUV−NUV colours.
+Line cross-correlation (C II, C I, H I, He I) for four SDSS-V white dwarfs, Gaussian fits to optical C II lines, HST/COS G130M equivalent widths, and GALEX FUV−NUV colours.
 
-The first figure shows the SDSS-V spectrum of Gaia DR3 5208047381438507520 (middle). Above it is an SDSS-V DA of similar colour, and below it is the hot DQ SDSS J234843.30−094245.3 (Dufour et al. 2008). Orange lines mark C II positions; blue dotted lines mark Balmer positions.
+The first figure shows the SDSS-V spectra of Gaia DR3 5208047381438507520 and Gaia DR3 6886051830805052288 (middle two). Above them is an SDSS-V DA of similar colour, and below them is the hot DQ SDSS J234843.30−094245.3 (Dufour et al. 2008). Orange lines mark C II positions; blue dotted lines mark Balmer positions. A three-spectrum version with only 5208047381438507520 is `figures/hot_dq_comparison_5208047381438507520.png`.
 
-<img src="figures/hot_dq_comparison_5208047381438507520.png" width="700">
+<img src="figures/hot_dq_comparison_sdssv.png" width="700">
 
 <img src="figures/carbon_optical_spectra.png" width="700">
 <img src="figures/carbon_5208047381438507520_cos.png" width="700">
@@ -64,8 +64,10 @@ python zeeman_split.py ../data/zeeman_input.csv
 python carbon_lines.py 95077848 5208047381438507520
 python carbon_lines.py 110600288 6466745168812781568
 python carbon_lines.py 102600838 5836110898905253760
+python carbon_lines.py 114554634 6886051830805052288
 python cos_lines.py
 python galex_colours.py 5208047381438507520
+python galex_colours.py 6886051830805052288
 python tess_periodogram.py 2055170284 102 120
 python tess_pixel_test.py 6492083311194727168 2055170284 102 82.34 120
 python j0353_eclipse.py
