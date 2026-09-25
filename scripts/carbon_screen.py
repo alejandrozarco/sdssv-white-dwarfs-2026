@@ -1,9 +1,11 @@
 """Carbon screen of SDSS-V visit spectra with a weighted matched filter.
 Usage: python carbon_screen.py <sdss_id> [<sdss_id> ...]      (prints one row per spectrum)
        python carbon_screen.py --sample <out.csv>             (selects the sample below from the SnowWhite table and screens it)
+       python carbon_screen.py --sample-nonda <out.csv>       (same for the non-DA sample below)
        python carbon_screen.py --table                        (screens the objects in ../data/carbon_screen_objects.csv -> ../tables/carbon_screen.csv)
 Sample: SnowWhite classification containing DA and not MS; parallax/error > 5; S/N > 5; and (log g >= 8.5 with 10-40 kK, or
 M_G > 11.05 + 3.3 (BP-RP + 0.3) + 0.2 with -0.5 < BP-RP < 0.35, or log g >= 9.4).
+Non-DA sample: SnowWhite classification without DA, MS or CV; parallax/error > 3; S/N > 5.
 Per spectrum: inverse-variance coadd of all visits (sdssv.visits, XCSAO shift removed for in-stack visits) on a log grid
 3850-9250 A (step 6e-5 dex); depth = 1 - f/cont with cont = running 80th percentile over 25 A, Gaussian-smoothed; Balmer cores
 (+-35 A), 5574-5582, 6297-6304, 6860-6960, 7590-7700 and 8940-8990 A masked; weights = ivar * cont^2 capped at their 90th
@@ -75,7 +77,17 @@ def screen(sdss_id):
 
 
 if __name__ == "__main__":
-    if sys.argv[1] == "--sample":
+    if sys.argv[1] == "--sample-nonda":
+        sw = cas("SELECT sdss_id FROM snow_white_boss_star WHERE classification NOT LIKE '%DA%' AND classification NOT LIKE '%MS%' "
+                 "AND classification NOT LIKE '%CV%' AND classification <> '' AND plx > 3 * e_plx AND snr > 5")
+        rows = []
+        for sid in sw.sdss_id.astype("int64").astype(str):
+            try:
+                rows.append(screen(sid))
+            except Exception as e:
+                rows.append(dict(sdss_id=sid, status=f"hole: {type(e).__name__}"))
+        pd.DataFrame(rows).to_csv(sys.argv[2], index=False); print(len(rows), "spectra screened")
+    elif sys.argv[1] == "--sample":
         sw = cas("SELECT sdss_id, gaia_dr3_source_id, classification, teff, logg, snr, plx, e_plx, g_mag, bp_mag, rp_mag FROM snow_white_boss_star "
                  "WHERE classification LIKE '%DA%' AND classification NOT LIKE '%MS%' AND plx > 5 * e_plx AND snr > 5")
         bprp = sw.bp_mag - sw.rp_mag; mg = sw.g_mag + 5 * np.log10(sw.plx / 100)
@@ -95,7 +107,7 @@ if __name__ == "__main__":
         t = obj.merge(sw, on="sdss_id", how="left").merge(res, on="sdss_id")
         t["bp_rp"] = (t.bp_mag - t.rp_mag).round(3); t["M_G"] = (t.g_mag + 5 * np.log10(t.plx / 100)).round(2); t["G"] = t.g_mag.round(3)
         t = t.rename(columns={"classification": "snowwhite_class"})
-        cols = ["gaia_dr3", "sdss_id", "G", "bp_rp", "M_G", "snowwhite_class", "n_visits", "snr_max", "C_contrast", "C_v_kms", "CI_contrast", "CI_v_kms",
+        cols = ["gaia_dr3", "sdss_id", "sample", "G", "bp_rp", "M_G", "snowwhite_class", "n_visits", "snr_max", "C_contrast", "C_v_kms", "CI_contrast", "CI_v_kms",
                 "CII_contrast", "CII_v_kms", "HeI_contrast", "C_contrast_per_visit", "existing_classification", "reference"]
         t.sort_values("C_contrast", ascending=False)[cols].to_csv("../tables/carbon_screen.csv", index=False); print(len(t), "rows")
     else:

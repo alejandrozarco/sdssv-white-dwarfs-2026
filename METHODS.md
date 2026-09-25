@@ -15,6 +15,7 @@
   - Line depths at H and He wavelengths are compared with 400 random windows that avoid C II lines.
 - **Carbon screen** (`carbon_screen.py`).
   - Sample: SnowWhite classification containing DA and not MS; parallax/error > 5; S/N > 5; and log g ≥ 8.5 with 10-40 kK, or M_G > 11.05 + 3.3 (BP-RP + 0.3) + 0.2 with -0.5 < BP-RP < 0.35, or log g ≥ 9.4. That gives 3,480 spectra.
+  - Second sample: SnowWhite classification without DA, MS or CV; parallax/error > 3; S/N > 5 (3,286 spectra).
   - Spectrum: coadd of all visits on a log grid (3850-9250 Å). Depth is taken against a running 80th percentile over 25 Å. Masked: Balmer cores (±35 Å), sky lines and telluric bands. Weights are inverse variances, capped at their 90th percentile.
   - Weighted matched filter with Gaussian templates (FWHM 5 Å) of curated C I, C II and He I lines, from -1500 to +1500 km/s.
   - Contrast is the peak minus the median, divided by 1.4826 MAD, over v < -600 or v > +800 km/s; the peak is taken inside -200 to +400 km/s. 'C' is the combined C I + C II template.

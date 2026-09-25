@@ -5,7 +5,7 @@ Measurements of white dwarfs from public SDSS-V DR20 spectra (Astra 0.8.1), TESS
 | topic | table(s) | objects |
 |---|---|---|
 | [Zeeman splitting](#zeeman-splitting) | `magnetic_zeeman.csv` | 30 |
-| [Carbon lines](#carbon-lines) | `carbon_white_dwarfs.csv`, `carbon_screen.csv`, `carbon_*_optical_CII_features.csv`, `carbon_5208047381438507520_cos_features.csv` | 7 |
+| [Carbon lines](#carbon-lines) | `carbon_white_dwarfs.csv`, `carbon_screen.csv`, `carbon_*_optical_CII_features.csv`, `carbon_5208047381438507520_cos_features.csv` | 9 |
 | [TESS amplitude spectra](#tess-amplitude-spectra) | `zz_ceti_objects.csv`, `zz_ceti_tess_sectors.csv` | 5 |
 | [Eclipse](#eclipse) | `eclipsing_4731701084150029824.csv` | 1 |
 | [Balmer emission](#balmer-emission) | `balmer_emission.csv` | 2 |
@@ -23,11 +23,17 @@ The first figure shows the SDSS-V spectra of Gaia DR3 5208047381438507520 and Ga
 
 <img src="figures/hot_dq_comparison_sdssv.png" width="700">
 
-`carbon_screen.csv` lists the results of a matched-filter carbon screen of 3,480 SDSS-V spectra classified DA-type by SnowWhite, selected for high mass or a SnowWhite fit at the log g grid edge (`carbon_screen.py`). The sample 99th percentile of the combined C I + C II contrast is 7.1. The table gives the 27 screened white dwarfs with carbon lines:
-- 20 with an existing DQ-type or DAQ classification, or already in this repository;
-- 3 with no existing carbon classification (Gaia DR3 883885440381808000, 4847399905305694080 and 2076678981825545088; figure below);
+`carbon_screen.csv` lists the results of a matched-filter carbon screen (`carbon_screen.py`) of two samples:
+- 3,480 SDSS-V spectra classified DA-type by SnowWhite, selected for high mass or a SnowWhite fit at the log g grid edge (sample 99th percentile of the combined C I + C II contrast: 7.1);
+- 3,286 spectra with other SnowWhite classes (DB, DC, DZ, DQ and mixed; 99th percentile 6.65).
+
+The table gives the 34 screened white dwarfs with carbon lines:
+- 25 with an existing DQ-type or DAQ classification, or already in this repository;
+- 5 with no existing carbon classification. Three are catalogued as DA or unclassified (Gaia DR3 883885440381808000, 4847399905305694080 and 2076678981825545088). Two are catalogued as DC: or DB and show C I lines in both visits (Gaia DR3 6465542891501713408 and 343958710690034944). All five are in the figure below;
 - 2 possible detections in low-S/N spectra;
 - 2 known carbon white dwarfs that the screen does not detect (contrast 1.7 and 3.2).
+
+The line templates are atomic C I and C II lines, so cool DQ white dwarfs with only C2 Swan bands are not detected: 11 of 261 DQ-labelled spectra pass.
 
 For 883885440381808000, the LAMOST DR10 spectrum of 2011-11-24 gives its highest carbon contrast (4.4) at the SDSS-V velocity of +110 km/s. For 4847399905305694080, GALEX GR6/7 GII photometry gives FUV-NUV = +3.13 ± 0.20, redder than all 741 SDSS-V DAs within 0.06 in BP-RP (maximum +0.72).
 
@@ -78,8 +84,11 @@ python carbon_lines.py 114554634 6886051830805052288
 python carbon_lines.py 57623143 883885440381808000
 python carbon_lines.py 93091478 4847399905305694080
 python carbon_lines.py 67111869 2076678981825545088
+python carbon_lines.py 110590717 6465542891501713408
+python carbon_lines.py 116892932 343958710690034944
 python carbon_screen.py --table
 python carbon_screen.py --sample ../tables/carbon_screen_sample.csv   # full 3,480-spectrum screen (about 1 GB of downloads)
+python carbon_screen.py --sample-nonda ../tables/carbon_screen_nonda.csv   # 3,286 non-DA spectra
 python lamost_compare.py
 python cos_lines.py
 python galex_colours.py 5208047381438507520

@@ -85,7 +85,7 @@ def carbon_cos():
 def carbon_screen_spectra():
     import carbon_screen as cs
     t = pd.read_csv(f"{T}/carbon_screen.csv", dtype={"gaia_dr3": str, "sdss_id": str}).set_index("gaia_dr3")
-    rows = ["883885440381808000", "4847399905305694080", "2076678981825545088"]
+    rows = ["883885440381808000", "4847399905305694080", "2076678981825545088", "6465542891501713408", "343958710690034944"]
     fig, ax = plt.subplots(len(rows), 1, figsize=(15, 3.2 * len(rows)))
     for a, g in zip(ax, rows):
         r = t.loc[g]; v = int(r.C_v_kms)
