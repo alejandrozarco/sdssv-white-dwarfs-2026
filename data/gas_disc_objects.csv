@@ -1,6 +1,8 @@
 sdss_id,gaia_dr3,name,category,reference
 55774610,578709631539357440,WD 0856+048,no existing emission classification,this repository
 63867520,1827014701883095680,WD J1959+2208,no existing emission classification,this repository
+70254122,2527617665632689024,GALEX J0039-0356,no existing emission classification,this repository
+63203321,1764314497240770176,SDSS J2054+1610,no existing emission classification,this repository
 58756188,1037258898615762048,WD 0842+572,known gaseous disc,Saker et al. 2025 (RMxAA 61 154) compilation
 56367604,671450448046315520,SDSS J0738+1835,known gaseous disc,Saker et al. 2025 (RMxAA 61 154) compilation
 111809939,6646693887514073984,WD J1930-5028,known gaseous disc,Saker et al. 2025 (RMxAA 61 154) compilation

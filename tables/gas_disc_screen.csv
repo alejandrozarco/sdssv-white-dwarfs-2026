@@ -1,6 +1,8 @@
 sdss_id,gaia_dr3,name,category,reference,snowwhite_class,group,plx_ok,G,bp_rp,M_G,snr_cat,z_cat,template,v_kms,noise_scale,z_lines,z_abs,z_fake,ew_A,z_visits,visit_mjds
 55774610,578709631539357440,WD 0856+048,no existing emission classification,this repository,DA,H,True,18.34,-0.202,11.25,29.3,46.99,dp250,-60,1.0,25.4/31.9/23.3,-12.96,15.78,17.23,10.2/22.4/16.8/12.6/8.9/14.5/21.4,59292/59304/59305/59306/59883/59904/60270
 63867520,1827014701883095680,WD J1959+2208,no existing emission classification,this repository,DBA/DB,nonH,True,16.78,0.087,10.57,38.2,70.34,dp350,60,1.0,36.4/48.3/37.0,-16.26,16.06,21.64,40.6/57.9,60532/60533
+70254122,2527617665632689024,GALEX J0039-0356,no existing emission classification,this repository,DA,H,True,18.91,-0.116,10.93,12.9,43.09,n150,-40,1.11,24.6/30.7/17.7,-1.28,3.99,29.94,32.3/17.0/14.4/27.5,59905/60225/60285/60530
+63203321,1764314497240770176,SDSS J2054+1610,no existing emission classification,this repository,DA,H,True,18.41,-0.43,10.03,5.3,15.15,n150,0,1.0,8.4/11.1/6.2,1.64,5.82,22.22,11.3/10.2,60467/60468
 58756188,1037258898615762048,WD 0842+572,known gaseous disc,Saker et al. 2025 (RMxAA 61 154) compilation,DA,H,True,16.79,-0.162,11.18,20.7,81.89,n150,-20,1.0,40.8/55.5/46.1,3.38,3.57,36.51,,59957
 56367604,671450448046315520,SDSS J0738+1835,known gaseous disc,Saker et al. 2025 (RMxAA 61 154) compilation,DBZ:,nonH,True,17.7,-0.18,11.52,43.5,28.12,dp350,40,1.1,18.6/16.0/14.0,14.81,3.49,5.67,5.3/3.9/15.5/9.8/7.8/2.5/18.1/4.4/9.9,59186/59208/59209/59210/59211/59212/59302/60590/60591
 111809939,6646693887514073984,WD J1930-5028,known gaseous disc,Saker et al. 2025 (RMxAA 61 154) compilation,DA,H,True,16.99,-0.072,11.57,16.3,15.91,dp500,20,1.0,11.5/9.2/7.9,-2.44,3.91,10.43,,60169

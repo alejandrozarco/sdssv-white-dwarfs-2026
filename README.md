@@ -6,7 +6,7 @@ Measurements of white dwarfs from public SDSS-V DR20 spectra (Astra 0.8.1), with
 
 | topic | page | tables | objects |
 |---|---|---|---|
-| Ca II triplet emission (gaseous discs) | [docs/gas_discs.md](docs/gas_discs.md) | `gas_disc_white_dwarfs.csv`, `gas_disc_epochs_*.csv`, `gas_disc_screen.csv` | 2 |
+| Ca II triplet emission (gaseous discs) | [docs/gas_discs.md](docs/gas_discs.md) | `gas_disc_white_dwarfs.csv`, `gas_disc_epochs_*.csv`, `gas_disc_screen.csv` | 4 |
 | Carbon lines | [docs/carbon.md](docs/carbon.md) | `carbon_white_dwarfs.csv`, `carbon_screen.csv`, `carbon_*_features.csv` | 9 |
 | Zeeman splitting | [docs/zeeman.md](docs/zeeman.md) | `magnetic_zeeman.csv` | 30 |
 | Photometric periods | [docs/periodic.md](docs/periodic.md) | `periodic_6021870154194477312.csv`, `periodic_white_dwarfs.csv` | 8 |
@@ -19,6 +19,8 @@ Measurements of white dwarfs from public SDSS-V DR20 spectra (Astra 0.8.1), with
 |---|---|---|
 | WD 0856+048 (Gaia DR3 578709631539357440) | Double-peaked Ca II triplet emission in 7 SDSS-V visits (2021-2023), DESI (2022) and X-shooter (2025); equivalent width 3.1 ± 2.3 Å in BOSS (2010), 17.6 ± 0.5 Å in SDSS-V, 32.9 ± 0.4 Å in X-shooter | [gas discs](docs/gas_discs.md) |
 | WD J1959+2208 (Gaia DR3 1827014701883095680) | Double-peaked Ca II triplet emission in both SDSS-V visits (2024); catalogued DB | [gas discs](docs/gas_discs.md) |
+| GALEX J0039−0356 (Gaia DR3 2527617665632689024) | Single-peaked Ca II triplet emission in 4 SDSS-V visits, no Balmer emission; WISE W1/W2 7× and 16× the Rayleigh-Jeans photosphere | [gas discs](docs/gas_discs.md) |
+| SDSS J2054+1610 (Gaia DR3 1764314497240770176) | Ca II triplet, O I 7774 and O I 8446 emission, no Balmer emission; first spectrum of this white-dwarf candidate | [gas discs](docs/gas_discs.md) |
 | Gaia DR3 5208047381438507520 | C II lines in SDSS-V and C II/C III in HST/COS; catalogued DA | [carbon](docs/carbon.md) |
 | Gaia DR3 6886051830805052288 | C II lines in both SDSS-V visits; catalogued DA | [carbon](docs/carbon.md) |
 | Five further SDSS-V white dwarfs | C I and/or C II lines; catalogued DA, DB, DC: or unclassified | [carbon](docs/carbon.md) |
@@ -71,11 +73,17 @@ python gas_disc_screen.py --pass2 ../data/cache/gas_disc_pass2.csv
 python gas_disc_screen.py --table ../data/cache/gas_disc_pass2.csv
 python gas_disc_epochs.py 578709631539357440 55774610 134.841202 4.636784
 python gas_disc_epochs.py 1827014701883095680 63867520 299.804316 22.147851
+python gas_disc_epochs.py 2527617665632689024 70254122 9.892213 -3.946573
+python gas_disc_epochs.py 1764314497240770176 63203321 313.742432 16.179092
+python wise_excess.py 2527617665632689024 9.892213 -3.946573
+python wise_excess.py 578709631539357440 134.841202 4.636784
 python ztf_lightcurve.py 578709631539357440 134.841202 4.636784
 python ztf_lightcurve.py 1827014701883095680 299.804316 22.147851
+python ztf_lightcurve.py 2527617665632689024 9.892213 -3.946573
+python ztf_lightcurve.py 1764314497240770176 313.742432 16.179092
 python figures.py            # all figures; or name one, e.g. python figures.py gas_discs
 ```
 Arguments for the other TESS light curves and pixel tests are in the table columns (TIC, sector, cadence, frequency).
 
 ## Data sources
-SDSS-V DR20 and SDSS DR17 (including BOSS); DESI DR1 via SPARCL (NOIRLab Astro Data Lab) and the DESI DR1 white-dwarf catalogues; ESO X-shooter phase 3 spectra (programme 115.28GM.001); Gaia DR3 (ESA/Gaia/DPAC), including epoch photometry (VizieR I/355/epphot), the Gaia Synthetic Photometry Catalogue (VizieR J/A+A/674/A33) and Gentile Fusillo et al. (2021, VizieR J/MNRAS/508/3877); TESS SPOC and HST/COS program 17420 (MAST); GALEX GUVcat AIS (Bianchi et al. 2017), GALEX GR6/7 (MAST) and the GALEX CAUSE Kepler catalogue (Olmedo et al. 2015); LAMOST DR10; ATLAS forced photometry (Tonry et al. 2018; Shingles et al. 2021); ZTF public data releases (IRSA); NIST Atomic Spectra Database; Montreal White Dwarf Database; SIMBAD.
+SDSS-V DR20 and SDSS DR17 (including BOSS); DESI DR1 via SPARCL (NOIRLab Astro Data Lab) and the DESI DR1 white-dwarf catalogues; ESO X-shooter phase 3 spectra (programme 115.28GM.001); Legacy Surveys DR10 (Astro Data Lab); Gaia DR3 (ESA/Gaia/DPAC), including epoch photometry (VizieR I/355/epphot), the Gaia Synthetic Photometry Catalogue (VizieR J/A+A/674/A33) and Gentile Fusillo et al. (2021, VizieR J/MNRAS/508/3877); TESS SPOC and HST/COS program 17420 (MAST); GALEX GUVcat AIS (Bianchi et al. 2017), GALEX GR6/7 (MAST) and the GALEX CAUSE Kepler catalogue (Olmedo et al. 2015); LAMOST DR10; ATLAS forced photometry (Tonry et al. 2018; Shingles et al. 2021); ZTF public data releases (IRSA); NIST Atomic Spectra Database; Montreal White Dwarf Database; SIMBAD.

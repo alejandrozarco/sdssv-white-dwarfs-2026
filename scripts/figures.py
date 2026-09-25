@@ -314,10 +314,39 @@ def gas_discs():
     fig.suptitle("WD J1959+2208 = Gaia DR3 1827014701883095680", fontsize=9); plt.tight_layout(); plt.savefig(out("gas_discs", f"{g}_sdssv.png"), dpi=90); plt.close()
 
 
+def gas_discs_narrow():
+    """SDSS-V spectra of the two single-peaked Ca II emitters: Ca II triplet coadd, each visit in velocity (three lines overlaid),
+    H-alpha and O I 7774 (coadds; linear continuum from +-1500..2500 km/s sidebands)."""
+    import gas_disc_epochs as GE
+    CAT = list(GE.CAT); W = GE.W
+    for g, sid, name in (("2527617665632689024", "70254122", "GALEX J0039-0356"), ("1764314497240770176", "63203321", "SDSS J2054+1610")):
+        co, per = GE.sdssv_spectra(sid)
+        fig, ax = plt.subplots(1, 4, figsize=(15, 3.4), gridspec_kw=dict(width_ratios=[1.5, 1.1, 0.8, 0.6]))
+        n, v = GE.norm(co["w"], co["f"], co["iv"]); e = np.arange(8420, 8722, 2.0); c = 0.5 * (e[1:] + e[:-1]); k = np.digitize(W, e) - 1
+        ok = (k >= 0) & (k < len(c)) & (v > 0) & np.isfinite(n); y = np.bincount(k[ok], (n * v)[ok], len(c)) / np.maximum(np.bincount(k[ok], v[ok], len(c)), 1e-30)
+        ax[0].plot(c, y, "k", drawstyle="steps-mid", lw=0.9)
+        for l in CAT + [8448.7]:
+            ax[0].axvline(l, color="0.5", lw=0.6, ls=":")
+        ax[0].set_xlim(8420, 8720); ax[0].set_xlabel("vacuum wavelength (A)"); ax[0].set_ylabel("normalised flux"); ax[0].set_title(f"SDSS-V coadd ({len(per)} visits), 2 A bins; dotted: O I 8446, Ca II", fontsize=8)
+        for j, s_ in enumerate(per):
+            nn, vv = GE.norm(s_["w"], s_["f"], s_["iv"])
+            for l, ls in zip(CAT, ("-", "--", ":")):
+                m = np.abs(W / l - 1) * C < 1500
+                ax[1].plot((W[m] / l - 1) * C, gaussian_filter1d(np.nan_to_num(nn[m], nan=1), 1) + 0.8 * j, color=f"C{j}", ls=ls, lw=0.8)
+            ax[1].text(900, 1.25 + 0.8 * j, s_["date"], fontsize=7, color=f"C{j}")
+        ax[1].axvline(0, color="0.5", lw=0.5); ax[1].set_xlabel("velocity (km/s)"); ax[1].set_title("each visit; Ca II 8500 (solid), 8544 (dashed), 8665 (dotted)", fontsize=8)
+        for a_, (l, nm, span) in zip(ax[2:], ((6564.61, "H-alpha", 2500), (7775.4, "O I 7774", 1500))):
+            m = np.abs(co["w"] / l - 1) * C < span; side = m & (np.abs(co["w"] / l - 1) * C > 0.6 * span) & (co["iv"] > 0) & np.isfinite(co["f"])
+            p = np.polyfit(co["w"][side], co["f"][side], 1); vel = (co["w"][m] / l - 1) * C
+            a_.plot(vel, gaussian_filter1d(np.nan_to_num(co["f"][m] / np.polyval(p, co["w"][m]), nan=1), 1), "k", lw=0.8); a_.axvline(0, color="0.5", lw=0.5)
+            a_.set_xlabel("velocity (km/s)"); a_.set_title(f"{nm} (coadd)", fontsize=8)
+        fig.suptitle(f"{name} = Gaia DR3 {g} (sdss_id {sid})", fontsize=9); plt.tight_layout(); plt.savefig(out("gas_discs", f"{g}_sdssv.png"), dpi=90); plt.close()
+
+
 if __name__ == "__main__":
     import sys
     ALL = dict(zeeman=zeeman, carbon_optical=carbon_optical, carbon_screen_spectra=carbon_screen_spectra, carbon_cos=carbon_cos, galex=galex,
                eclipse=eclipse, balmer=balmer, zz=zz, periodic=periodic, periodic_white_dwarfs=periodic_white_dwarfs,
-               hot_dq_comparison=hot_dq_comparison, hot_dq_comparison_sdssv=lambda: hot_dq_comparison(extra=True), gas_discs=gas_discs)
+               hot_dq_comparison=hot_dq_comparison, hot_dq_comparison_sdssv=lambda: hot_dq_comparison(extra=True), gas_discs=gas_discs, gas_discs_narrow=gas_discs_narrow)
     for name in (sys.argv[1:] or ALL):
         ALL[name](); print(name, "done", flush=True)

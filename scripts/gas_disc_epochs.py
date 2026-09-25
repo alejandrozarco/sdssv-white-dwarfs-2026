@@ -8,7 +8,9 @@ ew_A: summed equivalent width of the emission (positive) within +-900 km/s of th
 amp_rel_sdssv: least-squares scale of the SDSS-V coadd profile (normalised flux - 1 within +-1100 km/s of the lines, zero
 elsewhere, smoothed by 1 pixel) fitted over 8350-8830 A; 1 = the SDSS-V coadd strength.
 v_blue_kms, v_red_kms: velocities of the highest point of the profile (1-pixel smoothing) in -700..-100 and +100..+700 km/s,
-averaged over the three lines; given only where ew_A / ew_err_A > 10.
+averaged over the three lines; given only where ew_A / ew_err_A > 10 and the Gaussian FWHM exceeds 600 km/s (double-peaked).
+v_gauss_kms, fwhm_gauss_kms: common centroid and FWHM of a fit of one Gaussian per line (shared velocity and width, free
+amplitudes, linear continuum) over 8350-8830 A; given where ew_A / ew_err_A > 5. Not corrected for instrumental broadening.
 X-shooter wavelengths are converted from air to vacuum (Morton 2000) and are topocentric; SDSS, BOSS, DESI and SDSS-V are
 heliocentric vacuum wavelengths."""
 import sys, os, json, subprocess, numpy as np, pandas as pd, requests, io
@@ -56,6 +58,18 @@ def peaks(n):
         v = (W / l - 1) * C; y = gaussian_filter1d(np.nan_to_num(n, nan=1.0), 1)
         b = (v > -700) & (v < -100); r = (v > 100) & (v < 700); vb.append(v[b][np.argmax(y[b])]); vr.append(v[r][np.argmax(y[r])])
     return int(round(np.mean(vb), -1)), int(round(np.mean(vr), -1))
+
+
+def gauss_fit(n, v):
+    from scipy.optimize import curve_fit
+    ok = (v > 0) & np.isfinite(n) & (W > 8350) & (W < 8830)
+    def g3(w, a1, a2, a3, vel, sg, c0, c1):
+        y = c0 + c1 * (w - 8600) / 300
+        for a, l in zip((a1, a2, a3), CAT):
+            y = y + a * np.exp(-0.5 * ((w - l * (1 + vel / C)) / (l * sg / C)) ** 2)
+        return y
+    p, cv = curve_fit(g3, W[ok], n[ok], p0=[0.3, 0.4, 0.3, 0, 150, 1, 0], sigma=1 / np.sqrt(v[ok]), maxfev=20000)
+    return int(round(p[3])), int(round(2.3548 * abs(p[4])))
 
 
 def sparcl_spectra(ra, dec, r=3.0):
@@ -118,7 +132,9 @@ if __name__ == "__main__":
     nc, vc = norm(co["w"], co["f"], co["iv"]); T = np.where(WIN, gaussian_filter1d(np.nan_to_num(nc - 1), 1), 0.0)
     rows = []
     for s in [co] + per + sp + xs:
-        n, v = norm(s["w"], s["f"], s["iv"]); ew, e, A, eA = measure(n, v, T); vb, vr = peaks(n) if ew > 10 * e else ("", "")
+        n, v = norm(s["w"], s["f"], s["iv"]); ew, e, A, eA = measure(n, v, T)
+        vg, fw = gauss_fit(n, v) if ew > 5 * e else ("", "")
+        vb, vr = peaks(n) if (ew > 10 * e and fw != "" and fw > 600) else ("", "")
         rows.append(dict(gaia_dr3=gaia, dataset=s["dataset"], identifier=s["identifier"], date_utc=s["date"], mjd=s["mjd"], ew_A=ew, ew_err_A=e,
-                         amp_rel_sdssv=A, amp_err=eA, v_blue_kms=vb, v_red_kms=vr))
+                         amp_rel_sdssv=A, amp_err=eA, v_blue_kms=vb, v_red_kms=vr, v_gauss_kms=vg, fwhm_gauss_kms=fw))
     t = pd.DataFrame(rows); t.to_csv(f"../tables/gas_disc_epochs_{gaia}.csv", index=False); print(t.to_string())
