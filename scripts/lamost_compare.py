@@ -39,4 +39,4 @@ for ax, (a, b) in zip(axs.flat, [(3880, 4130), (4200, 4420), (4700, 5100), (5100
     ax.set_xlim(a, b); ax.set_xlabel("vacuum wavelength (A)", fontsize=7)
 axs.flat[0].legend(fontsize=7)
 fig.suptitle(f"Gaia DR3 883885440381808000: C I (red) and C II (blue) at {vref:+d} km/s; Balmer rest wavelengths (green dotted)", fontsize=9)
-fig.tight_layout(); fig.savefig("../figures/carbon_883885440381808000_lamost.png", dpi=85)
+fig.tight_layout(); os.makedirs("../figures/carbon", exist_ok=True); fig.savefig("../figures/carbon/883885440381808000_lamost.png", dpi=85)

@@ -1,76 +1,41 @@
 # SDSS-V DR20 white dwarfs: measurements
 
-Measurements of white dwarfs from public SDSS-V DR20 spectra (Astra 0.8.1), TESS, HST/COS, GALEX, ATLAS, ZTF and Gaia DR3 epoch photometry. Each table gives the measured quantities with existing SIMBAD, MWDD (snapshot 2026-08-05) and SDSS-V SnowWhite classifications. The scripts in `scripts/` download the public data and recompute every table and figure. Data were retrieved 2026-09-23 to 2026-09-25. Methods are in [METHODS.md](METHODS.md).
+Measurements of white dwarfs from public SDSS-V DR20 spectra (Astra 0.8.1), with DESI DR1, SDSS/BOSS, ESO X-shooter, TESS, HST/COS, GALEX, ATLAS, ZTF and Gaia DR3 epoch photometry. Each table gives the measured quantities with existing SIMBAD, MWDD (snapshot 2026-08-05) and SDSS-V SnowWhite classifications. The scripts in `scripts/` download the public data and recompute every table and figure. Data were retrieved 2026-09-23 to 2026-09-25. Methods are in [METHODS.md](METHODS.md).
 
-| topic | table(s) | objects |
+## Topics
+
+| topic | page | tables | objects |
+|---|---|---|---|
+| Ca II triplet emission (gaseous discs) | [docs/gas_discs.md](docs/gas_discs.md) | `gas_disc_white_dwarfs.csv`, `gas_disc_epochs_*.csv`, `gas_disc_screen.csv` | 2 |
+| Carbon lines | [docs/carbon.md](docs/carbon.md) | `carbon_white_dwarfs.csv`, `carbon_screen.csv`, `carbon_*_features.csv` | 9 |
+| Zeeman splitting | [docs/zeeman.md](docs/zeeman.md) | `magnetic_zeeman.csv` | 30 |
+| Photometric periods | [docs/periodic.md](docs/periodic.md) | `periodic_6021870154194477312.csv`, `periodic_white_dwarfs.csv` | 8 |
+| TESS amplitude spectra | [docs/zz_ceti.md](docs/zz_ceti.md) | `zz_ceti_objects.csv`, `zz_ceti_tess_sectors.csv` | 5 |
+| Eclipse and Balmer emission | [docs/eclipse_and_emission.md](docs/eclipse_and_emission.md) | `eclipsing_4731701084150029824.csv`, `balmer_emission.csv` | 3 |
+
+## Selected objects
+
+| object | measurement | page |
 |---|---|---|
-| [Zeeman splitting](#zeeman-splitting) | `magnetic_zeeman.csv` | 30 |
-| [Carbon lines](#carbon-lines) | `carbon_white_dwarfs.csv`, `carbon_screen.csv`, `carbon_*_optical_CII_features.csv`, `carbon_5208047381438507520_cos_features.csv` | 9 |
-| [TESS amplitude spectra](#tess-amplitude-spectra) | `zz_ceti_objects.csv`, `zz_ceti_tess_sectors.csv` | 5 |
-| [Eclipse](#eclipse) | `eclipsing_4731701084150029824.csv` | 1 |
-| [Balmer emission](#balmer-emission) | `balmer_emission.csv` | 2 |
-| [Photometric periods](#photometric-periods) | `periodic_6021870154194477312.csv`, `periodic_white_dwarfs.csv` | 8 |
+| WD 0856+048 (Gaia DR3 578709631539357440) | Double-peaked Ca II triplet emission in 7 SDSS-V visits (2021-2023), DESI (2022) and X-shooter (2025); equivalent width 3.1 ± 2.3 Å in BOSS (2010), 17.6 ± 0.5 Å in SDSS-V, 32.9 ± 0.4 Å in X-shooter | [gas discs](docs/gas_discs.md) |
+| WD J1959+2208 (Gaia DR3 1827014701883095680) | Double-peaked Ca II triplet emission in both SDSS-V visits (2024); catalogued DB | [gas discs](docs/gas_discs.md) |
+| Gaia DR3 5208047381438507520 | C II lines in SDSS-V and C II/C III in HST/COS; catalogued DA | [carbon](docs/carbon.md) |
+| Gaia DR3 6886051830805052288 | C II lines in both SDSS-V visits; catalogued DA | [carbon](docs/carbon.md) |
+| Five further SDSS-V white dwarfs | C I and/or C II lines; catalogued DA, DB, DC: or unclassified | [carbon](docs/carbon.md) |
+| Gaia DR3 1980205739970324224 | Zeeman-split H-alpha and H-beta (5.6 MG); listed as a ZZ Ceti (P = 1286 s) in Vincent et al. 2020 | [Zeeman](docs/zeeman.md) |
+| Gaia DR3 6021870154194477312 | 103.4-min period in ATLAS, Gaia DR3 and TESS | [periods](docs/periodic.md) |
+| Gaia DR3 4731701084150029824 | Eclipses with P = 3.549 h in ATLAS | [eclipse](docs/eclipse_and_emission.md) |
 
-## Zeeman splitting
-H-alpha and H-beta are fitted with three Gaussian components. B_split is the linear-Zeeman field implied by the separation of the two outer components. Red lines in the figure mark the fitted centres.
+<img src="figures/gas_discs/578709631539357440_epochs.png" width="720">
 
-<img src="figures/magnetic_zeeman_halpha_hbeta.png" width="600">
+<img src="figures/carbon/hot_dq_comparison_sdssv.png" width="430"> <img src="figures/zeeman/overview.png" width="430">
 
-## Carbon lines
-Line cross-correlation (C II, C I, H I, He I) for four SDSS-V white dwarfs, Gaussian fits to optical C II lines, HST/COS G130M equivalent widths, and GALEX FUV−NUV colours.
-
-The first figure shows the SDSS-V spectra of Gaia DR3 5208047381438507520 and Gaia DR3 6886051830805052288 (middle two). Above them is an SDSS-V DA of similar colour, and below them is the hot DQ SDSS J234843.30−094245.3 (Dufour et al. 2008). Orange lines mark C II positions; blue dotted lines mark Balmer positions. A three-spectrum version with only 5208047381438507520 is `figures/hot_dq_comparison_5208047381438507520.png`.
-
-<img src="figures/hot_dq_comparison_sdssv.png" width="700">
-
-`carbon_screen.csv` lists the results of a matched-filter carbon screen (`carbon_screen.py`) of two samples:
-- 3,480 SDSS-V spectra classified DA-type by SnowWhite, selected for high mass or a SnowWhite fit at the log g grid edge (sample 99th percentile of the combined C I + C II contrast: 7.1);
-- 3,286 spectra with other SnowWhite classes (DB, DC, DZ, DQ and mixed; 99th percentile 6.65).
-
-The table gives the 34 screened white dwarfs with carbon lines:
-- 25 with an existing DQ-type or DAQ classification, or already in this repository;
-- 5 with no existing carbon classification. Three are catalogued as DA or unclassified (Gaia DR3 883885440381808000, 4847399905305694080 and 2076678981825545088). Two are catalogued as DC: or DB and show C I lines in both visits (Gaia DR3 6465542891501713408 and 343958710690034944). All five are in the figure below;
-- 2 possible detections in low-S/N spectra;
-- 2 known carbon white dwarfs that the screen does not detect (contrast 1.7 and 3.2).
-
-The line templates are atomic C I and C II lines, so cool DQ white dwarfs with only C2 Swan bands are not detected: 11 of 261 DQ-labelled spectra pass.
-
-For 883885440381808000, the LAMOST DR10 spectrum of 2011-11-24 gives its highest carbon contrast (4.4) at the SDSS-V velocity of +110 km/s. For 4847399905305694080, GALEX GR6/7 GII photometry gives FUV-NUV = +3.13 ± 0.20, redder than all 741 SDSS-V DAs within 0.06 in BP-RP (maximum +0.72).
-
-<img src="figures/carbon_screen_spectra.png" width="700">
-<img src="figures/carbon_883885440381808000_lamost.png" width="700">
-<img src="figures/carbon_optical_spectra.png" width="700">
-<img src="figures/carbon_5208047381438507520_cos.png" width="700">
-<img src="figures/galex_fuv_nuv.png" width="450">
-
-## TESS amplitude spectra
-The highest TESS peak per light curve for five SDSS-V white dwarfs, with pixel-level fits to locate the signal.
-
-<img src="figures/zz_ceti_tess_amplitude_spectra.png" width="700">
-
-## Eclipse
-Eclipse ephemeris of Gaia DR3 4731701084150029824 from ATLAS forced photometry.
-
-<img src="figures/eclipsing_4731701084150029824_atlas_phase.png" width="600">
-
-## Balmer emission
-H-alpha and H-beta emission equivalent widths and double-peak separations.
-
-<img src="figures/balmer_emission.png" width="600">
-
-## Photometric periods
-Gaia DR3 6021870154194477312 is shown in the first figure:
-- top: its SDSS-V spectrum;
-- middle: the ATLAS periodogram;
-- bottom: ATLAS, Gaia and TESS light curves folded on one frequency.
-
-`periodic_6021870154194477312.csv` also gives fits for the three Gaia sources within 13″.
-
-<img src="figures/periodic_6021870154194477312.png" width="650">
-
-`periodic_white_dwarfs.csv` covers seven white dwarfs selected by their Gaia DR3 GLS frequency. Each frequency was recovered in ATLAS or ZTF, with the Gaia and TESS amplitudes and times of maximum at that frequency.
-
-<img src="figures/periodic_white_dwarfs.png" width="650">
+## Layout
+- `tables/`: measurement tables (CSV).
+- `figures/<topic>/`: one figure per object or per comparison.
+- `docs/`: one page per topic.
+- `data/`: inputs (ATLAS and ZTF photometry, Gaia epoch photometry, object lists); `data/cache/` holds downloads and is not tracked.
+- `scripts/`: measurement and figure scripts.
 
 ## Reproduction
 ```
@@ -101,9 +66,16 @@ python cv_balmer.py 65701864
 python periodic_6021870154194477312.py
 python tess_periodogram.py 1251484163 65 120 0.5 50
 python periodic_white_dwarfs.py
-python figures.py
+python gas_disc_screen.py --sample   # about 51,000 visit files, downloaded and deleted one by one; keeps about 1.5 GB
+python gas_disc_screen.py --pass2 ../data/cache/gas_disc_pass2.csv
+python gas_disc_screen.py --table ../data/cache/gas_disc_pass2.csv
+python gas_disc_epochs.py 578709631539357440 55774610 134.841202 4.636784
+python gas_disc_epochs.py 1827014701883095680 63867520 299.804316 22.147851
+python ztf_lightcurve.py 578709631539357440 134.841202 4.636784
+python ztf_lightcurve.py 1827014701883095680 299.804316 22.147851
+python figures.py            # all figures; or name one, e.g. python figures.py gas_discs
 ```
 Arguments for the other TESS light curves and pixel tests are in the table columns (TIC, sector, cadence, frequency).
 
 ## Data sources
-SDSS-V DR20 and SDSS DR17; Gaia DR3 (ESA/Gaia/DPAC), including epoch photometry (VizieR I/355/epphot) and the Gaia Synthetic Photometry Catalogue (VizieR J/A+A/674/A33); TESS SPOC and HST/COS program 17420 (MAST); GALEX GUVcat AIS (Bianchi et al. 2017), GALEX GR6/7 (MAST) and the GALEX CAUSE Kepler catalogue (Olmedo et al. 2015); LAMOST DR10; ATLAS forced photometry (Tonry et al. 2018; Shingles et al. 2021); ZTF public data releases (IRSA); NIST Atomic Spectra Database; Montreal White Dwarf Database; SIMBAD.
+SDSS-V DR20 and SDSS DR17 (including BOSS); DESI DR1 via SPARCL (NOIRLab Astro Data Lab) and the DESI DR1 white-dwarf catalogues; ESO X-shooter phase 3 spectra (programme 115.28GM.001); Gaia DR3 (ESA/Gaia/DPAC), including epoch photometry (VizieR I/355/epphot), the Gaia Synthetic Photometry Catalogue (VizieR J/A+A/674/A33) and Gentile Fusillo et al. (2021, VizieR J/MNRAS/508/3877); TESS SPOC and HST/COS program 17420 (MAST); GALEX GUVcat AIS (Bianchi et al. 2017), GALEX GR6/7 (MAST) and the GALEX CAUSE Kepler catalogue (Olmedo et al. 2015); LAMOST DR10; ATLAS forced photometry (Tonry et al. 2018; Shingles et al. 2021); ZTF public data releases (IRSA); NIST Atomic Spectra Database; Montreal White Dwarf Database; SIMBAD.

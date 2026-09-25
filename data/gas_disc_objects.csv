@@ -1,0 +1,19 @@
+sdss_id,gaia_dr3,name,category,reference
+55774610,578709631539357440,WD 0856+048,no existing emission classification,this repository
+63867520,1827014701883095680,WD J1959+2208,no existing emission classification,this repository
+58756188,1037258898615762048,WD 0842+572,known gaseous disc,Saker et al. 2025 (RMxAA 61 154) compilation
+56367604,671450448046315520,SDSS J0738+1835,known gaseous disc,Saker et al. 2025 (RMxAA 61 154) compilation
+111809939,6646693887514073984,WD J1930-5028,known gaseous disc,Saker et al. 2025 (RMxAA 61 154) compilation
+92944351,4823042355496728832,WD J0529-3401,known gaseous disc,Saker et al. 2025 (RMxAA 61 154) compilation
+70061066,2489275328645218560,SDSS J0234-0406,known gaseous disc,Saker et al. 2025 (RMxAA 61 154) compilation
+62326276,1623866184737702912,WD 1622+587,known gaseous disc,Saker et al. 2025 (RMxAA 61 154) compilation
+67586017,2118281993556276096,WD J1829+4537,known gaseous disc,Ma et al. 2025 (AJ 170 345)
+70865248,2651256614304360576,WD J2307-0002,known Ca II emission,Swan et al. 2026 (arXiv:2609.04314) Ca II emission figure
+56110477,635879254021761024,WD J0914+1914,known gaseous disc without Ca II emission (H O S),Gansicke et al. 2019 (Nature 576 61)
+57605357,882205352253258624,WD J0753+3335,DESI EDR emission candidate,Ma et al. 2025 (AJ 170 345) table
+56311832,665392383790872192,WD J0842+2300,DESI EDR emission candidate,Ma et al. 2025 (AJ 170 345) table
+55888424,597646245427109376,WD J0849+0923,DESI EDR emission candidate,Ma et al. 2025 (AJ 170 345) table
+80004278,3843734359685754880,WD J0912+0139,DESI EDR emission candidate,Ma et al. 2025 (AJ 170 345) table
+58950701,1074013923063975680,WD J1100+7138,DESI EDR emission candidate,Ma et al. 2025 (AJ 170 345) table
+59891623,1228266814506156928,WD J1434+1508,DESI EDR emission candidate,Ma et al. 2025 (AJ 170 345) table
+69202808,2294545291016560256,WD J1802+8039,DESI EDR emission candidate,Ma et al. 2025 (AJ 170 345) table

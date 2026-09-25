@@ -9,11 +9,11 @@ CAS = "https://skyserver.sdss.org/dr20/SkyServerWS/SearchTools/SqlSearch"
 CACHE = os.path.join(os.path.dirname(__file__), "..", "data", "cache")
 
 
-def cas(sql):
+def cas(sql, dtype=None):
     r = requests.get(CAS, params=dict(cmd=sql, format="csv"), timeout=300)
     r.raise_for_status()
     t = r.text.split("\n", 1)[1] if r.text.startswith("#Table") else r.text
-    return pd.read_csv(io.StringIO(t))
+    return pd.read_csv(io.StringIO(t), dtype=dtype)
 
 
 def snowwhite(gaia_ids):
