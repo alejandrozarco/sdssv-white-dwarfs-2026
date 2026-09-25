@@ -81,6 +81,28 @@ def carbon_cos():
     ax[1].set_xlabel("wavelength (A)"); plt.tight_layout(); plt.savefig(f"{F}/carbon_5208047381438507520_cos.png", dpi=90); plt.close()
 
 
+
+def carbon_screen_spectra():
+    import carbon_screen as cs
+    t = pd.read_csv(f"{T}/carbon_screen.csv", dtype={"gaia_dr3": str, "sdss_id": str}).set_index("gaia_dr3")
+    rows = ["883885440381808000", "4847399905305694080", "2076678981825545088"]
+    fig, ax = plt.subplots(len(rows), 1, figsize=(15, 3.2 * len(rows)))
+    for a, g in zip(ax, rows):
+        r = t.loc[g]; v = int(r.C_v_kms)
+        w, f = norm(*coadd(visits(r.sdss_id))); s = (w > 3800) & (w < 9200)
+        a.plot(w[s], gaussian_filter1d(f[s], 1.0), "k", lw=0.6)
+        for sp, col in (("C I", "orange"), ("C II", "m")):
+            for lam in cs.LINES[sp]:
+                a.axvline(lam * (1 + v / C), color=col, lw=0.6, alpha=0.7)
+        for lam in (6564.632, 4862.691, 4341.69, 4102.89):
+            a.axvline(lam * (1 + v / C), color="b", ls="--", lw=0.7)
+        a.set_xlim(3800, 9200); a.set_ylim(0.4, 1.25)
+        a.set_title(f"Gaia DR3 {g} (sdss_id {r.sdss_id}, S/N {r.snr_max}); C I (orange), C II (magenta) and Balmer (blue) at {v:+d} km/s; "
+                    f"screen contrast C {r.C_contrast}, C I {r.CI_contrast}, C II {r.CII_contrast}", fontsize=8)
+    ax[-1].set_xlabel("vacuum wavelength (A)")
+    plt.tight_layout(); plt.savefig(f"{F}/carbon_screen_spectra.png", dpi=90); plt.close()
+
+
 def galex():
     d = pd.read_csv("galex_colours_5208047381438507520.csv", dtype={"source_id": str}); fig, a = plt.subplots(figsize=(7, 5))
     for gname, col, mk in (("DA", "0.6", "."), ("DB", "tab:green", "s"), ("DQ", "tab:purple", "D")):
@@ -222,5 +244,5 @@ def hot_dq_comparison(extra=False):
 
 
 if __name__ == "__main__":
-    for fn in (zeeman, carbon_optical, carbon_cos, galex, eclipse, balmer, zz, periodic, periodic_white_dwarfs, hot_dq_comparison, lambda: hot_dq_comparison(extra=True)):
+    for fn in (zeeman, carbon_optical, carbon_screen_spectra, carbon_cos, galex, eclipse, balmer, zz, periodic, periodic_white_dwarfs, hot_dq_comparison, lambda: hot_dq_comparison(extra=True)):
         fn(); print(fn.__name__, "done", flush=True)
