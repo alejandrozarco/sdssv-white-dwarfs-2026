@@ -1,4 +1,4 @@
-gaia_dr3,dataset,identifier,date_utc,mjd,ew_A,ew_err_A,amp_rel_sdssv,amp_err,v_blue_kms,v_red_kms,v_gauss_kms,fwhm_gauss_kms
+gaia_dr3,dataset,identifier,date_utc,mjd,ew_A,ew_err_A,amp_rel_ref,amp_err,v_blue_kms,v_red_kms,v_gauss_kms,fwhm_gauss_kms
 1827014701883095680,SDSS-V coadd,"sdss_id 63867520, 2 visits",,,22.8,0.36,1.015,0.014,-260,430,-22,1025
 1827014701883095680,SDSS-V visit,sdss_id 63867520,2024-08-10,60532.0,17.76,0.54,0.851,0.02,-240,390,-14,953
 1827014701883095680,SDSS-V visit,sdss_id 63867520,2024-08-11,60533.0,26.64,0.49,1.137,0.019,-260,420,-32,1071

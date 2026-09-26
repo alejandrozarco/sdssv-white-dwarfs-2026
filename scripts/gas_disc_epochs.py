@@ -1,12 +1,13 @@
 """Ca II triplet emission of one white dwarf in every available spectrum: SDSS-V visits and coadd, SDSS/BOSS/DESI spectra
 from SPARCL (NOIRLab Astro Data Lab) and ESO X-shooter VIS spectra (phase 3 products).
-Usage: python gas_disc_epochs.py <gaia_dr3> <sdss_id> <ra> <dec>   -> ../tables/gas_disc_epochs_<gaia_dr3>.csv
+Usage: python gas_disc_epochs.py <gaia_dr3> <sdss_id or -> <ra> <dec>   -> ../tables/gas_disc_epochs_<gaia_dr3>.csv
 Each spectrum is normalised by a quadratic continuum over 8330-8830 A fitted outside +-1100 km/s of the Ca II lines
 (vacuum 8500.35, 8544.44, 8664.52 A) and O I 8448.7 A (3 iterations of 3-sigma clipping) and resampled onto the SDSS-V
 log grid (ivar scaled by the pixel-size ratio).
 ew_A: summed equivalent width of the emission (positive) within +-900 km/s of the three lines, with its formal error.
-amp_rel_sdssv: least-squares scale of the SDSS-V coadd profile (normalised flux - 1 within +-1100 km/s of the lines, zero
-elsewhere, smoothed by 1 pixel) fitted over 8350-8830 A; 1 = the SDSS-V coadd strength.
+amp_rel_ref: least-squares scale of a reference profile (normalised flux - 1 within +-1100 km/s of the lines, zero elsewhere,
+smoothed by 1 pixel) fitted over 8350-8830 A. The reference is the SDSS-V coadd, or the highest-S/N spectrum when the star has
+no SDSS-V spectrum (sdss_id given as -); 1 = the reference strength.
 v_blue_kms, v_red_kms: velocities of the highest point of the profile (1-pixel smoothing) in -700..-100 and +100..+700 km/s,
 averaged over the three lines; given only where ew_A / ew_err_A > 10 and the Gaussian FWHM exceeds 600 km/s (double-peaked).
 v_gauss_kms, fwhm_gauss_kms: common centroid and FWHM of a fit of one Gaussian per line (shared velocity and width, free
@@ -122,19 +123,25 @@ def sdssv_spectra(sdss_id):
 
 
 def all_spectra(gaia, sdss_id, ra, dec):
-    co, per = sdssv_spectra(sdss_id)
+    co, per = sdssv_spectra(sdss_id) if sdss_id != "-" else (None, [])
     return co, per, sparcl_spectra(ra, dec), eso_xshooter(ra, dec)
+
+
+def snr(s):
+    n, v = norm(s["w"], s["f"], s["iv"]); ok = (v > 0) & np.isfinite(n)
+    return float(np.median(np.sqrt(v[ok]))) if ok.any() else 0.0
 
 
 if __name__ == "__main__":
     gaia, sdss_id, ra, dec = sys.argv[1], sys.argv[2], float(sys.argv[3]), float(sys.argv[4])
     co, per, sp, xs = all_spectra(gaia, sdss_id, ra, dec)
-    nc, vc = norm(co["w"], co["f"], co["iv"]); T = np.where(WIN, gaussian_filter1d(np.nan_to_num(nc - 1), 1), 0.0)
+    ref = co if co is not None else max(sp + xs, key=snr)
+    nc, vc = norm(ref["w"], ref["f"], ref["iv"]); T = np.where(WIN, gaussian_filter1d(np.nan_to_num(nc - 1), 1), 0.0)
     rows = []
-    for s in [co] + per + sp + xs:
+    for s in ([co] if co is not None else []) + per + sp + xs:
         n, v = norm(s["w"], s["f"], s["iv"]); ew, e, A, eA = measure(n, v, T)
         vg, fw = gauss_fit(n, v) if ew > 5 * e else ("", "")
         vb, vr = peaks(n) if (ew > 10 * e and fw != "" and fw > 600) else ("", "")
         rows.append(dict(gaia_dr3=gaia, dataset=s["dataset"], identifier=s["identifier"], date_utc=s["date"], mjd=s["mjd"], ew_A=ew, ew_err_A=e,
-                         amp_rel_sdssv=A, amp_err=eA, v_blue_kms=vb, v_red_kms=vr, v_gauss_kms=vg, fwhm_gauss_kms=fw))
+                         amp_rel_ref=A, amp_err=eA, v_blue_kms=vb, v_red_kms=vr, v_gauss_kms=vg, fwhm_gauss_kms=fw))
     t = pd.DataFrame(rows); t.to_csv(f"../tables/gas_disc_epochs_{gaia}.csv", index=False); print(t.to_string())

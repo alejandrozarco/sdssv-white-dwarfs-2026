@@ -343,10 +343,29 @@ def gas_discs_narrow():
         fig.suptitle(f"{name} = Gaia DR3 {g} (sdss_id {sid})", fontsize=9); plt.tight_layout(); plt.savefig(out("gas_discs", f"{g}_sdssv.png"), dpi=90); plt.close()
 
 
+def gas_discs_desi():
+    """Ca II triplet of the two stars found in the DESI DR1 screen, in every available spectrum (3 A bins), normalised as in gas_disc_epochs.py."""
+    import gas_disc_epochs as GE
+    W = GE.W; CAT = list(GE.CAT)
+    for g, sid, ra, dec, name in (("1283510882895711872", "-", 222.0812149, 32.4168475, "WDJ1448+3225"), ("1379988076130545536", "60943632", 242.8229952, 40.2842400, "WDJ1611+4017")):
+        co, per, sp, xs = GE.all_spectra(g, sid, ra, dec); ss = sorted(sp + xs, key=lambda x: x["mjd"]) + per
+        fig, ax = plt.subplots(figsize=(8, 1.6 + 1.1 * len(ss)))
+        e = np.arange(8420, 8722, 3.0); c = 0.5 * (e[1:] + e[:-1])
+        for i, s_ in enumerate(ss):
+            n, v = GE.norm(s_["w"], s_["f"], s_["iv"]); k = np.digitize(W, e) - 1; ok = (k >= 0) & (k < len(c)) & (v > 0) & np.isfinite(n)
+            y = np.bincount(k[ok], (n * v)[ok], len(c)) / np.maximum(np.bincount(k[ok], v[ok], len(c)), 1e-30)
+            ax.plot(c, y + 0.7 * i, drawstyle="steps-mid", lw=0.9, color=f"C{i}"); ax.text(8424, 1.35 + 0.7 * i, f"{s_['dataset']} {s_['date']}", fontsize=8, color=f"C{i}")
+        for l in CAT:
+            ax.axvline(l, color="0.5", lw=0.6, ls=":")
+        ax.set_xlim(8420, 8720); ax.set_yticks([]); ax.set_xlabel("vacuum wavelength (A)"); ax.set_ylabel("normalised flux + offset")
+        ax.set_title(f"{name} = Gaia DR3 {g}: Ca II triplet by epoch (dotted: 8500.35, 8544.44, 8664.52 A)", fontsize=8)
+        plt.tight_layout(); plt.savefig(out("gas_discs", f"{g}_epochs.png"), dpi=90); plt.close()
+
+
 if __name__ == "__main__":
     import sys
     ALL = dict(zeeman=zeeman, carbon_optical=carbon_optical, carbon_screen_spectra=carbon_screen_spectra, carbon_cos=carbon_cos, galex=galex,
                eclipse=eclipse, balmer=balmer, zz=zz, periodic=periodic, periodic_white_dwarfs=periodic_white_dwarfs,
-               hot_dq_comparison=hot_dq_comparison, hot_dq_comparison_sdssv=lambda: hot_dq_comparison(extra=True), gas_discs=gas_discs, gas_discs_narrow=gas_discs_narrow)
+               hot_dq_comparison=hot_dq_comparison, hot_dq_comparison_sdssv=lambda: hot_dq_comparison(extra=True), gas_discs=gas_discs, gas_discs_narrow=gas_discs_narrow, gas_discs_desi=gas_discs_desi)
     for name in (sys.argv[1:] or ALL):
         ALL[name](); print(name, "done", flush=True)

@@ -1,9 +1,10 @@
 # Ca II triplet emission (gaseous debris discs)
 
 Tables:
-- `gas_disc_white_dwarfs.csv`: four white dwarfs with Ca II triplet emission (8500, 8544, 8665 Å) in every SDSS-V visit and no existing emission classification (two with double-peaked and two with single-peaked profiles) in SIMBAD, MWDD, the DESI DR1 white-dwarf catalogues (Swan et al. 2026; Amorim et al. 2026), VizieR, the gaseous-disc lists of Saker et al. (2025) and Ma et al. (2025), or ADS full text;
+- `gas_disc_white_dwarfs.csv`: six white dwarfs with Ca II triplet emission (8500, 8544, 8665 Å) and no existing emission classification: four from the SDSS-V screen (two with double-peaked and two with single-peaked profiles) and two from the DESI DR1 screen (one tentative) in SIMBAD, MWDD, the DESI DR1 white-dwarf catalogues (Swan et al. 2026; Amorim et al. 2026), VizieR, the gaseous-disc lists of Saker et al. (2025) and Ma et al. (2025), or ADS full text;
 - `gas_disc_epochs_<gaia_dr3>.csv`: the Ca II emission equivalent width, profile scale and Gaussian centroid and width in every available spectrum;
-- `gas_disc_screen.csv`: screen output for the four stars, the known gaseous-disc white dwarfs with SDSS-V spectra and the DESI EDR emission candidates of Ma et al. (2025) with SDSS-V spectra.
+- `desi_gas_disc_screen.csv`: DESI DR1 screen output for the two DESI stars and the known Ca II emitters in DESI DR1;
+- `gas_disc_screen.csv`: SDSS-V screen output for the four SDSS-V stars, the known gaseous-disc white dwarfs with SDSS-V spectra and the DESI EDR emission candidates of Ma et al. (2025) with SDSS-V spectra.
 
 Methods are in [METHODS.md](../METHODS.md#methods).
 
@@ -39,7 +40,20 @@ G = 18.41, parallax 2.11 ± 0.16 mas; listed as a photometric white-dwarf candid
 
 <img src="../figures/gas_discs/1764314497240770176_sdssv.png" width="850">
 
-## Screen
+## WDJ1448+3225 (Gaia DR3 1283510882895711872; DESI DR1 screen)
+G = 19.38, parallax 1.96 ± 0.26 mas; catalogued DBA (SIMBAD, MWDD, DESI DR1; DESI Teff 19,800 K, log g 8.32). Not in the SDSS-V SnowWhite table. The Ca II triplet shows double-peaked emission in the BOSS spectrum of 2010-03-18 and in both DESI spectra (2021-05-20 and 2022-06-05), with equivalent widths of 19.2 ± 3.8, 37.4 ± 3.7 and 23.5 ± 2.5 Å. H-alpha shows no emission. Legacy Surveys DR10 WISE photometry is dominated by a neighbour.
+
+<img src="../figures/gas_discs/1283510882895711872_epochs.png" width="600">
+
+## WDJ1611+4017 (Gaia DR3 1379988076130545536; DESI DR1 screen; tentative)
+G = 17.75, parallax 3.20 ± 0.08 mas; catalogued DA (DESI Teff 16,600 K, log g 7.55). The DESI spectrum of 2021-05-22 shows weak Ca II triplet emission (equivalent width 5.9 ± 0.4 Å; screen z_cat 16.8); the BOSS spectrum of 2012-05-25 gives 3.5 ± 1.1 Å. The single SDSS-V visit (2023-06-24) has S/N 2.6 in this region. The Legacy Surveys WISE fluxes exceed the Rayleigh-Jeans extrapolation (4× in W1, 6× in W2) but the source is blended (fracflux_w1 = 2.1).
+
+<img src="../figures/gas_discs/1379988076130545536_epochs.png" width="600">
+
+## DESI DR1 screen
+`desi_gas_disc_screen.py` applies the same method to the 44,301 usable DESI DR1 spectra of the white dwarfs in the Amorim et al. (2026) class file (retrieved with SPARCL), with neighbours from the colours and absolute magnitudes in that file. The 99.9th percentiles of z_cat are 14.3 (DA-type), 12.5 (other white-dwarf classes), 38 (classes with an M-dwarf companion) and 104 (CVs). The known emitters give z_cat 39.7 (WD J1829+4537), 14.7 (WD J2307−0002), 12.3 (WD 0856+048) and 9.2 (WD J0857−2245). Of 46 spectra with z_cat > 8 and consistent lines, 23 have a DESI DR1 class of WD+MS, CV or STAR, and four DA with narrow Ca II and H-alpha emission are 1-2 magnitudes brighter than single white dwarfs of their colour.
+
+## SDSS-V screen
 `gas_disc_screen.py` screens the SDSS-V visit spectra of all 50,960 objects with a SnowWhite classification. The CaT region of each spectrum is divided by the median of its 100 nearest neighbours in the Gaia colour-magnitude diagram, and the residual is matched-filtered with single- and double-peaked emission templates. On the white-dwarf locus (parallax/error > 3, M_G > 8.5), the 99th and 99.9th percentiles of z_cat are 8.8 and 19.1 for DA-type spectra (30,090) and 14.7 and 27.6 for other white-dwarf classes (2,702). MS and CV classes, whose companions or accretion discs show Ca II emission, have higher values (99.9th percentiles 38 and 78).
 
 Validation (`gas_disc_screen.csv`): of the eight known gaseous-disc white dwarfs with Ca II emission that have SDSS-V spectra, six have z_cat between 11.6 and 81.9 (WD 0842+572, SDSS J0738+1835, WD J1930−5028, WD J0529−3401, WD J1829+4537 and WD J2307−0002). SDSS J0234−0406 (z_cat 2.4) and WD 1622+587 (2.0; S/N 4.7) are not recovered. WD J0914+1914, whose disc shows H, O and S but no Ca II emission, has z_cat 3.9. The seven DESI EDR emission candidates of Ma et al. (2025) with SDSS-V spectra have z_cat 0.6 to 3.3.
