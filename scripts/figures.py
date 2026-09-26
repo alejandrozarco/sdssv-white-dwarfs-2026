@@ -390,14 +390,15 @@ def reflection():
     ax[1].set_title(f"Gaia DR3 {R.GID}: P = {1 / f:.7f} d", fontsize=8)
     xx = np.linspace(0, 2, 300)
     for name, col, mk, lab in (("caii", "C0", "o", "Ca II triplet"), ("halpha", "C3", "s", "H-alpha")):
-        s_ = v[v[f"{name}_amp_snr"] > 5]; X = np.vstack([np.ones(len(s_)), -np.sin(2 * np.pi * s_.phase)]).T; w = 1 / s_[f"{name}_e_v_kms"].values
-        q = np.linalg.lstsq(X * w[:, None], s_[f"{name}_v_kms"].values * w, rcond=None)[0]
-        ax[2].errorbar(np.r_[s_.phase, s_.phase + 1], np.r_[s_[f"{name}_v_kms"], s_[f"{name}_v_kms"]], np.r_[s_[f"{name}_e_v_kms"], s_[f"{name}_e_v_kms"]], fmt=mk, color=col, label=f"{lab} emission")
-        ax[2].plot(xx, q[0] - q[1] * np.sin(2 * np.pi * xx), color=col, lw=0.7)
+        s_ = v[v[f"{name}_amp_snr"] > 5]
+        for st, fill, lab2 in ((True, col, f"{lab} emission"), (False, "none", f"{lab} (visit not in the SDSS-V stack)")):
+            q_ = s_[s_.in_stack == st]
+            if len(q_):
+                ax[2].errorbar(np.r_[q_.phase, q_.phase + 1], np.r_[q_[f"{name}_v_kms"], q_[f"{name}_v_kms"]], np.r_[q_[f"{name}_e_v_kms"], q_[f"{name}_e_v_kms"]], fmt=mk, color=col, mfc=fill, label=lab2)
     for p_ in v[v.caii_amp_snr <= 5].phase:
         for k in (0, 1):
             ax[2].axvline(p_ + k, color="0.5", ls=":", lw=0.8)
-    ax[2].set_ylabel("velocity (km/s)"); ax[2].set_title("SDSS-V emission velocities (dotted: visit without emission)", fontsize=8)
+    ax[2].set_ylabel("velocity (km/s)"); ax[2].set_title("SDSS-V emission velocities (dotted: visit without emission; open: zero point uncertain)", fontsize=8)
     for a in ax:
         a.set_xlabel("phase (0 = maximum light)"); a.legend(fontsize=7)
     ax[0].set_ylabel("fractional flux"); ax[1].set_ylabel("fractional flux")

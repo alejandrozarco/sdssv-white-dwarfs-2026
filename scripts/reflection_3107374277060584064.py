@@ -16,7 +16,9 @@ common frequency and phase and one amplitude and offset per data set, on a grid 
 of the nearest cycle-count aliases is printed; chi2 is dominated by the CoRoT bins.
 Emission lines: per visit, Gaussian fits with a quadratic baseline to H-alpha (+-1800 km/s) and to the Ca II triplet (8500.35,
 8544.44, 8664.52 A; +-1200 km/s; common velocity and width, one amplitude per line); visit time = mean of the TAI start and end
-(no barycentric correction, < 0.01 in phase); phase 0 = maximum of the ZTF r fit.
+(no barycentric correction, < 0.01 in phase); phase 0 = maximum of the ZTF r fit. Zero-point check per visit: velocity of the He II
+4686 absorption line relative to the coadd of the in_stack visits (chi2 over +-900 km/s, linear continuum outside +-1200 km/s).
+Visits with in_stack = False are not in the SDSS-V coadd; their velocity zero point is not corrected and can be offset.
 Usage: python reflection_3107374277060584064.py (writes ../tables/reflection_3107374277060584064.csv and _visits.csv)."""
 import os, subprocess, numpy as np, pandas as pd
 from astropy.io import fits
@@ -106,12 +108,29 @@ def model(lines):
     return m
 
 
+def zero_point(vs):
+    """He II 4686 absorption velocity of each visit relative to the coadd of the in_stack visits."""
+    from sdssv import coadd
+    w, fl, iv = coadd([v for v in vs if v["in_stack"]])[:3]; S = np.arange(-500, 501, 5.0); l = 4687.02
+    def seg(w, f, iv):
+        v = (w / l - 1) * C; m = (np.abs(v) < 2500) & (iv > 0) & np.isfinite(f); v, f, iv = v[m], f[m], iv[m]; c = np.abs(v) > 1200
+        p = np.polyfit(v[c], f[c], 1, w=np.sqrt(iv[c])); cc = np.polyval(p, v); return v, f / cc, iv * cc ** 2
+    tv, tf, _ = seg(w, fl, iv); out = {}
+    for v in vs:
+        xv, xf, xi = seg(v["wave"], v["flux"], v["ivar"]); m = np.abs(xv) < 900
+        chi = np.array([np.sum((xf[m] - np.interp(xv[m] - s, tv, tf)) ** 2 * xi[m]) for s in S]); i = int(np.argmin(chi))
+        a, b, _ = np.polyfit(S[i - 1:i + 2], chi[i - 1:i + 2], 2) if 0 < i < len(S) - 1 else (np.nan, np.nan, 0)
+        out[v["mjd"]] = (-b / (2 * a), np.sqrt(max(chi[i] / (m.sum() - 1), 1) / a)) if a > 0 else (np.nan, np.nan)
+    return out
+
+
 def emission(f, t_max):
-    vs = visits(SDSS_ID); rows = []
+    vs = visits(SDSS_ID); rows = []; zp = zero_point(vs)
     with fits.open(fetch(SDSS_ID, "visit")) as h:
         tm = {int(r["mjd"]): (r["tai_beg"] + r["tai_end"]) / 2 / 86400 + 2400000.5 for i in (1, 2) if h[i].data is not None and len(h[i].data) for r in h[i].data}
     for v in vs:
-        row = dict(mjd=v["mjd"], jd_mid=round(tm[v["mjd"]], 4), phase=round(((tm[v["mjd"]] - t_max) * f) % 1, 3), snr=round(v["snr"], 1), in_stack=v["in_stack"])
+        row = dict(mjd=v["mjd"], jd_mid=round(tm[v["mjd"]], 4), phase=round(((tm[v["mjd"]] - t_max) * f) % 1, 3), snr=round(v["snr"], 1), in_stack=v["in_stack"],
+                   xcsao_v_kms=round(v["xcsao_v"], 1), heii4686_abs_v_kms=round(zp[v["mjd"]][0]), heii4686_abs_e_v_kms=round(zp[v["mjd"]][1]))
         for name, lines, win in (("halpha", [6564.61], 1800), ("caii", CAT, 1200)):
             m = np.zeros(len(v["wave"]), bool)
             for l in lines:

@@ -59,6 +59,7 @@
   - Adopted frequency: a joint fit of the CoRoT runs (30-min bins) and ZTF g and r, with a common frequency and phase and one amplitude and offset per data set, on a 2e-7 c/d grid.
   - Per data set: the highest Lomb-Scargle peak (0.05-20 c/d) and a sinusoid plus first harmonic at the adopted frequency.
   - SDSS-V visits (XCSAO shift removed for in-stack visits): Gaussian fits with a quadratic baseline to H-alpha and to the Ca II triplet (common velocity and width). The visit time is the mean of the TAI start and end.
+  - Zero-point check: the He II 4686 absorption velocity of each visit relative to the coadd of the in-stack visits. Visits with in_stack = False are not corrected, and their velocity zero point can be offset.
 - **TESS full-frame images** (`tess_ffi_photometry.py`). TESScut 11 × 11 cutouts; 3 × 3-pixel aperture, per-cadence background from the pixels outside a 5 × 5 box, 1-day running median subtracted, 5σ clip. The amplitude at a given frequency is given as a fraction of the aperture flux, and scaled to the expected flux of the star (15,000 e/s at T = 10), which assumes the other flux in the aperture is constant.
 - **Balmer emission.** Equivalent widths are measured against sideband continua. Peak separations come from a two-Gaussian fit with equal widths.
 
