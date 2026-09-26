@@ -421,10 +421,54 @@ def reflection():
     plt.savefig(out("periodic", f"{R.GID}_spectrum.png"), dpi=90); plt.close()
 
 
+def hot_white_dwarfs():
+    """Hot white dwarfs: fitted against literature Teff for the control stars (both line sets); SDSS-V coadds of the six target stars and
+    two control stars in the He II / He I / Balmer regions, with the best 'He only' model in the He windows."""
+    import hot_white_dwarfs as H
+    t = pd.read_csv(f"{T}/hot_white_dwarfs.csv", dtype={"sdss_id": str}); S = pd.read_csv("../data/hot_white_dwarfs_sources.csv", dtype={"sdss_id": str})
+    c = t[t.role == "control"].merge(S[["sdss_id", "snr"]], on="sdss_id")
+    fig, ax = plt.subplots(1, 2, figsize=(10, 4.5), sharey=True)
+    for a, name in zip(ax, H.SETS):
+        q = c[c.line_set == name]
+        for hi, mk, lab in ((True, "o", "S/N >= 19"), (False, "x", "S/N < 19")):
+            r = q[(q.snr >= 19) == hi]
+            a.errorbar(r.lit_teff_kK, r.teff_kK, [r.teff_kK - r.teff_min_kK, r.teff_max_kK - r.teff_kK], fmt=mk, color="k" if hi else "C3", ms=5, capsize=2, label=lab)
+        if name == "He only":
+            for k, (_, r) in enumerate(q.sort_values(["teff_kK", "lit_teff_kK"]).iterrows()):
+                a.annotate(r["name"], (r.lit_teff_kK, r.teff_kK), fontsize=6, xytext=(4, -9 + 6 * (k % 3)), textcoords="offset points")
+        a.plot([50, 210], [50, 210], "0.5", lw=0.8); a.set_xlim(70, 150); a.set_ylim(55, 210); a.set_title(f"line set: {name} (bars: formal range)", fontsize=9)
+        a.set_xlabel("literature Teff (kK)"); a.legend(fontsize=7, loc="upper left")
+    ax[0].set_ylabel("fitted Teff (kK), grid 60-200 kK"); plt.tight_layout(); plt.savefig(out("hot_white_dwarfs", "controls.png"), dpi=90); plt.close()
+    M = H.models(); key = lambda m: (m["teff"], m["logg"], round(m["xhe"], 2))
+    best = {r.sdss_id: (float(r.teff_kK) * 1e3, float(r.logg), round(float(r.he_mass_fraction), 2), float(r.v_kms)) for _, r in t[t.line_set == "He only"].iterrows()}
+    stars = S[S.role == "target"].sdss_id.tolist() + ["102043792", "92431667"]
+    P = [("He II 4339 / H-gamma", 4270, 4410, None), ("He I 4472", 4452, 4492, (4472.7, 15)), ("He II 4542", 4515, 4570, (4542.8, 20)), ("He II 4686", 4640, 4735, (4687.0, 35)),
+         ("H-beta / He II 4859", 4780, 4945, None), ("He II 5412", 5375, 5450, (5413.0, 30)), ("He I 5876", 5850, 5905, (5877.3, 20)), ("H-alpha / He II 6560", 6490, 6640, None)]
+    fig, ax = plt.subplots(len(stars), len(P), figsize=(18, 1.7 * len(stars)))
+    for i, sid in enumerate(stars):
+        s = S[S.sdss_id == sid].iloc[0]; w, f, iv = H.spectrum(sid); te, lg, xh, v0 = best[sid]
+        m = [x for x in M if key(x) == (te, lg, xh)][0]; wn, fn = norm(w, f, iv)
+        for j, (n, lo, hi, win) in enumerate(P):
+            a = ax[i, j]; k = (wn > lo) & (wn < hi)
+            if win is None:
+                a.plot(wn[k], gaussian_filter1d(fn[k], 1), "k", lw=0.6)
+            else:
+                l, hw = win; sel = (np.abs(w - l) < hw) & (iv > 0) & np.isfinite(f)
+                mod = np.interp(np.log(w[sel] / (1 + v0 / C)), m["lg"], m["n"]); x = (w[sel] - l) / hw
+                cf, *_ = np.linalg.lstsq(np.vstack([mod, mod * x]).T * np.sqrt(iv[sel])[:, None], f[sel] * np.sqrt(iv[sel]), rcond=None); cont = cf[0] + cf[1] * x
+                a.plot(w[sel], gaussian_filter1d(f[sel] / cont, 1), "k", lw=0.6); a.plot(w[sel], mod, "r", lw=0.9)
+            a.set_ylim(*((0.72, 1.1) if win is None else (0.8, 1.08) if l == 4687.0 else (0.88, 1.06))); a.tick_params(labelsize=6); a.set_yticks([])
+            if i == 0:
+                a.set_title(n, fontsize=8)
+        tag = f"{te / 1e3:.0f} kK fit" if s.role == "target" else f"control, lit. {s.lit_teff_kK:.0f} kK"
+        ax[i, 0].set_ylabel(f"{s['name']}\nS/N {s.snr:.0f}, {tag}", fontsize=6)
+    plt.tight_layout(); plt.savefig(out("hot_white_dwarfs", "spectra.png"), dpi=80); plt.close()
+
+
 if __name__ == "__main__":
     import sys
     ALL = dict(zeeman=zeeman, carbon_optical=carbon_optical, carbon_screen_spectra=carbon_screen_spectra, carbon_cos=carbon_cos, galex=galex,
                eclipse=eclipse, balmer=balmer, zz=zz, periodic=periodic, periodic_white_dwarfs=periodic_white_dwarfs,
-               hot_dq_comparison=hot_dq_comparison, hot_dq_comparison_sdssv=lambda: hot_dq_comparison(extra=True), gas_discs=gas_discs, gas_discs_narrow=gas_discs_narrow, gas_discs_desi=gas_discs_desi, reflection=reflection)
+               hot_dq_comparison=hot_dq_comparison, hot_dq_comparison_sdssv=lambda: hot_dq_comparison(extra=True), gas_discs=gas_discs, gas_discs_narrow=gas_discs_narrow, gas_discs_desi=gas_discs_desi, reflection=reflection, hot_white_dwarfs=hot_white_dwarfs)
     for name in (sys.argv[1:] or ALL):
         ALL[name](); print(name, "done", flush=True)
