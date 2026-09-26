@@ -1,0 +1,4 @@
+gaia_dr3,sector,n,cadence_min,aperture_median_e_s,peak_cd,peak_fap,power_rank_at_frequency,frequency_cd,amplitude_aperture_frac,e_amplitude_aperture_frac,expected_target_e_s,amplitude_target_frac
+3890059941364406144,45,3179,10.0,70.3,16.487,6.7e-14,0,16.488695,0.0085,0.001,9.2,0.065
+3890059941364406144,46,3543,10.0,159.2,16.489,1.9e-08,0,16.488695,0.003,0.0004,9.2,0.052
+3890059941364406144,72,9679,3.3,212.9,16.49,5.1e-11,0,16.488695,0.0027,0.0003,9.2,0.063

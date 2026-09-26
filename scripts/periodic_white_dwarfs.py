@@ -3,12 +3,13 @@
 Ground-based light curves:
 - ATLAS forced photometry (data/atlas_forced_photometry_<gaia_dr3>.txt; positions propagated to 2020.5): cuts duJy > 0, err == 0,
   chi/N < 10, duJy < 3 x median; per-season median subtracted; 5-sigma clip; fractional flux relative to the Gaia synthetic SDSS
-  magnitudes (VizieR J/A+A/674/A33, white-dwarf table), c = (g + r)/2 and o = (r + i)/2 in flux.
+  magnitudes (VizieR J/A+A/674/A33, white-dwarf table), c = (g + r)/2 and o = (r + i)/2 in flux; where the star is not in that table,
+  the Gaia G flux is used for both bands.
 - ZTF DR light curves (data/ztf_<gaia_dr3>.csv; IRSA light-curve service, 2 arcsec): catflags == 0; each ZTF object/filter light curve
   converted to fractional flux about its median; light curves with fewer than 20 points dropped.
 Frequency: generalised Lomb-Scargle over 0.05-50 c/d (Baluev false-alarm probability of the highest peak), then a least-squares
 sinusoid with one offset per light curve on a fine grid; the uncertainty is the half-range where chi2 <= chi2_min + chi2_r.
-Amplitudes: sinusoid plus first harmonic at the adopted frequency.
+Amplitudes: sinusoid plus first harmonic at the adopted frequency; for ZTF also per filter (rows "ZTF zg", "ZTF zr").
 Gaia DR3 epoch photometry (VizieR I/355/epphot; data/gaia_dr3_epoch_photometry_<gaia_dr3>.csv): G transits without a rejection flag;
 TimeG + 2455197.5 used as BJD. TESS (where SPOC light curves exist): PDCSAP, QUALITY == 0, 5-sigma clip, highest peak over 0.2-50 c/d.
 t_max: first maximum of the fitted fundamental after T0 = BJD 2458000.0 at the adopted frequency.
@@ -23,13 +24,14 @@ import astropy.units as u
 D = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
 T0 = 2458000.0; GEO = EarthLocation.from_geocentric(0, 0, 0, unit="m")
 SRC = pd.read_csv(os.path.join(D, "periodic_white_dwarfs_sources.csv"), dtype={"gaia_dr3": str}).set_index("gaia_dr3")
-TESS = {"2883364038621038208": ("705345754", (87, 98)), "2888030331609338240": ("705508671", (98,)), "6639666736903611136": ("201655627", (27, 67, 94, 103, 104))}
+TESS = {"2883364038621038208": ("705345754", (87, 98)), "2888030331609338240": ("705508671", (98,)), "6639666736903611136": ("201655627", (27, 67, 94, 103, 104)),
+        "974895286283420160": ("407569944", (20, 47, 60)), "2795150147707769728": ("611449439", (57,))}
 fl = lambda m: 3631e6 * 10 ** (-0.4 * m)
 
 
 def load_atlas(gid):
     s = SRC.loc[gid]; c0 = SkyCoord(s.ra_deg * u.deg, s.dec_deg * u.deg)
-    ref = {"c": (fl(s.g_sdss_syn) + fl(s.r_sdss_syn)) / 2, "o": (fl(s.r_sdss_syn) + fl(s.i_sdss_syn)) / 2}
+    ref = {"c": (fl(s.g_sdss_syn) + fl(s.r_sdss_syn)) / 2, "o": (fl(s.r_sdss_syn) + fl(s.i_sdss_syn)) / 2} if np.isfinite(s.g_sdss_syn) else {"c": fl(s.G), "o": fl(s.G)}
     L = [l for l in open(os.path.join(D, f"atlas_forced_photometry_{gid}.txt")).read().splitlines() if l.strip()]
     hdr = L[0].lstrip("#").split(); R = [dict(zip(hdr, l.split())) for l in L[1:]]
     ok = [x for x in R if float(x["duJy"]) > 0 and float(x["err"]) == 0 and float(x["chi/N"]) < 10]; T, Y, E, G = [], [], [], []
@@ -119,6 +121,15 @@ def main():
         rows.append(dict(base, dataset=s.ground, n=len(t), bjd_first=round(t.min(), 3), bjd_last=round(t.max(), 3), peak_cd=round(F["gls_f"], 5), peak_fap=float(f"{F['gls_fap']:.2g}"),
                          amplitude_frac=round(r["amp1"], 4), e_amplitude_frac=round(r["e_amp1"], 4), harmonic2_frac=round(r["amp2"], 4), e_harmonic2_frac=round(r["e_amp2"], 4),
                          t_max_bjd=round(r["t_max"], 5), e_t_max_min=round(r["e_t_max"] * 1440, 1)))
+        if s.ground == "ZTF":
+            for band in ("zg", "zr"):
+                m = np.array([x.startswith(f"ZTF {band}") for x in g])
+                if m.sum() < 20:
+                    continue
+                rb = sinefit(t[m], y[m], e[m], f, g[m])
+                rows.append(dict(base, dataset=f"ZTF {band}", n=int(m.sum()), bjd_first=round(t[m].min(), 3), bjd_last=round(t[m].max(), 3), amplitude_frac=round(rb["amp1"], 4),
+                                 e_amplitude_frac=round(rb["e_amp1"], 4), harmonic2_frac=round(rb["amp2"], 4), e_harmonic2_frac=round(rb["e_amp2"], 4),
+                                 t_max_bjd=round(rb["t_max"], 5), e_t_max_min=round(rb["e_t_max"] * 1440, 1)))
         tg, yg, eg = load_gaia(gid); rg = sinefit(tg, yg, eg, f, harm=1)
         rows.append(dict(base, dataset="Gaia DR3 epoch photometry G", n=len(tg), bjd_first=round(tg.min(), 3), bjd_last=round(tg.max(), 3), peak_cd=round(s.gaia_gls_freq_cd, 5),
                          peak_fap=float(f"{s.gaia_gls_fap:.2g}"), amplitude_frac=round(rg["amp1"], 4), e_amplitude_frac=round(rg["e_amp1"], 4), t_max_bjd=round(rg["t_max"], 5),

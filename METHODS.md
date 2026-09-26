@@ -40,11 +40,26 @@
   - `t_max` is the first maximum of the fitted sinusoid after BJD_TDB 2458000.0, at the common frequency.
   - Existing classifications of the star: SIMBAD WD* (DA:), MWDD DA:, SDSS-V SnowWhite DZ (sdss_id 106653583).
 - **Photometric periods of white dwarfs with a Gaia DR3 GLS frequency.**
-  - Selection: Gaia DR3 `vari_spurious_signals` joined with `gaia_source`, parallax/error > 5, M_G > 4.5(BP-RP) + 9, BP-RP < 1.5, GLS false-alarm probability < 1e-5 (or < 1e-3 with M_G > 9.5), not in the period tables of Steen et al. (2024, ApJ 967, 166) or Jestin et al. (2026, A&A 712, A243), no VSX period. The table lists the stars whose frequency is recovered in an independent survey (`data/periodic_white_dwarfs_sources.csv`).
+  - Selection: Gaia DR3 `vari_spurious_signals` joined with `gaia_source`, parallax/error > 5, M_G > 4.5(BP-RP) + 9, BP-RP < 1.5.
+  - First set (seven stars): GLS false-alarm probability < 1e-5 (or < 1e-3 with M_G > 9.5), not in the period tables of Steen et al. (2024, ApJ 967, 166) or Jestin et al. (2026, A&A 712, A243), no VSX period.
+  - Second set (seven stars):
+    - GLS false-alarm probability < 5e-2, at least 20 Gaia G epochs, |spearman_corr_ipd| < 0.5, frequency more than 0.03 c/d from multiples of 4 c/d and from 12 − 1/63 c/d, and the Gaia frequency the highest peak in ZTF (Dec > −28°) or ATLAS.
+    - No period in Steen et al. (2024), Jestin et al. (2026), Ranaivomanana et al. (2025, A&A 693, A268; A&A 704, A70), Reindl et al. (2023, A&A 677, A29), Liu et al. (2024, MNRAS 533, 324), Chen et al. (2020, ApJS 249, 18) or VSX (checked 2026-09-26). Stars listed by Jestin et al. (2026) without a period are included.
+  - The table lists the stars whose frequency is recovered in an independent survey (`data/periodic_white_dwarfs_sources.csv`).
   - ATLAS as above; ZTF light curves from the IRSA light-curve service (catflags = 0), one offset per ZTF object and filter.
   - Frequency: generalised Lomb-Scargle over 0.05-50 c/d, refined by a sinusoid fit; uncertainty from chi2 ≤ chi2_min + chi2_r.
   - Amplitudes and `t_max` (first maximum after BJD_TDB 2458000.0) at that frequency for the ground-based data, Gaia DR3 G epoch photometry and TESS PDCSAP. Fractional ATLAS amplitudes use the Gaia synthetic SDSS magnitudes.
-  - Existing classifications of all seven: SIMBAD WD* with spectral type DA, MWDD DA, Gaia XP class DA (Vincent et al. 2024); two have SDSS-V DR20 spectra classified DA by SnowWhite (2883364038621038208, sdss_id 72169571; 2888030331609338240, sdss_id 72210484); none has an SDSS DR19 or LAMOST DR10 spectrum.
+  - Existing classifications of the first seven: SIMBAD WD* with spectral type DA, MWDD DA, Gaia XP class DA (Vincent et al. 2024); two have SDSS-V DR20 spectra classified DA by SnowWhite (2883364038621038208, sdss_id 72169571; 2888030331609338240, sdss_id 72210484); none has an SDSS DR19 or LAMOST DR10 spectrum.
+  - ZTF amplitudes are also given per filter (rows `ZTF zg`, `ZTF zr`). For a star without Gaia synthetic SDSS magnitudes (6136817910121524096), fractional ATLAS amplitudes use the Gaia G flux.
+- **Gaia DR3 3107374277060584064** (`reflection_3107374277060584064.py`).
+  - Light curves:
+    - CoRoT faint-star light curves (BAR, STATUS = 0; DATEBARTT + 2400000 = BJD) of CoRoT 102743730, runs IRa01, LRa01 and LRa06, with a 3-day running median subtracted;
+    - ZTF g and r of the star and of the 4.1″ neighbour (catflags = 0, magerr < 0.25);
+    - Gaia DR3 G epoch photometry.
+  - Adopted frequency: a joint fit of the CoRoT runs (30-min bins) and ZTF g and r, with a common frequency and phase and one amplitude and offset per data set, on a 2e-7 c/d grid.
+  - Per data set: the highest Lomb-Scargle peak (0.05-20 c/d) and a sinusoid plus first harmonic at the adopted frequency.
+  - SDSS-V visits (XCSAO shift removed for in-stack visits): Gaussian fits with a quadratic baseline to H-alpha and to the Ca II triplet (common velocity and width). The visit time is the mean of the TAI start and end.
+- **TESS full-frame images** (`tess_ffi_photometry.py`). TESScut 11 × 11 cutouts; 3 × 3-pixel aperture, per-cadence background from the pixels outside a 5 × 5 box, 1-day running median subtracted, 5σ clip. The amplitude at a given frequency is given as a fraction of the aperture flux, and scaled to the expected flux of the star (15,000 e/s at T = 10), which assumes the other flux in the aperture is constant.
 - **Balmer emission.** Equivalent widths are measured against sideband continua. Peak separations come from a two-Gaussian fit with equal widths.
 
 - **Hot DQ comparison figure.** SDSS-V coadd of the in-stack visits (XCSAO shift removed) of Gaia DR3 5208047381438507520 and of the DA Gaia DR3 2293913930823813888 (sdss_id 69198817), and the SDSS DR17 spectrum spec-7166-56602-0536 of SDSS J234843.30-094245.3; each smoothed with a 1.5-pixel Gaussian and scaled to its median flux at 4500-4600 Å.

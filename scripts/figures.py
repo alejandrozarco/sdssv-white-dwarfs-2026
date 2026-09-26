@@ -222,8 +222,17 @@ def periodic_white_dwarfs():
         m = [np.sum(y[(p >= lo) & (p < hi)] / e[(p >= lo) & (p < hi)] ** 2) / np.sum(1 / e[(p >= lo) & (p < hi)] ** 2) for lo, hi in zip(edges[:-1], edges[1:])]
         se = [1 / np.sqrt(np.sum(1 / e[(p >= lo) & (p < hi)] ** 2)) for lo, hi in zip(edges[:-1], edges[1:])]
         tg, yg, eg = PW.load_gaia(gid); pg = ((tg - t0) * f) % 1
+        sets = [(f"{s.ground} (20 bins)", np.ones(len(x), bool), "C0")] if s.ground == "ATLAS" else \
+               [(f"ZTF {b[1]} (20 bins)", np.array([q.startswith(f"ZTF {b}") for q in g]), col) for b, col in (("zg", "C2"), ("zr", "C3"))]
+        for lab, sel, col in sets:
+            if sel.sum() < 20:
+                continue
+            ps, ys, es = p[sel], y[sel], e[sel]; ok = [((ps >= lo) & (ps < hi)).any() for lo, hi in zip(edges[:-1], edges[1:])]
+            mb = [np.sum(ys[(ps >= lo) & (ps < hi)] / es[(ps >= lo) & (ps < hi)] ** 2) / np.sum(1 / es[(ps >= lo) & (ps < hi)] ** 2) if o else np.nan for (lo, hi), o in zip(zip(edges[:-1], edges[1:]), ok)]
+            sb = [1 / np.sqrt(np.sum(1 / es[(ps >= lo) & (ps < hi)] ** 2)) if o else np.nan for (lo, hi), o in zip(zip(edges[:-1], edges[1:]), ok)]
+            for k in (0, 1):
+                ax[1].errorbar(c + k, mb, sb, fmt="o", ms=3, color=col, label=lab if k == 0 else None)
         for k in (0, 1):
-            ax[1].errorbar(c + k, m, se, fmt="o", ms=3, color="C0", label=f"{s.ground} (20 bins)" if k == 0 else None)
             ax[1].errorbar(pg + k, yg, eg, fmt=".", ms=3, color="0.4", alpha=0.7, label="Gaia DR3 G" if k == 0 else None)
         ax[1].set_ylabel("fractional flux"); ax[1].legend(fontsize=7); ax[1].set_xlabel("phase (0 = t_max of the ground-based fit)")
         plt.tight_layout(); plt.savefig(out("periodic", f"{gid}.png"), dpi=90); plt.close()
@@ -362,10 +371,59 @@ def gas_discs_desi():
         plt.tight_layout(); plt.savefig(out("gas_discs", f"{g}_epochs.png"), dpi=90); plt.close()
 
 
+def reflection():
+    """Gaia DR3 3107374277060584064: light curves folded on the adopted frequency and emission-line velocities against phase (phase 0 =
+    maximum of the ZTF r fit); SDSS-V spectrum with H-beta, H-alpha and Ca II profiles per visit."""
+    import reflection_3107374277060584064 as R
+    t = pd.read_csv(f"{T}/reflection_{R.GID}.csv"); v = pd.read_csv(f"{T}/reflection_{R.GID}_visits.csv")
+    f = float(t.frequency_cd.iloc[0]); t0 = float(t[t.dataset == "ZTF zr"].t_max_bjd.iloc[0]); sets = R.datasets(); ph = lambda x: ((x - t0) * f) % 1
+    fig, ax = plt.subplots(1, 3, figsize=(15, 4))
+    e = np.linspace(0, 1, 41); c = (e[1:] + e[:-1]) / 2
+    for k, (lab, col) in enumerate((("IRa01", "C0"), ("LRa01", "C1"), ("LRa06", "C2"))):
+        x, y, _ = sets[f"CoRoT {lab} (CoRoT 102743730, blend)"]; p = ph(x); m = [np.median(y[(p >= a) & (p < b)]) for a, b in zip(e[:-1], e[1:])]
+        yr = {"IRa01": "2007", "LRa01": "2007-08", "LRa06": "2012"}[lab]
+        ax[0].plot(np.r_[c, c + 1], np.r_[m, m], "o-", ms=2, lw=0.8, color=col, label=f"CoRoT {lab} ({yr})")
+    ax[0].set_title("CoRoT 102743730 (blend with the G = 16.2 neighbour 4.1\" away), 40 bins", fontsize=8)
+    for band, col in (("ZTF zg", "C2"), ("ZTF zr", "C3")):
+        x, y, er = sets[band]; p = ph(x); ax[1].errorbar(np.r_[p, p + 1], np.r_[y, y], np.r_[er, er], fmt=".", ms=3, color=col, alpha=0.6, label=f"{band} (2018-2024)")
+    x, y, er = sets["Gaia DR3 epoch photometry G"]; p = ph(x); ax[1].errorbar(np.r_[p, p + 1], np.r_[y, y], np.r_[er, er], fmt="s", ms=3, mfc="none", color="k", label="Gaia DR3 G (2014-2017)")
+    ax[1].set_title(f"Gaia DR3 {R.GID}: P = {1 / f:.7f} d", fontsize=8)
+    xx = np.linspace(0, 2, 300)
+    for name, col, mk, lab in (("caii", "C0", "o", "Ca II triplet"), ("halpha", "C3", "s", "H-alpha")):
+        s_ = v[v[f"{name}_amp_snr"] > 5]; X = np.vstack([np.ones(len(s_)), -np.sin(2 * np.pi * s_.phase)]).T; w = 1 / s_[f"{name}_e_v_kms"].values
+        q = np.linalg.lstsq(X * w[:, None], s_[f"{name}_v_kms"].values * w, rcond=None)[0]
+        ax[2].errorbar(np.r_[s_.phase, s_.phase + 1], np.r_[s_[f"{name}_v_kms"], s_[f"{name}_v_kms"]], np.r_[s_[f"{name}_e_v_kms"], s_[f"{name}_e_v_kms"]], fmt=mk, color=col, label=f"{lab} emission")
+        ax[2].plot(xx, q[0] - q[1] * np.sin(2 * np.pi * xx), color=col, lw=0.7)
+    for p_ in v[v.caii_amp_snr <= 5].phase:
+        for k in (0, 1):
+            ax[2].axvline(p_ + k, color="0.5", ls=":", lw=0.8)
+    ax[2].set_ylabel("velocity (km/s)"); ax[2].set_title("SDSS-V emission velocities (dotted: visit without emission)", fontsize=8)
+    for a in ax:
+        a.set_xlabel("phase (0 = maximum light)"); a.legend(fontsize=7)
+    ax[0].set_ylabel("fractional flux"); ax[1].set_ylabel("fractional flux")
+    plt.tight_layout(); plt.savefig(out("periodic", f"{R.GID}_lightcurve.png"), dpi=90); plt.close()
+    vs = sorted(visits(R.SDSS_ID), key=lambda x: x["mjd"]); w, fl, iv = coadd(vs)[:3]; phase = dict(zip(v.mjd, v.phase))
+    fig = plt.figure(figsize=(14, 8)); a0 = fig.add_axes([0.05, 0.64, 0.92, 0.32]); ok = (iv > 0) & np.isfinite(fl)
+    a0.plot(w[ok], gaussian_filter1d(fl[ok], 2), "k", lw=0.6); a0.set_xlim(3800, 9200); a0.set_xlabel("vacuum wavelength (A)"); a0.set_ylabel("flux")
+    for l, n in ((4102.9, "Hd"), (4341.7, "Hg"), (4687.0, "He II"), (4862.7, "Hb"), (6564.6, "Ha"), (8544.4, "Ca II")):
+        a0.axvline(l, color="r", lw=0.4, alpha=0.6); a0.text(l, a0.get_ylim()[1] * 0.93, n, fontsize=7, rotation=90)
+    a0.set_title(f"SDSS-V DR20 coadd of {len(vs)} visits (sdss_id {R.SDSS_ID})", fontsize=9)
+    for j, (n, l) in enumerate((("He II 4686", 4687.0), ("H-beta", 4862.7), ("H-alpha", 6564.6), ("Ca II 8544", 8544.4), ("Ca II 8665", 8664.5))):
+        a = fig.add_axes([0.05 + j * 0.19, 0.07, 0.17, 0.47])
+        for k, x in enumerate(vs):
+            vel = (x["wave"] / l - 1) * C; m = (np.abs(vel) < 2000) & (x["ivar"] > 0)
+            if m.sum() < 20:
+                continue
+            y = x["flux"][m] / np.median(x["flux"][m]); a.plot(vel[m], gaussian_filter1d(y, 1.5) + 0.6 * k, lw=0.8, color=f"C{k}")
+            a.text(-1950, 1.18 + 0.6 * k, f"MJD {x['mjd']}, phase {phase[x['mjd']]:.2f}", fontsize=6, color=f"C{k}")
+        a.axvline(0, color="0.5", lw=0.4); a.set_title(n, fontsize=9); a.set_xlabel("km/s", fontsize=8); a.set_yticks([])
+    plt.savefig(out("periodic", f"{R.GID}_spectrum.png"), dpi=90); plt.close()
+
+
 if __name__ == "__main__":
     import sys
     ALL = dict(zeeman=zeeman, carbon_optical=carbon_optical, carbon_screen_spectra=carbon_screen_spectra, carbon_cos=carbon_cos, galex=galex,
                eclipse=eclipse, balmer=balmer, zz=zz, periodic=periodic, periodic_white_dwarfs=periodic_white_dwarfs,
-               hot_dq_comparison=hot_dq_comparison, hot_dq_comparison_sdssv=lambda: hot_dq_comparison(extra=True), gas_discs=gas_discs, gas_discs_narrow=gas_discs_narrow, gas_discs_desi=gas_discs_desi)
+               hot_dq_comparison=hot_dq_comparison, hot_dq_comparison_sdssv=lambda: hot_dq_comparison(extra=True), gas_discs=gas_discs, gas_discs_narrow=gas_discs_narrow, gas_discs_desi=gas_discs_desi, reflection=reflection)
     for name in (sys.argv[1:] or ALL):
         ALL[name](); print(name, "done", flush=True)

@@ -9,7 +9,7 @@ Measurements of white dwarfs from public SDSS-V DR20 spectra (Astra 0.8.1), with
 | Ca II triplet emission (gaseous discs) | [docs/gas_discs.md](docs/gas_discs.md) | `gas_disc_white_dwarfs.csv`, `gas_disc_epochs_*.csv`, `gas_disc_screen.csv`, `desi_gas_disc_screen.csv` | 6 |
 | Carbon lines | [docs/carbon.md](docs/carbon.md) | `carbon_white_dwarfs.csv`, `carbon_screen.csv`, `carbon_*_features.csv` | 9 |
 | Zeeman splitting | [docs/zeeman.md](docs/zeeman.md) | `magnetic_zeeman.csv` | 30 |
-| Photometric periods | [docs/periodic.md](docs/periodic.md) | `periodic_6021870154194477312.csv`, `periodic_white_dwarfs.csv` | 8 |
+| Photometric periods | [docs/periodic.md](docs/periodic.md) | `periodic_6021870154194477312.csv`, `periodic_white_dwarfs.csv`, `reflection_3107374277060584064*.csv`, `tess_ffi_*.csv` | 16 |
 | TESS amplitude spectra | [docs/zz_ceti.md](docs/zz_ceti.md) | `zz_ceti_objects.csv`, `zz_ceti_tess_sectors.csv` | 5 |
 | Eclipse and Balmer emission | [docs/eclipse_and_emission.md](docs/eclipse_and_emission.md) | `eclipsing_4731701084150029824.csv`, `balmer_emission.csv` | 3 |
 
@@ -27,6 +27,8 @@ Measurements of white dwarfs from public SDSS-V DR20 spectra (Astra 0.8.1), with
 | Five further SDSS-V white dwarfs | C I and/or C II lines; catalogued DA, DB, DC: or unclassified | [carbon](docs/carbon.md) |
 | Gaia DR3 1980205739970324224 | Zeeman-split H-alpha and H-beta (5.6 MG); listed as a ZZ Ceti (P = 1286 s) in Vincent et al. 2020 | [Zeeman](docs/zeeman.md) |
 | Gaia DR3 6021870154194477312 | 103.4-min period in ATLAS, Gaia DR3 and TESS | [periods](docs/periodic.md) |
+| Gaia DR3 3107374277060584064 | P = 14.229 h in CoRoT (2007-2012), Gaia DR3 and ZTF, larger in r than g; H-alpha, H-beta and Ca II emission whose velocity follows the photometric phase | [periods](docs/periodic.md) |
+| Gaia DR3 3890059941364406144 (SDSS J102251.62+161151.6) | 87.3-min period in Gaia DR3, ZTF and TESS; semi-amplitude 1.8% (g), 4.6% (r) | [periods](docs/periodic.md) |
 | Gaia DR3 4731701084150029824 | Eclipses with P = 3.549 h in ATLAS | [eclipse](docs/eclipse_and_emission.md) |
 
 <img src="figures/gas_discs/578709631539357440_epochs.png" width="720">
@@ -69,6 +71,8 @@ python cv_balmer.py 65701864
 python periodic_6021870154194477312.py
 python tess_periodogram.py 1251484163 65 120 0.5 50
 python periodic_white_dwarfs.py
+python reflection_3107374277060584064.py
+python tess_ffi_photometry.py 3890059941364406144 155.7148994 16.1977169 16.488695 18.034 45 46 72
 python gas_disc_screen.py --sample   # about 51,000 visit files, downloaded and deleted one by one; keeps about 1.5 GB
 python gas_disc_screen.py --pass2 ../data/cache/gas_disc_pass2.csv
 python gas_disc_screen.py --table ../data/cache/gas_disc_pass2.csv
@@ -92,4 +96,4 @@ python figures.py            # all figures; or name one, e.g. python figures.py 
 Arguments for the other TESS light curves and pixel tests are in the table columns (TIC, sector, cadence, frequency).
 
 ## Data sources
-SDSS-V DR20 and SDSS DR17 (including BOSS); DESI DR1 via SPARCL (NOIRLab Astro Data Lab) and the DESI DR1 white-dwarf catalogues (Swan et al. 2026; Amorim et al. 2026); ESO X-shooter phase 3 spectra (programme 115.28GM.001); Legacy Surveys DR10 (Astro Data Lab); Gaia DR3 (ESA/Gaia/DPAC), including epoch photometry (VizieR I/355/epphot), the Gaia Synthetic Photometry Catalogue (VizieR J/A+A/674/A33) and Gentile Fusillo et al. (2021, VizieR J/MNRAS/508/3877); TESS SPOC and HST/COS program 17420 (MAST); GALEX GUVcat AIS (Bianchi et al. 2017), GALEX GR6/7 (MAST) and the GALEX CAUSE Kepler catalogue (Olmedo et al. 2015); LAMOST DR10; ATLAS forced photometry (Tonry et al. 2018; Shingles et al. 2021); ZTF public data releases (IRSA); NIST Atomic Spectra Database; Montreal White Dwarf Database; SIMBAD.
+SDSS-V DR20 and SDSS DR17 (including BOSS); DESI DR1 via SPARCL (NOIRLab Astro Data Lab) and the DESI DR1 white-dwarf catalogues (Swan et al. 2026; Amorim et al. 2026); ESO X-shooter phase 3 spectra (programme 115.28GM.001); Legacy Surveys DR10 (Astro Data Lab); Gaia DR3 (ESA/Gaia/DPAC), including epoch photometry (VizieR I/355/epphot), the Gaia Synthetic Photometry Catalogue (VizieR J/A+A/674/A33) and Gentile Fusillo et al. (2021, VizieR J/MNRAS/508/3877); TESS SPOC light curves and full-frame images (TESScut), and HST/COS program 17420 (MAST); CoRoT faint-star light curves (CDS, B/corot); GALEX GUVcat AIS (Bianchi et al. 2017), GALEX GR6/7 (MAST) and the GALEX CAUSE Kepler catalogue (Olmedo et al. 2015); LAMOST DR10; ATLAS forced photometry (Tonry et al. 2018; Shingles et al. 2021); ZTF public data releases (IRSA); NIST Atomic Spectra Database; Montreal White Dwarf Database; SIMBAD.
