@@ -24,6 +24,7 @@ G = 17.27, parallax 1.82 ± 0.09 mas, BP−RP = −0.35. Existing classification
 - **Amplitude.** The semi-amplitude is 11.6% in ZTF r, 3.9% in ZTF g and 10.2% in Gaia G.
 - **CoRoT and the neighbour.** The CoRoT light curves belong to CoRoT 102743730, the G = 16.17 star Gaia DR3 3107374272762041856 4.1″ away, whose photometric mask includes this star. In ZTF that star shows no signal at this frequency (semi-amplitude 0.8% g, 0.4% r, within 1.2σ and 1.6σ of zero).
 - **Eclipses.** None are seen in the CoRoT folds.
+- **Earlier listing.** Ferreira Lopes et al. (2025) list CoRoT 102743730 with P = 0.592812 d (class BCEP/other).
 - **SDSS-V spectrum** (four visits, 2021).
   - A blue continuum with He II 4686 Å absorption and weak Balmer absorption.
   - H-alpha, H-beta and Ca II triplet emission in three visits (`tables/reflection_3107374277060584064_visits.csv`). The emission velocities are +242, −166 and +152 km/s (H-alpha) and +202, −73 and +147 km/s (Ca II) at phases 0.67, 0.23 and 0.90 from maximum light.
@@ -81,7 +82,7 @@ SDSS-V coadd and the line profiles of each visit:
 
 <img src="../figures/periodic/3890059941364406144.png" width="700">
 
-**Gaia DR3 974895286283420160** (WDJ072009.19+464840.48): P = 19.14313 h. DA at 51 pc. The same frequency is the highest peak in TESS sectors 20, 47 and 60 (1.3%). Oliveira da Rosa et al. (2024) list a TESS period of 19.185 ± 0.014 h (TIC 407569944).
+**Gaia DR3 974895286283420160** (WDJ072009.19+464840.48): P = 19.14313 h. DA at 51 pc. The same frequency is the highest peak in TESS sectors 20, 47 and 60 (1.3%). Oliveira da Rosa et al. (2024) list a TESS period of 19.185 ± 0.014 h (TIC 407569944), and Wang et al. (2025) list 0.79774 d.
 
 <img src="../figures/periodic/974895286283420160.png" width="700">
 

@@ -26,6 +26,7 @@
 - **Period:** P = 97.703 min in ZTF, Gaia DR3 and TESS (sectors 55 and 81, 120 s). The nearest alias has Δχ² = 4918.
 - **Existing classifications:**
   - VSX and Chen et al. (2020) list type DSCT with P = 0.0678498 d.
+  - Wang et al. (2025) list P = 0.06785 d (TESS).
   - DESI DR1: DAe (Amorim et al. 2026) and WD+MS (Swan et al. 2026).
   - Kilic et al. (2026): DA, 18.4 kK, log g 7.26.
 - **DESI DR1 spectrum** (one 494-s exposure, tile 20836, petal 8, MJD 59358.46):
@@ -41,7 +42,7 @@
 - **Period:** P = 130.182 min in ZTF, Gaia DR3 and TESS (sectors 76, 77, 83 and 84, 120 s). The nearest alias has Δχ² = 4206.
 - **Existing classifications:**
   - VSX and Chen et al. (2020) list type DSCT with P = 0.0904050 d.
-  - Jestin et al. (2026) list it as periodic.
+  - Jestin et al. (2026) list it as periodic; the period is also in Ranaivomanana et al. (2025).
 - **Spectra:** none found in SDSS, DESI DR1, SDSS-V DR20 or LAMOST DR11.
 
 <img src="../figures/irradiated_companions/2191618770599895296.png" width="800">
@@ -58,7 +59,7 @@
 
 ## WDJ040444.35−395043.1 (Gaia DR3 4844023064578952320)
 - **Period:** P = 117.319 min in Gaia DR3 and TESS full-frame images (sectors 106 and 107). The nearest alias has Δχ² = 1366.
-- **Existing classifications:** VSX lists type WD with the Gaia period (0.0814713 d).
+- **Existing classifications:** VSX lists type WD with the Gaia period (0.0814713 d); the period is also in Ranaivomanana et al. (2025).
 - **Spectrum:** SDSS-V DR20 has one visit (S/N 14), classified DA by SnowWhite (sdss_id 93071386).
 
 <img src="../figures/irradiated_companions/4844023064578952320.png" width="800">
@@ -66,7 +67,7 @@
 ## WDJ194901.41+673005.59 (Gaia DR3 2249098833310553728)
 - **Period:** P = 63.680 min in Gaia DR3 (2014-2017) and TESS (sectors 56, 58-60, 73-78 and 81-83, 120 s, 2022-2024), folded on one ephemeris. The nearest alias has Δχ² = 8986.
 - **TESS amplitudes:** 27-51% per sector (114% in sector 76) after the SPOC crowding correction; they depend on that correction.
-- **Existing classifications:** VSX lists Gaia DR3 type VAR with P = 0.0442223 d; the period is also in Ranaivomanana et al. (2025).
+- **Existing classifications:** VSX lists Gaia DR3 type VAR with P = 0.0442223 d; the period is also in Ranaivomanana et al. (2025) and Wang et al. (2025, TESS, P = 0.04422 d).
 - **Infrared:** the CatWISE, unWISE and AllWISE source 3.4-3.7″ away coincides with a red Pan-STARRS source 3.7″ from the white dwarf (i = 20.4, not in Gaia DR3). There is no infrared measurement of the white dwarf.
 - **Spectra:** none found in SDSS, DESI DR1, SDSS-V DR20 or LAMOST DR11.
 
