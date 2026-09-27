@@ -13,7 +13,7 @@ Measurements of white dwarfs from public SDSS-V DR20 spectra (Astra 0.8.1), with
 | TESS amplitude spectra | [docs/zz_ceti.md](docs/zz_ceti.md) | `zz_ceti_objects.csv`, `zz_ceti_tess_sectors.csv` | 5 |
 | Eclipse and Balmer emission | [docs/eclipse_and_emission.md](docs/eclipse_and_emission.md) | `eclipsing_4731701084150029824.csv`, `balmer_emission.csv` | 3 |
 | Hot white dwarfs with He II lines | [docs/hot_white_dwarfs.md](docs/hot_white_dwarfs.md) | `hot_white_dwarfs.csv` | 6 |
-| Short-period white dwarfs with irradiated companions | [docs/irradiated_companions.md](docs/irradiated_companions.md) | `irradiated_companions.csv`, `irradiated_companions_periods.csv`, `desi_halpha_6914922055508553984.csv` | 4 |
+| Short-period white dwarfs with irradiated companions | [docs/irradiated_companions.md](docs/irradiated_companions.md) | `irradiated_companions.csv`, `irradiated_companions_periods.csv`, `desi_halpha_6914922055508553984.csv` | 5 |
 
 ## Selected objects
 
@@ -34,6 +34,7 @@ Measurements of white dwarfs from public SDSS-V DR20 spectra (Astra 0.8.1), with
 | Gaia DR3 4731701084150029824 | Eclipses with P = 3.549 h in ATLAS | [eclipse](docs/eclipse_and_emission.md) |
 | WDJ205249.27−032419.53 (Gaia DR3 6914922055508553984) | 97.70-min period in ZTF, Gaia DR3 and TESS, semi-amplitude 2.9% (g), 7.0% (r), 10% (TESS); W1 and W2 3.7 and 4.4 times the white-dwarf model; DESI DR1 H-alpha emission at +189 km/s; listed as DSCT in VSX | [irradiated companions](docs/irradiated_companions.md) |
 | WDJ212738.67+593755.72, WDJ070106.16−534811.37, WDJ040444.35−395043.1 (Gaia DR3 2191618770599895296, 5503429908930455808, 4844023064578952320) | Periods of 130.2, 81.5 and 117.3 min in Gaia DR3 and TESS (and ZTF), larger in red than blue; W1 excess | [irradiated companions](docs/irradiated_companions.md) |
+| WDJ194901.41+673005.59 (Gaia DR3 2249098833310553728) | 63.68-min period in Gaia DR3 and TESS (13 sectors); semi-amplitude 16% (G), 27% (RP) | [irradiated companions](docs/irradiated_companions.md) |
 | Six SDSS-V white dwarfs, e.g. GALEX J055029.7−155446 (Gaia DR3 2995107164834343680) | He II 4686 and Balmer absorption (DAO), Teff about 90-110 kK from TMAP H+He model fits; no earlier spectrum found | [hot white dwarfs](docs/hot_white_dwarfs.md) |
 
 <img src="figures/gas_discs/578709631539357440_epochs.png" width="720">

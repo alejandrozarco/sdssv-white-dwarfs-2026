@@ -1,8 +1,6 @@
 # Short-period white dwarfs with irradiated companions
 
-`tables/irradiated_companions.csv` lists four white dwarfs with photometric periods of 81-130 min. In each:
-- the amplitude is larger in red than in blue light;
-- the WISE photometry (and VISTA photometry, where available) exceeds the white-dwarf prediction.
+`tables/irradiated_companions.csv` lists five white dwarfs with photometric periods of 64-130 min. In each, the amplitude is larger in red than in blue light. For four of them the WISE photometry (and VISTA photometry, where available) exceeds the white-dwarf prediction; WDJ194901.41+673005.59 has no infrared measurement.
 
 `tables/irradiated_companions_periods.csv` gives the highest periodogram peak and the semi-amplitude at the adopted period for each data set. `tables/desi_halpha_6914922055508553984.csv` gives the H-alpha emission fit of WDJ205249.27−032419.53. The method is in [METHODS.md](../METHODS.md#methods).
 
@@ -12,6 +10,7 @@
 | WDJ212738.67+593755.72 | 2191618770599895296 | 16.87 | 241 | 13.8 kK, 0.26 Msun | 130.182 | ZTF g 1.5%, r 4.2%; TESS 6.1-8.7% | 3.6, 3.5 | 9.28 |
 | WDJ070106.16−534811.37 | 5503429908930455808 | 18.43 | 602 | 16.2 kK, 0.26 Msun | 81.493 | Gaia G 8.8%, BP 6.6 ± 2.5%, RP 14 ± 5% | 2.2, 2.1 | 9.82 |
 | WDJ040444.35−395043.1 | 4844023064578952320 | 17.66 | 632 | 20.6 kK, 0.24 Msun | 117.319 | Gaia G 9.8%, BP 3.9 ± 1.9%, RP 22 ± 3% | 2.0, 1.3 | 9.33 |
+| WDJ194901.41+673005.59 | 2249098833310553728 | 18.03 | 739 | 16.8 kK, 0.14 Msun | 63.680 | Gaia G 15.6%, BP 16 ± 3%, RP 27 ± 3%; TESS 27-51% | – | – |
 
 - **Temperatures and masses:** Gentile Fusillo et al. (2021) H-atmosphere fits to Gaia photometry.
 - **Distance:** 1/parallax.
@@ -61,3 +60,12 @@
 - **Spectrum:** SDSS-V DR20 has one visit (S/N 14), classified DA by SnowWhite (sdss_id 93071386).
 
 <img src="../figures/irradiated_companions/4844023064578952320.png" width="800">
+
+## WDJ194901.41+673005.59 (Gaia DR3 2249098833310553728)
+- **Period:** P = 63.680 min in Gaia DR3 (2014-2017) and TESS (sectors 56, 58-60, 73-78 and 81-83, 120 s, 2022-2024), folded on one ephemeris. The nearest alias has Δχ² = 8986.
+- **TESS amplitudes:** 27-51% per sector (114% in sector 76) after the SPOC crowding correction; they depend on that correction.
+- **Existing classifications:** VSX lists Gaia DR3 type VAR with P = 0.0442223 d; the period is also in Ranaivomanana et al. (2025).
+- **Infrared:** the CatWISE, unWISE and AllWISE source 3.4-3.7″ away coincides with a red Pan-STARRS source 3.7″ from the white dwarf (i = 20.4, not in Gaia DR3). There is no infrared measurement of the white dwarf.
+- **Spectra:** none found in SDSS, DESI DR1, SDSS-V DR20 or LAMOST DR11.
+
+<img src="../figures/irradiated_companions/2249098833310553728.png" width="800">
