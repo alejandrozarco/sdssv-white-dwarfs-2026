@@ -113,7 +113,7 @@ for _, r in d.iterrows():
     obs = (f"P = {r.period_min} min; red-to-blue semi-amplitude ratio {r.red_to_blue_amplitude}; "
            f"W1 {r.W1_ratio}x the white-dwarf model (companion M_W1 = {r.M_W1_companion})")
     add(r.gaia_dr3, r["name"], Entry("irradiated_companions", "Short-period white dwarfs with irradiated companions",
-        "irradiated_companions.md", desc, obs, f"P = {r.period_min} min; W1 {r.W1_ratio}x model",
+        "irradiated_companions.md", desc, obs, f"P = {r.period_min} min; **W1 {r.W1_ratio}x model**",
         ["irradiated_companions.csv", "irradiated_companions_periods.csv"], None, ["irradiated_companions.py"], None))
 
 # Gaseous discs.
@@ -244,13 +244,18 @@ MARK = {
     "974895286283420160": 1, "1157401396015448960": 1, "920621124593362816": 1,
 }
 
+NOBOLD = {"974895286283420160", "1157401396015448960", "920621124593362816"}
+
 idx = []
 for topic in ORDER:
     rows = [(o["name"] or f"Gaia DR3 {g}", g, e) for g, o in objects.items() for e in o["entries"] if e.topic == topic]
     if not rows: continue
     idx += [f"### {TITLES[topic]} ({len(rows)})", "", "| object | description | measurement |", "|---|---|---|"]
     for name, g, e in rows:
-        idx.append(f"| [{name}](docs/objects/{g}.md){' ' + '★' * MARK[g] if MARK.get(g) else ''} | {e.desc} | {e.short} |")
+        m = MARK.get(g, 0)
+        marks = " " + "\\*" * m if m else ""
+        s = e.short if g in NOBOLD or "**" in e.short else f"**{e.short}**"
+        idx.append(f"| [{name}](docs/objects/{g}.md){marks} | {e.desc} | {s} |")
     idx.append("")
 p = os.path.join(R, "README.md"); t = open(p).read()
 a, b = "<!-- object-index:start -->", "<!-- object-index:end -->"
