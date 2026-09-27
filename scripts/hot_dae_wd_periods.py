@@ -11,7 +11,9 @@ Light curves:
   G transits without a rejection flag; TimeG + 2455197.5 used as BJD. The other stars are not in the published epoch-photometry table.
 Frequency: generalised Lomb-Scargle over 0.5-50 c/d (Baluev false-alarm probability of the highest peak); frequencies within
 0.03 c/d of 1, 2 and 3 c/d are excluded (1-day aliases); then a least-squares sinusoid with one offset per light curve on a fine
-grid; the uncertainty is the half-range where chi2 <= chi2_min + chi2_r.
+grid; the uncertainty is the half-range where chi2 <= chi2_min + chi2_r, floored at 1/20 of the frequency resolution 1/T. Where data/hot_dae_wd_periods_sources.csv gives adopt_frequency_cd
+(with adopt_reference), the fine-grid refinement is run around that frequency instead of the highest masked peak, which is still
+reported as peak_cd/peak_fap; used when the true period lies inside an excluded band and is established by other data.
 Amplitudes: sinusoid plus first harmonic at the adopted frequency, overall and per ZTF filter (rows "ZTF zg", "ZTF zr").
 t_max: first maximum of the fitted fundamental after BJD_TDB 2458000.0 at the adopted frequency.
 Usage: python hot_dae_wd_periods.py (writes ../tables/hot_wd_periods.csv and ../tables/dae_wd_periods.csv)."""
@@ -82,24 +84,25 @@ def sinefit(t, y, e, f, groups=None, harm=2):
     return res
 
 
-def adopted_frequency(t, y, e, g):
+def adopted_frequency(t, y, e, g, f0=None):
     fr = np.arange(0.5, 50, 0.2 / (t.max() - t.min())); ls = LombScargle(t, y, e); P = ls.power(fr)
     mask = np.ones_like(fr, bool)
     for n in (1, 2, 3):
         mask &= np.abs(fr - n) > 0.03
     k = int(np.argmax(np.where(mask, P, 0)))
     fap = float(ls.false_alarm_probability(P[k], minimum_frequency=0.5, maximum_frequency=50, method="baluev"))
-    step = 1 / (t.max() - t.min()); fg = np.arange(fr[k] - 2 * step, fr[k] + 2 * step, step / 200)
+    fc = fr[k] if f0 is None or not np.isfinite(f0) else f0
+    step = 1 / (t.max() - t.min()); fg = np.arange(fc - 2 * step, fc + 2 * step, step / 200)
     chi = np.array([sinefit(t, y, e, f, g, harm=1)["chi2"] for f in fg]); j = int(np.argmin(chi))
     s2 = chi[j] / (len(t) - len(np.unique(g)) - 2); inside = fg[chi <= chi[j] + s2]
-    return dict(f=float(fg[j]), e_f=float((inside.max() - inside.min()) / 2), gls_f=float(fr[k]), gls_fap=fap)
+    return dict(f=float(fg[j]), e_f=float(max((inside.max() - inside.min()) / 2, step / 20)), gls_f=float(fr[k]), gls_fap=fap)  # floor: 1/20 of the frequency resolution
 
 
 def main():
     out = {"hot": [], "dae": []}
     for gid, s in SRC.iterrows():
         t, y, e, g = load_atlas(gid) if s.ground == "ATLAS" else load_ztf(gid)
-        F = adopted_frequency(t, y, e, g); f = F["f"]; r = sinefit(t, y, e, f, g)
+        F = adopted_frequency(t, y, e, g, float(s.get("adopt_frequency_cd", np.nan))); f = F["f"]; r = sinefit(t, y, e, f, g)
         base = dict(gaia_dr3=gid, name=s["name"], frequency_cd=round(f, 7), e_frequency_cd=round(F["e_f"], 7), period_h=round(24 / f, 5), e_period_h=round(24 * F["e_f"] / f ** 2, 5))
         rows = [dict(base, dataset=s.ground, n=len(t), bjd_first=round(t.min(), 3), bjd_last=round(t.max(), 3), peak_cd=round(F["gls_f"], 5), peak_fap=float(f"{F['gls_fap']:.2g}"),
                      amplitude_frac=round(r["amp1"], 4), e_amplitude_frac=round(r["e_amp1"], 4), harmonic2_frac=round(r["amp2"], 4), e_harmonic2_frac=round(r["e_amp2"], 4),

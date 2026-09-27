@@ -163,7 +163,7 @@ One page per object with the measurement and its supporting data (tables, input 
 
 | object | description | measurement |
 |---|---|---|
-| [WDJ172406.13+562003.08](docs/objects/1420761029600606592.md) \*\*\* | DESI DR1 class DAe; GF21 15.0 kK, 0.11 Msun; W1, W2 excess 1.8, 1.9 mag. G = 16.26, 403 pc. | **P = 5.99166 h, 5.8% (ZTF)** |
+| [WDJ172406.13+562003.08](docs/objects/1420761029600606592.md) \*\*\* | DESI DR1 class DAe; GF21 15.0 kK, 0.11 Msun; W1, W2 excess 1.8, 1.9 mag. G = 16.26, 403 pc. SDSS J1724+5620, post-common-envelope binary with the orbital period published by Rebassa-Mansergas et al. (2008). | P = 7.99238 h, 6.5% (ZTF) |
 | [WDJ170125.28+343530.59](docs/objects/1337970174853051392.md) \*\*\* | DESI DR1 class DAE; GF21 12.1 kK, 0.17 Msun; W1, W2 excess 2.0, 1.7 mag. G = 18.94, 741 pc. | **P = 2.73751 h, 3.9% (ZTF)** |
 | [WDJ161752.97+015840.92](docs/objects/4409006786607484672.md) \*\*\* | DESI DR1 class DAE; GF21 22.4 kK, 0.24 Msun; W1, W2 excess 2.1, 2.6 mag. G = 18.95, 1233 pc. | **P = 2.04723 h, 5.7% (ZTF)** |
 | [WDJ132308.63+055900.97](docs/objects/3717349170269867520.md) \*\*\* | DESI DR1 class DAe; GF21 22.8 kK, 0.34 Msun; W1, W2 excess 1.9, 2.0 mag. G = 18.99, 955 pc. | **P = 2.68284 h, 7.4% (ZTF)** |

@@ -52,7 +52,7 @@ DESC = {
     "1415911839725510528": "Spectral type DA, 68.0 kK (Kilic et al. 2026, via the MWDD). G = 17.59, 833 pc.",
     "2311285729210966144": "GALEX J234931.8-353916; SDSS-V DR20 SnowWhite class DA. G = 17.88, 882 pc.",
     "3365371721281530880": "No spectrum found. G = 18.10, 1100 pc.",
-    "1420761029600606592": "DESI DR1 class DAe; GF21 15.0 kK, 0.11 Msun; W1, W2 excess 1.8, 1.9 mag. G = 16.26, 403 pc.",
+    "1420761029600606592": "DESI DR1 class DAe; GF21 15.0 kK, 0.11 Msun; W1, W2 excess 1.8, 1.9 mag. G = 16.26, 403 pc. SDSS J1724+5620, post-common-envelope binary with the orbital period published by Rebassa-Mansergas et al. (2008).",
     "1337970174853051392": "DESI DR1 class DAE; GF21 12.1 kK, 0.17 Msun; W1, W2 excess 2.0, 1.7 mag. G = 18.94, 741 pc.",
     "4409006786607484672": "DESI DR1 class DAE; GF21 22.4 kK, 0.24 Msun; W1, W2 excess 2.1, 2.6 mag. G = 18.95, 1233 pc.",
     "3717349170269867520": "DESI DR1 class DAe; GF21 22.8 kK, 0.34 Msun; W1, W2 excess 1.9, 2.0 mag. G = 18.99, 955 pc.",
@@ -252,7 +252,7 @@ MARK = {
     "974895286283420160": 1, "1157401396015448960": 1, "920621124593362816": 1,
 }
 
-NOBOLD = {"974895286283420160", "1157401396015448960", "920621124593362816"}
+NOBOLD = {"974895286283420160", "1157401396015448960", "920621124593362816", "1420761029600606592"}
 
 idx = []
 for topic in ORDER:
