@@ -34,7 +34,10 @@ for sp, L in LINES.items():
 
 def on_grid(v):
     ok = (v["ivar"] > 0) & np.isfinite(v["flux"])
-    return np.interp(GRID, v["wave"][ok], v["flux"][ok], left=np.nan, right=np.nan), np.interp(GRID, v["wave"][ok], v["ivar"][ok], left=0, right=0)
+    f = np.interp(GRID, v["wave"][ok], v["flux"][ok], left=np.nan, right=np.nan)
+    iv = np.interp(GRID, v["wave"][ok], v["ivar"][ok], left=0, right=0)
+    valid = np.interp(GRID, v["wave"], ok.astype(float), left=0, right=0)
+    return np.where(valid >= 1, f, np.nan), np.where(valid >= 1, iv, 0)
 
 
 def prep(f, iv):

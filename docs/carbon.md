@@ -3,7 +3,7 @@
 Tables:
 - `carbon_white_dwarfs.csv`: nine SDSS-V white dwarfs with line cross-correlation contrasts (C II, C I, H I, He I), screen contrasts, GALEX photometry and existing classifications;
 - `carbon_screen.csv`: the carbon screen results for 34 white dwarfs (below);
-- `carbon_5208047381438507520_optical_CII_features.csv`, `carbon_6886051830805052288_optical_CII_features.csv`: Gaussian fits to optical C II lines;
+- `carbon_5208047381438507520_optical_CII_features.csv`, `carbon_6886051830805052288_optical_CII_features.csv`: Gaussian fits to optical C II lines, with the SDSS pixel-quality bits (SPPIXMASK) found within 5 Å of each fitted centre. For Gaia DR3 5208047381438507520 the 5893 Å feature carries BADSKYCHI and the 6787 and 7240 Å features BADFLUXFACTOR, so their depth/error ratios are formal only; the five blue features (3923-4622 Å) carry no flags. For Gaia DR3 6886051830805052288 every feature carries PARTIALREJECT from the visit combination;
 - `carbon_5208047381438507520_cos_features.csv`: HST/COS G130M equivalent widths.
 
 Methods are in [METHODS.md](../METHODS.md#methods).

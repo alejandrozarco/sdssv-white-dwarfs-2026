@@ -81,18 +81,26 @@ def carbon_cos():
     p = Observations.get_product_list(Observations.query_criteria(obs_id="lfac0z010")); p = p[[x == "lfac0z010_x1dsum.fits" for x in p["productFilename"]]]
     d = fits.open(Observations.download_products(p, download_dir="../data/cache")["Local Path"][0])[1].data
     W = np.concatenate([r["WAVELENGTH"] for r in d]); Fl = np.concatenate([r["FLUX"] for r in d]); Q = np.concatenate([r["DQ_WGT"] for r in d]); o = np.argsort(W)
-    W, Fl, Q = W[o], Fl[o], Q[o]; W, Fl = W[Q > 0], Fl[Q > 0]
+    W, Fl, Q = W[o], Fl[o], Q[o]; Fl = np.where(Q > 0, Fl, np.nan)  # rejected pixels stay as gaps in the plot
+
+    def smooth_segments(y, n=7):
+        out_ = np.full_like(y, np.nan); idx = np.where(np.isfinite(y))[0]
+        if len(idx) == 0:
+            return out_
+        for seg in np.split(idx, np.where(np.diff(idx) > 1)[0] + 1):
+            k = min(n, len(seg)); out_[seg] = np.convolve(y[seg], np.ones(k) / k, mode="same")
+        return out_
     lines = {"C III": [1174.93, 1175.26, 1175.59, 1175.71, 1175.99, 1176.37, 1247.38], "C II": [1323.95, 1334.53, 1335.71], "Si II": [1260.42, 1264.74],
              "Si IV": [1393.76, 1402.77], "Ly-alpha": [1215.67], "O I (airglow)": [1302.17, 1304.86, 1306.03]}
     cols = {"C III": "m", "C II": "r", "Si II": "g", "Si IV": "g", "Ly-alpha": "b", "O I (airglow)": "0.5"}
     fig, ax = plt.subplots(2, 1, figsize=(15, 7))
     for a, (lo, hi) in zip(ax, [(1130, 1285), (1285, 1432)]):
-        s = (W > lo) & (W < hi); a.plot(W[s], np.convolve(Fl[s], np.ones(7) / 7, mode="same"), "k", lw=0.6)
+        s = (W > lo) & (W < hi); a.plot(W[s], smooth_segments(Fl[s]), "k", lw=0.6)
         for nm, ls in lines.items():
             for l in ls:
                 if lo < l < hi:
                     a.axvline(l, color=cols[nm], lw=0.7, alpha=0.7)
-        a.set_xlim(lo, hi); a.set_ylim(0, np.percentile(Fl[s], 99.5) * 1.1); a.set_ylabel("flux (erg/s/cm2/A)")
+        a.set_xlim(lo, hi); a.set_ylim(0, np.nanpercentile(Fl[s], 99.5) * 1.1); a.set_ylabel("flux (erg/s/cm2/A)")
     ax[0].set_title("HST/COS G130M lfac0z010, Gaia DR3 5208047381438507520; magenta C III, red C II, green Si II/IV, blue Ly-alpha, grey O I airglow", fontsize=8)
     ax[1].set_xlabel("wavelength (A)"); plt.tight_layout(); plt.savefig(out("carbon", "5208047381438507520_cos.png"), dpi=90); plt.close()
 

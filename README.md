@@ -37,15 +37,15 @@ One page per object with the measurement and its supporting data (tables, input 
 
 | object | description | measurement |
 |---|---|---|
-| [GALEX J073504.2-794409](docs/objects/5208047381438507520.md) \*\*\* | White dwarf, G = 16.564; catalogued: SIMBAD WD*/DA; MWDD DA. | **C I/C II lines (CCF 16.7/3.4)** |
-| [GALEX J212643.1-494857](docs/objects/6466745168812781568.md) \*\* | White dwarf, G = 19.438; catalogued: SIMBAD WD?. | **C I/C II lines (CCF 15.0/2.6)** |
-| [Gaia DR3 5836110898905253760](docs/objects/5836110898905253760.md) \*\*\* | White dwarf, G = 17.441; catalogued: SIMBAD PM*. | **C I/C II lines (CCF 7.5/8.6)** |
-| [GALEX J205119.1-161749](docs/objects/6886051830805052288.md) \*\*\* | White dwarf, G = 17.548; catalogued: SIMBAD WD*/DA; MWDD DA. | **C I/C II lines (CCF 18.2/7.7)** |
-| [Gaia DR3 883885440381808000](docs/objects/883885440381808000.md) \*\*\* | White dwarf, G = 18.654; catalogued: SIMBAD WD?. | **C I/C II lines (CCF 7.8/7.3)** |
-| [GALEX J031529.6-443716](docs/objects/4847399905305694080.md) \*\*\* | White dwarf, G = 19.7; catalogued: SIMBAD WD?. | **C I/C II lines (CCF 4.5/11.2)** |
-| [Gaia DR3 2076678981825545088](docs/objects/2076678981825545088.md) \*\*\* | White dwarf, G = 18.698; catalogued: SIMBAD WD*/DA; MWDD DA. | **C I/C II lines (CCF 3.8/4.6)** |
-| [GALEX J213644.9-515758](docs/objects/6465542891501713408.md) \*\* | White dwarf, G = 18.644; catalogued: SIMBAD WD*/DC:; MWDD DC:. | **C I/C II lines (CCF 1.6/10.5)** |
-| [GALEX J014648.4+400114](docs/objects/343958710690034944.md) \*\* | White dwarf, G = 18.645; catalogued: SIMBAD WD*/DB; MWDD DB. | **C I/C II lines (CCF 3.1/5.9)** |
+| [GALEX J073504.2-794409](docs/objects/5208047381438507520.md) \*\*\* | White dwarf, G = 16.564; catalogued: SIMBAD WD*/DA; MWDD DA. | **C II/C I lines (CCF 16.7/3.4)** |
+| [GALEX J212643.1-494857](docs/objects/6466745168812781568.md) \*\* | White dwarf, G = 19.438; catalogued: SIMBAD WD?. | **C II/C I lines (CCF 15.0/2.6)** |
+| [Gaia DR3 5836110898905253760](docs/objects/5836110898905253760.md) \*\*\* | White dwarf, G = 17.441; catalogued: SIMBAD PM*. | **C II/C I lines (CCF 7.5/8.6)** |
+| [GALEX J205119.1-161749](docs/objects/6886051830805052288.md) \*\*\* | White dwarf, G = 17.548; catalogued: SIMBAD WD*/DA; MWDD DA. | **C II/C I lines (CCF 18.2/7.7)** |
+| [Gaia DR3 883885440381808000](docs/objects/883885440381808000.md) \*\*\* | White dwarf, G = 18.654; catalogued: SIMBAD WD?. | **C II/C I lines (CCF 7.8/7.3)** |
+| [GALEX J031529.6-443716](docs/objects/4847399905305694080.md) \*\*\* | White dwarf, G = 19.7; catalogued: SIMBAD WD?. | **C II/C I lines (CCF 4.5/11.2)** |
+| [Gaia DR3 2076678981825545088](docs/objects/2076678981825545088.md) \*\*\* | White dwarf, G = 18.698; catalogued: SIMBAD WD*/DA; MWDD DA. | **C II/C I lines (CCF 3.8/4.6)** |
+| [GALEX J213644.9-515758](docs/objects/6465542891501713408.md) \*\* | White dwarf, G = 18.644; catalogued: SIMBAD WD*/DC:; MWDD DC:. | **C II/C I lines (CCF 1.6/10.5)** |
+| [GALEX J014648.4+400114](docs/objects/343958710690034944.md) \*\* | White dwarf, G = 18.645; catalogued: SIMBAD WD*/DB; MWDD DB. | **C II/C I lines (CCF 3.1/5.9)** |
 
 ### Zeeman splitting (30)
 

@@ -57,8 +57,16 @@ for lo, hi in FEATS:
         p, cv = curve_fit(g, w[s], f[s] / cont[s], p0=[0.1, mu0, 3.0, 1, 0], sigma=edep[s], absolute_sigma=True,
                           bounds=([0, mu0 - 8, 0.8, 0.5, -1], [1, mu0 + 8, 15, 1.5, 1]), maxfev=20000)
         e = np.sqrt(np.diag(cv))
+        bits = 0
+        for v in vs:
+            m = np.abs(v["wave"] - float(p[1])) < 5
+            bits |= int(np.bitwise_or.reduce(v["flags"][m])) if m.any() else 0
+        names = {16: "NEARBADPIXEL", 17: "LOWFLAT", 18: "FULLREJECT", 19: "PARTIALREJECT", 20: "SCATTEREDLIGHT", 21: "CROSSTALK", 22: "NOSKY",
+                 23: "BRIGHTSKY", 24: "NODATA", 25: "COMBINEREJ", 26: "BADFLUXFACTOR", 27: "BADSKYCHI", 28: "REDMONSTER"}  # SDSS SPPIXMASK
+        pfn = "|".join(names.get(b, f"bit{b}") for b in range(64) if bits >> b & 1)
         out["c_ii_features"].append(dict(lab_vac=round(lab, 2), center=round(float(p[1]), 2), v=round(float((p[1] / lab - 1) * C)), e_v=round(float(e[1] / lab * C)),
-                                         depth=round(float(p[0]), 3), depth_snr=round(float(p[0] / e[0]), 1), sigma_A=round(float(p[2]), 2)))
+                                         depth=round(float(p[0]), 3), depth_snr=round(float(p[0] / e[0]), 1), sigma_A=round(float(p[2]), 2),
+                                         pixel_flags=bits, pixel_flag_names=pfn))
     except RuntimeError:
         out["c_ii_features"].append(dict(lab_vac=round(lab, 2), fit="failed"))
 good = [x for x in out["c_ii_features"] if x.get("depth_snr", 0) > 4 and x.get("e_v", 1e9) < 200]
@@ -75,4 +83,8 @@ out["depth_at_lines"] = {}
 for nm, lam in [("H-alpha", 6564.632), ("H-beta", 4862.691), ("He I 4472", 4472.735), ("He I 5877", 5877.25), ("He I 6680", 6679.99), ("He II 4687", 4687.02)]:
     s = np.abs(w - lam * (1 + vm / C)) < 3; out["depth_at_lines"][nm] = round(float(np.sum(depth[s] / edep[s] ** 2) / np.sum(1 / edep[s] ** 2)), 3)
 json.dump(out, open(f"carbon_lines_{label}.json", "w"), indent=1)
+import pandas as pd
+feats = [x for x in out["c_ii_features"] if "fit" not in x]
+if feats:
+    pd.DataFrame(feats).to_csv(f"../tables/carbon_{label}_optical_CII_features.csv", index=False)
 print(json.dumps(out["ccf_coadd"], indent=0)); print(json.dumps(out["c_ii_features"]))

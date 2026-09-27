@@ -57,11 +57,13 @@ def visits(sdss_id):
             if h[i].data is None or len(h[i].data) == 0:
                 continue
             hd = h[i].header; wg = 10 ** (hd["CRVAL"] + hd["CDELT"] * np.arange(hd["NPIXELS"]))
+            has_pf = "pixel_flags" in h[i].data.columns.names
             for r in h[i].data:
                 v = float(r["xcsao_v_rad"]); ins = bool(r["in_stack"])
                 w = wg * (1 + v / C) if (ins and np.isfinite(v)) else wg
                 out.append(dict(mjd=int(r["mjd"]), xcsao_v=v, in_stack=ins, snr=float(r["snr"]), wave=w,
-                                flux=np.array(r["flux"], float), ivar=np.array(r["ivar"], float)))
+                                flux=np.array(r["flux"], float), ivar=np.array(r["ivar"], float),
+                                flags=np.array(r["pixel_flags"], np.int64) if has_pf else np.zeros(int(hd["NPIXELS"]), np.int64)))
     return out
 
 
@@ -71,5 +73,7 @@ def coadd(vs, lo=3700, hi=9300, dlog=6e-5):
         ok = (v["ivar"] > 0) & np.isfinite(v["flux"])
         f = np.interp(grid, v["wave"][ok], v["flux"][ok], left=np.nan, right=np.nan)
         iv = np.interp(grid, v["wave"][ok], v["ivar"][ok], left=0, right=0)
-        m = np.isfinite(f); num[m] += f[m] * iv[m]; den[m] += iv[m]
+        valid = np.interp(grid, v["wave"], ok.astype(float), left=0, right=0)
+        iv = np.where(valid >= 1, iv, 0)  # a grid point bracketed by any rejected pixel gets zero weight: gaps stay gaps
+        m = np.isfinite(f) & (iv > 0); num[m] += f[m] * iv[m]; den[m] += iv[m]
     return grid, np.where(den > 0, num / np.where(den > 0, den, 1), np.nan), den

@@ -134,7 +134,8 @@ for _, r in d.iterrows():
     cos = "; C II/C III also in HST/COS" if str(r.HST_COS).strip() not in ("", "nan", "no") else ""
     obs = f"Carbon lines in the SDSS-V spectra: CCF contrast C II {r.ccf_CII_contrast}, C I {r.ccf_CI_contrast} (velocities {r.ccf_CII_v_kms}/{r.ccf_CI_v_kms} km/s){cos}"
     add(r.gaia_dr3, r["name"], Entry("carbon", "Carbon lines", "carbon.md", desc, obs,
-        f"C I/C II lines (CCF {r.ccf_CII_contrast}/{r.ccf_CI_contrast})", ["carbon_white_dwarfs.csv"],
+        f"C II/C I lines (CCF {r.ccf_CII_contrast}/{r.ccf_CI_contrast})",
+        ["carbon_white_dwarfs.csv", f"carbon_{r.gaia_dr3}_optical_CII_features.csv", f"carbon_{r.gaia_dr3}_cos_features.csv"],
         None, ["carbon_lines.py"], None))
 
 # Zeeman splitting.
@@ -185,12 +186,19 @@ for gaia, g in d[d.role == "target"].groupby("gaia_dr3", sort=False):
         ["hot_white_dwarfs.csv"], None, ["hot_white_dwarfs.py"], None))
 
 # Write the object pages.
+PAGE_LEAD = {
+    "2249098833310553728": "A catalogued but unclassified 63.7-minute variable, identified here as a low-mass white dwarf "
+    "with an irradiated, near-Roche-filling companion — potentially the shortest-period detached white dwarf + brown dwarf "
+    "system known (the shortest published period is 68.2 min; Casewell et al. 2018).",
+}
 ORDER = ["gas_discs", "carbon", "zeeman", "periodic", "zz_ceti", "eclipse_and_emission", "hot_white_dwarfs",
          "irradiated_companions", "hot_wd_periods", "dae_wd_periods"]
 for gaia, o in objects.items():
     name = o["name"] or f"Gaia DR3 {gaia}"
     head = name if gaia in name else f"{name} (Gaia DR3 {gaia})"
     L = [f"# {head}", ""]
+    if gaia in PAGE_LEAD:
+        L += [PAGE_LEAD[gaia], ""]
     figs = sorted(glob.glob(os.path.join(R, "figures", "*", f"{gaia}*.png")))
     datafiles = sorted(glob.glob(os.path.join(R, "data", f"*{gaia}*")))
     for e in sorted(o["entries"], key=lambda e: ORDER.index(e.topic)):
