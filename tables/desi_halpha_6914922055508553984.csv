@@ -1,0 +1,2 @@
+gaia_dr3,targetid,tile,petal,mean_mjd,exptime_s,n_exp,bjd_tdb,phase_from_max,n_template_spectra,template_peak_A,template_peak_frac,chi2_template_only,chi2_template_plus_emission,n_pix,template_scale,emission_centre_A_vac,e_emission_centre_A,emission_velocity_kms,e_emission_velocity_kms,emission_sigma_A,emission_peak_over_continuum
+6914922055508553984,39627705435554416,20836,8,59358.45897361,494.2854,1,2459358.96153,0.82,28,6561.6,0.183,328.4,117.7,110,0.54,6568.75,0.17,189.0,8.0,1.88,0.51

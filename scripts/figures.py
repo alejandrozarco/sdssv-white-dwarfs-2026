@@ -465,10 +465,48 @@ def hot_white_dwarfs():
     plt.tight_layout(); plt.savefig(out("hot_white_dwarfs", "spectra.png"), dpi=80); plt.close()
 
 
+def irradiated_companions():
+    """Per star: Lomb-Scargle periodogram of the ZTF/TESS data (left) and the light curves folded on the adopted ephemeris, in 20 phase bins
+    (right). WDJ205249.27-032419.53: DESI DR1 H-alpha region with the tile/petal flux-calibration residual template fits."""
+    import irradiated_companions as IC
+    t = pd.read_csv(f"{T}/irradiated_companions.csv", dtype={"gaia_dr3": str}).set_index("gaia_dr3")
+    for gid, s in IC.SRC.iterrows():
+        r = t.loc[gid]; sets = {}; sets.update(IC.ztf(gid)); secs = [int(x) for x in str(s.tess_sectors).split()]
+        sets.update(IC.tess_spoc(s.tic, secs) if s.tess_mode == "spoc" else IC.tess_ffi(r.ra_deg, r.dec_deg, secs)); gaia = IC.gaia_epochs(gid)
+        f, t0 = float(r.frequency_cd), float(r.t_max_bjd); fig, ax = plt.subplots(1, 2, figsize=(11, 3.2))
+        tt = np.concatenate([sets[k][0] for k in sets]); yy = np.concatenate([sets[k][1] for k in sets]); ee = np.concatenate([sets[k][2] for k in sets])
+        fr = np.linspace(2, 50, 200001); ax[0].plot(fr, LombScargle(tt, yy, ee).power(fr), "k", lw=0.4); ax[0].axvline(f, color="r", lw=0.6, alpha=0.5)
+        ax[0].set_xlabel("frequency (c/d)"); ax[0].set_ylabel("GLS power (ZTF + TESS)"); ax[0].set_title(f"Gaia DR3 {gid} ({s['name']}): P = {1440 / f:.3f} min", fontsize=8)
+        edges = np.linspace(0, 1, 21); c = (edges[1:] + edges[:-1]) / 2
+        groups = [(k, sets[k], col) for k, col in (("ZTF zg", "C2"), ("ZTF zr", "C3")) if k in sets]
+        tess = [k for k in sets if k.startswith("TESS")]
+        if tess:
+            groups.append(("TESS " + ",".join(k.split()[1] for k in tess), tuple(np.concatenate([sets[k][i] for k in tess]) for i in range(3)), "C0"))
+        groups += [(k, gaia[k], col) for k, col in (("Gaia G", "0.3"), ("Gaia BP", "C9"), ("Gaia RP", "C1"))]
+        for lab, (x, y, e), col in groups:
+            p = ((x - t0) * f) % 1; mb, sb = [], []
+            for lo, hi in zip(edges[:-1], edges[1:]):
+                m = (p >= lo) & (p < hi)
+                mb.append(np.sum(y[m] / e[m] ** 2) / np.sum(1 / e[m] ** 2) if m.any() else np.nan); sb.append(1 / np.sqrt(np.sum(1 / e[m] ** 2)) if m.any() else np.nan)
+            for k in (0, 1):
+                ax[1].errorbar(c + k, mb, sb, fmt="o", ms=3, color=col, label=lab if k == 0 else None)
+        ax[1].set_xlabel("phase (0 = t_max)"); ax[1].set_ylabel("fractional flux"); ax[1].legend(fontsize=6, ncol=2)
+        plt.tight_layout(); plt.savefig(out("irradiated_companions", f"{gid}.png"), dpi=90); plt.close()
+    d = np.load(os.path.join("..", "data", "cache", "desi_halpha_6914922055508553984.npz")); h = pd.read_csv(f"{T}/desi_halpha_6914922055508553984.csv").iloc[0]
+    fig, ax = plt.subplots(1, 2, figsize=(11, 3.2)); m = (d["w0"] > 3700) & (d["i0"] > 0)
+    ax[0].plot(d["w0"][m], gaussian_filter1d(d["f0"][m], 2), "k", lw=0.4); ax[0].set_xlabel("vacuum wavelength (A)"); ax[0].set_ylabel("flux (1e-17 erg/s/cm2/A)")
+    ax[0].set_title(f"DESI DR1 {int(h.targetid)} (tile {int(h.tile)}, petal {int(h.petal)}, {h.exptime_s:.0f} s)", fontsize=8)
+    ax[1].plot(d["w"], d["f"], "k", lw=0.7, label="DESI DR1"); ax[1].plot(d["w"], d["m_template"], "C0", lw=0.8, label="WD + calibration residual template")
+    ax[1].plot(d["w"], d["m_full"], "C3", lw=0.8, label=f"+ emission at {h.emission_velocity_kms:+.0f} km/s")
+    ax[1].axvline(6564.61, color="0.6", lw=0.5); ax[1].set_xlabel("vacuum wavelength (A)"); ax[1].legend(fontsize=6)
+    ax[1].set_title(f"H-alpha; phase {h.phase_from_max:.2f}; delta chi2 = {h.chi2_template_only - h.chi2_template_plus_emission:.0f}", fontsize=8)
+    plt.tight_layout(); plt.savefig(out("irradiated_companions", "6914922055508553984_desi_halpha.png"), dpi=90); plt.close()
+
+
 if __name__ == "__main__":
     import sys
     ALL = dict(zeeman=zeeman, carbon_optical=carbon_optical, carbon_screen_spectra=carbon_screen_spectra, carbon_cos=carbon_cos, galex=galex,
                eclipse=eclipse, balmer=balmer, zz=zz, periodic=periodic, periodic_white_dwarfs=periodic_white_dwarfs,
-               hot_dq_comparison=hot_dq_comparison, hot_dq_comparison_sdssv=lambda: hot_dq_comparison(extra=True), gas_discs=gas_discs, gas_discs_narrow=gas_discs_narrow, gas_discs_desi=gas_discs_desi, reflection=reflection, hot_white_dwarfs=hot_white_dwarfs)
+               hot_dq_comparison=hot_dq_comparison, hot_dq_comparison_sdssv=lambda: hot_dq_comparison(extra=True), gas_discs=gas_discs, gas_discs_narrow=gas_discs_narrow, gas_discs_desi=gas_discs_desi, reflection=reflection, hot_white_dwarfs=hot_white_dwarfs, irradiated_companions=irradiated_companions)
     for name in (sys.argv[1:] or ALL):
         ALL[name](); print(name, "done", flush=True)
