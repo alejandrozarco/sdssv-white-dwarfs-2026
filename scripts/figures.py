@@ -509,7 +509,7 @@ def irradiated_companions():
         f, t0 = float(r.frequency_cd), float(r.t_max_bjd); fig, ax = plt.subplots(1, 2, figsize=(11, 3.2))
         tt = np.concatenate([sets[k][0] for k in sets]); yy = np.concatenate([sets[k][1] for k in sets]); ee = np.concatenate([sets[k][2] for k in sets])
         fr = np.linspace(2, 50, 200001); ax[0].plot(fr, LombScargle(tt, yy, ee).power(fr), "k", lw=0.4); ax[0].axvline(f, color="r", lw=0.6, alpha=0.5)
-        ax[0].set_xlabel("frequency (c/d)"); ax[0].set_ylabel("GLS power (ZTF + TESS)"); ax[0].set_title(f"Gaia DR3 {gid} ({s['name']}): P = {1440 / f:.3f} min", fontsize=8)
+        ax[0].set_xlabel("frequency (c/d)"); ax[0].set_ylabel("GLS power (" + " + ".join(sorted({k.split()[0] for k in sets})) + ")"); ax[0].set_title(f"Gaia DR3 {gid} ({s['name']}): P = {1440 / f:.3f} min", fontsize=8)
         edges = np.linspace(0, 1, 21); c = (edges[1:] + edges[:-1]) / 2
         groups = [(k, sets[k], col) for k, col in (("ZTF zg", "C2"), ("ZTF zr", "C3")) if k in sets]
         tess = [k for k in sets if k.startswith("TESS")]
