@@ -110,10 +110,10 @@ d = T("irradiated_companions.csv")
 for _, r in d.iterrows():
     desc = (f"Low-mass white dwarf: GF21 H-atmosphere Teff {r.gf21_teff_H} K, {r.gf21_mass_H} Msun; "
             f"G = {r.G}, {r.distance_pc} pc.")
-    obs = (f"P = {r.period_min} min; red-to-blue semi-amplitude ratio {r.red_to_blue_amplitude}; "
-           f"W1 {r.W1_ratio}x the white-dwarf model (companion M_W1 = {r.M_W1_companion})")
+    w1 = f"; W1 {r.W1_ratio}x the white-dwarf model (companion M_W1 = {r.M_W1_companion})" if r.W1_ratio else ""
+    obs = f"P = {r.period_min} min; red-to-blue semi-amplitude ratio {r.red_to_blue_amplitude}{w1}"
     add(r.gaia_dr3, r["name"], Entry("irradiated_companions", "Short-period white dwarfs with irradiated companions",
-        "irradiated_companions.md", desc, obs, f"P = {r.period_min} min; **W1 {r.W1_ratio}x model**",
+        "irradiated_companions.md", desc, obs, f"P = {r.period_min} min; " + (f"**W1 {r.W1_ratio}x model**" if r.W1_ratio else f"**red/blue amplitude {r.red_to_blue_amplitude}**"),
         ["irradiated_companions.csv", "irradiated_companions_periods.csv"], None, ["irradiated_companions.py"], None))
 
 # Gaseous discs.

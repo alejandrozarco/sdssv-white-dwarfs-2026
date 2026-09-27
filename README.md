@@ -142,7 +142,7 @@ One page per object with the measurement and its supporting data (tables, input 
 | [WDJ212738.67+593755.72](docs/objects/2191618770599895296.md) \*\*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 13777 K, 0.263 Msun; G = 16.871, 241 pc. | P = 130.182 min; **W1 3.61x model** |
 | [WDJ070106.16-534811.37](docs/objects/5503429908930455808.md) \*\*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 16240 K, 0.256 Msun; G = 18.426, 602 pc. | P = 81.493 min; **W1 2.21x model** |
 | [WDJ040444.35-395043.1](docs/objects/4844023064578952320.md) \*\*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 20562 K, 0.243 Msun; G = 17.663, 632 pc. | P = 117.319 min; **W1 2.02x model** |
-| [WDJ194901.41+673005.59](docs/objects/2249098833310553728.md) \*\*\*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 16817 K, 0.143 Msun; G = 18.027, 739 pc. | P = 63.68 min; **W1 x model** |
+| [WDJ194901.41+673005.59](docs/objects/2249098833310553728.md) \*\*\*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 16817 K, 0.143 Msun; G = 18.027, 739 pc. | P = 63.68 min; **red/blue amplitude 1.61** |
 | [WDJ005615.18-661731.98](docs/objects/4705562733524591232.md) \*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 15358 K, 0.255 Msun; G = 18.801, 714 pc. | P = 73.522 min; **W1 1.69x model** |
 
 ### Day-scale periods of hot white dwarfs (9)
