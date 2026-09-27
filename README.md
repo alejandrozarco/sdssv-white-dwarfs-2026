@@ -14,6 +14,8 @@ Measurements of white dwarfs from public SDSS-V DR20 spectra (Astra 0.8.1), with
 | Eclipse and Balmer emission | [docs/eclipse_and_emission.md](docs/eclipse_and_emission.md) | `eclipsing_4731701084150029824.csv`, `balmer_emission.csv` | 3 |
 | Hot white dwarfs with He II lines | [docs/hot_white_dwarfs.md](docs/hot_white_dwarfs.md) | `hot_white_dwarfs.csv` | 6 |
 | Short-period white dwarfs with irradiated companions | [docs/irradiated_companions.md](docs/irradiated_companions.md) | `irradiated_companions.csv`, `irradiated_companions_periods.csv`, `desi_halpha_6914922055508553984.csv` | 6 |
+| Day-scale periods of hot white dwarfs | [docs/hot_wd_periods.md](docs/hot_wd_periods.md) | `hot_wd_periods.csv` | 9 |
+| Periods of DA white dwarfs with emission lines | [docs/dae_wd_periods.md](docs/dae_wd_periods.md) | `dae_wd_periods.csv` | 7 |
 
 ## Selected objects
 
@@ -37,6 +39,8 @@ Measurements of white dwarfs from public SDSS-V DR20 spectra (Astra 0.8.1), with
 | WDJ212738.67+593755.72, WDJ070106.16−534811.37, WDJ040444.35−395043.1 (Gaia DR3 2191618770599895296, 5503429908930455808, 4844023064578952320) | Periods of 130.2, 81.5 and 117.3 min in Gaia DR3 and TESS (and ZTF), larger in red than blue; W1 excess | [irradiated companions](docs/irradiated_companions.md) |
 | WDJ194901.41+673005.59 (Gaia DR3 2249098833310553728) | 63.68-min period in Gaia DR3 and TESS (13 sectors); semi-amplitude 16% (G), 27% (RP) | [irradiated companions](docs/irradiated_companions.md) |
 | WDJ005615.18−661731.98 (Gaia DR3 4705562733524591232) | 73.52-min period in Gaia DR3 and TESS full-frame images; semi-amplitude 8% (G), 22% (RP); W1 1.7 times the white-dwarf model | [irradiated companions](docs/irradiated_companions.md) |
+| Nine hot white dwarfs, e.g. WDJ091433.60+581238.12 (Gaia DR3 1038176780370360576) | Periods of 5.4-30.1 h in ZTF or ATLAS (seven listed as not variable by Jestin et al. 2026); six have DO/DOZ spectra | [hot-white-dwarf periods](docs/hot_wd_periods.md) |
+| Seven DESI DR1 emission-line DA white dwarfs, e.g. WDJ172406.13+562003.08 (Gaia DR3 1420761029600606592) | ZTF periods of 2.0-6.8 h, semi-amplitudes larger in r than g; W1 1.7-2.2 mag brighter than the white-dwarf model | [DA+emission periods](docs/dae_wd_periods.md) |
 | Six SDSS-V white dwarfs, e.g. GALEX J055029.7−155446 (Gaia DR3 2995107164834343680) | He II 4686 and Balmer absorption (DAO), Teff about 90-110 kK from TMAP H+He model fits; no earlier spectrum found | [hot white dwarfs](docs/hot_white_dwarfs.md) |
 
 <img src="figures/gas_discs/578709631539357440_epochs.png" width="720">
@@ -79,6 +83,7 @@ python cv_balmer.py 65701864
 python periodic_6021870154194477312.py
 python tess_periodogram.py 1251484163 65 120 0.5 50
 python periodic_white_dwarfs.py
+python hot_dae_wd_periods.py
 python reflection_3107374277060584064.py
 python tess_ffi_photometry.py 3890059941364406144 155.7148994 16.1977169 16.488695 18.034 45 46 72
 python hot_white_dwarfs.py   # downloads 280 TheoSSA model spectra (about 1.4 GB)

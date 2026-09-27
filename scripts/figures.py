@@ -240,6 +240,37 @@ def periodic_white_dwarfs():
         plt.tight_layout(); plt.savefig(out("periodic", f"{gid}.png"), dpi=90); plt.close()
 
 
+def hot_dae_wd_periods():
+    import hot_dae_wd_periods as HD
+    for table, sub in (("hot_wd_periods", "hot"), ("dae_wd_periods", "dae")):
+        t = pd.read_csv(f"{T}/{table}.csv", dtype={"gaia_dr3": str})
+        for gid in [g for g in HD.SRC.index if HD.SRC.loc[g, "set"] == sub]:
+            fig, ax = plt.subplots(1, 2, figsize=(11, 3.1))
+            s = HD.SRC.loc[gid]; r = t[(t.gaia_dr3 == gid) & (t.dataset == s.ground)].iloc[0]; f = float(r.frequency_cd); t0 = float(r.t_max_bjd)
+            x, y, e, g = HD.load_atlas(gid) if s.ground == "ATLAS" else HD.load_ztf(gid)
+            fr = np.arange(0.5, 50, 0.2 / (x.max() - x.min())); pw = LombScargle(x, y, e).power(fr)
+            ax[0].plot(fr, pw, "k", lw=0.4); ax[0].set_xscale("log"); ax[0].set_ylabel("GLS power"); ax[0].set_xlabel("frequency (c/d)")
+            ax[0].set_title(f"Gaia DR3 {gid} ({s['name']}): {s.ground}, f = {f:.6f} c/d, P = {24 / f:.4f} h", fontsize=8)
+            p = ((x - t0) * f) % 1; edges = np.linspace(0, 1, 21); c = (edges[1:] + edges[:-1]) / 2
+            sets = [(f"{s.ground} c (20 bins)", np.array([q == "ATLAS c" for q in g]), "C0"), (f"{s.ground} o (20 bins)", np.array([q == "ATLAS o" for q in g]), "C1")] if s.ground == "ATLAS" else \
+                   [(f"ZTF {b[1]} (20 bins)", np.array([q.startswith(f"ZTF {b}") for q in g]), col) for b, col in (("zg", "C2"), ("zr", "C3"))]
+            for lab, sel, col in sets:
+                if sel.sum() < 20:
+                    continue
+                ps, ys, es = p[sel], y[sel], e[sel]
+                mb = [np.sum(ys[(ps >= lo) & (ps < hi)] / es[(ps >= lo) & (ps < hi)] ** 2) / np.sum(1 / es[(ps >= lo) & (ps < hi)] ** 2) if ((ps >= lo) & (ps < hi)).any() else np.nan for lo, hi in zip(edges[:-1], edges[1:])]
+                sb = [1 / np.sqrt(np.sum(1 / es[(ps >= lo) & (ps < hi)] ** 2)) if ((ps >= lo) & (ps < hi)).any() else np.nan for lo, hi in zip(edges[:-1], edges[1:])]
+                for k in (0, 1):
+                    ax[1].errorbar(c + k, mb, sb, fmt="o", ms=3, color=col, label=lab if k == 0 else None)
+            ga = HD.load_gaia(gid)
+            if ga is not None:
+                tg, yg, eg = ga; pg = ((tg - t0) * f) % 1
+                for k in (0, 1):
+                    ax[1].errorbar(pg + k, yg, eg, fmt=".", ms=3, color="0.4", alpha=0.7, label="Gaia DR3 G" if k == 0 else None)
+            ax[1].set_ylabel("fractional flux"); ax[1].legend(fontsize=7); ax[1].set_xlabel("phase (0 = t_max)")
+            plt.tight_layout(); plt.savefig(out(table, f"{gid}.png"), dpi=90); plt.close()
+
+
 def hot_dq_comparison(extra=False):
     """SDSS-V spectrum of Gaia DR3 5208047381438507520 between an SDSS-V DA of similar colour and the SDSS DR17 spectrum of the hot DQ
     SDSS J234843.30-094245.3 (Dufour et al. 2008). Each spectrum is smoothed (Gaussian, 1.5 pixels) and scaled to its median flux at 4500-4600 A."""
@@ -509,6 +540,6 @@ if __name__ == "__main__":
     import sys
     ALL = dict(zeeman=zeeman, carbon_optical=carbon_optical, carbon_screen_spectra=carbon_screen_spectra, carbon_cos=carbon_cos, galex=galex,
                eclipse=eclipse, balmer=balmer, zz=zz, periodic=periodic, periodic_white_dwarfs=periodic_white_dwarfs,
-               hot_dq_comparison=hot_dq_comparison, hot_dq_comparison_sdssv=lambda: hot_dq_comparison(extra=True), gas_discs=gas_discs, gas_discs_narrow=gas_discs_narrow, gas_discs_desi=gas_discs_desi, reflection=reflection, hot_white_dwarfs=hot_white_dwarfs, irradiated_companions=irradiated_companions)
+               hot_dq_comparison=hot_dq_comparison, hot_dq_comparison_sdssv=lambda: hot_dq_comparison(extra=True), gas_discs=gas_discs, gas_discs_narrow=gas_discs_narrow, gas_discs_desi=gas_discs_desi, reflection=reflection, hot_white_dwarfs=hot_white_dwarfs, irradiated_companions=irradiated_companions, hot_dae_wd_periods=hot_dae_wd_periods)
     for name in (sys.argv[1:] or ALL):
         ALL[name](); print(name, "done", flush=True)

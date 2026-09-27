@@ -55,6 +55,14 @@
   - Amplitudes and `t_max` (first maximum after BJD_TDB 2458000.0) at that frequency for the ground-based data, Gaia DR3 G epoch photometry and TESS PDCSAP. Fractional ATLAS amplitudes use the Gaia synthetic SDSS magnitudes.
   - Existing classifications of the first seven: SIMBAD WD* with spectral type DA, MWDD DA, Gaia XP class DA (Vincent et al. 2024); two have SDSS-V DR20 spectra classified DA by SnowWhite (2883364038621038208, sdss_id 72169571; 2888030331609338240, sdss_id 72210484); none has an SDSS DR19 or LAMOST DR10 spectrum.
   - ZTF amplitudes are also given per filter (rows `ZTF zg`, `ZTF zr`). For a star without Gaia synthetic SDSS magnitudes (6136817910121524096), fractional ATLAS amplitudes use the Gaia G flux.
+- **Day-scale periods of hot white dwarfs and periods of emission-line DA white dwarfs** (`hot_dae_wd_periods.py`).
+  - Selections:
+    - seven stars from a blind joint g+r Lomb-Scargle search (0.5-50 c/d; 0.03 c/d around 1, 2 and 3 c/d masked) of the ZTF light curves of the 716 white dwarfs with Variable = False in Jestin et al. (2026, A&A 712, A243, table A1), keeping false-alarm probability < 1e-8, amplitude > 5 sigma, the same frequency recovered in at least 3 of 4 subsets (g only, r only, first and second half after 60-day detrending), and no shared-frequency cluster;
+    - two stars with Gaia DR3 `vari_spurious_signals` frequencies recovered as the highest ATLAS peak in both bands;
+    - seven stars from the DESI DR1 classes DAe, DAE and DA+ (Amorim et al. 2026), ZTF false-alarm probability < 1e-6. Two further stars whose top ZTF frequency was not reproduced by this pipeline (a 1 c/d alias, and an unstable peak choice) were excluded.
+  - Light curves, frequency refinement, amplitudes and `t_max` as for the fourteen-star set above; ZTF light curves from a 1.5 arcsec cone; frequencies within 0.03 c/d of 1, 2 and 3 c/d excluded.
+  - Period-novelty checks per star: VSX; the MWDD master table; SIMBAD; a VizieR all-table cone (period/frequency columns); Chen et al. (2020); Gao et al. (2025, ApJS 276, 57); Wang et al. (2025, ApJS 281, 52); the arXiv source tables of Oliveira da Rosa et al. (2024, ApJ 974, 314) and Filiz et al. (2026, arXiv:2601.11191) by TIC; the TESS CV catalogue (arXiv:2607.08727); TARS (arXiv:2603.05586) excludes these stars by its T < 16, d < 100 pc cuts (checked 2026-09-27).
+  - CatWISE2020 excesses for the emission-line stars as on the irradiated-companion page.
 - **Gaia DR3 3107374277060584064** (`reflection_3107374277060584064.py`).
   - Light curves:
     - CoRoT faint-star light curves (BAR, STATUS = 0; DATEBARTT + 2400000 = BJD) of CoRoT 102743730, runs IRa01, LRa01 and LRa06, with a 3-day running median subtracted;
