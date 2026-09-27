@@ -45,8 +45,12 @@
   - Second set (seven stars):
     - GLS false-alarm probability < 5e-2, at least 20 Gaia G epochs, |spearman_corr_ipd| < 0.5, frequency more than 0.03 c/d from multiples of 4 c/d and from 12 − 1/63 c/d, and the Gaia frequency the highest peak in ZTF (Dec > −28°) or ATLAS.
     - No period in Steen et al. (2024), Jestin et al. (2026), Ranaivomanana et al. (2025, A&A 693, A268; A&A 704, A70), Reindl et al. (2023, A&A 677, A29), Liu et al. (2024, MNRAS 533, 324), Chen et al. (2020, ApJS 249, 18) or VSX (checked 2026-09-26). Stars listed by Jestin et al. (2026) without a period are included.
+  - Third set (two stars):
+    - Gaia DR3 3230486971974872192: Gentile Fusillo et al. (2021) Pwd > 0.75, TeffH > 40 kK or (BP-RP < −0.35 and M_G < 9.5), Gaia GLS 0.25-5 c/d with false-alarm probability < 1e-2; the Gaia frequency is the highest peak in ZTF.
+    - Gaia DR3 1094376947131876352: no Gaia DR3 epoch photometry; the frequency is the highest ZTF peak.
+    - No period in Oliveira da Rosa et al. (2024, ApJ 974, 314; source table), Gao et al. (2025, ApJS 276, 57), Wang et al. (2025, ApJS 281, 52), Jestin et al. (2026), Chen et al. (2020), Reindl et al. (2021, A&A 647, A184), the MWDD or VSX (checked 2026-09-27).
   - The table lists the stars whose frequency is recovered in an independent survey (`data/periodic_white_dwarfs_sources.csv`).
-  - ATLAS as above; ZTF light curves from the IRSA light-curve service (catflags = 0), one offset per ZTF object and filter.
+  - ATLAS as above; ZTF light curves from the IRSA light-curve service (2″; 1.5″ for 1094376947131876352; catflags = 0), one offset per ZTF object and filter.
   - Frequency: generalised Lomb-Scargle over 0.05-50 c/d, refined by a sinusoid fit; uncertainty from chi2 ≤ chi2_min + chi2_r.
   - Amplitudes and `t_max` (first maximum after BJD_TDB 2458000.0) at that frequency for the ground-based data, Gaia DR3 G epoch photometry and TESS PDCSAP. Fractional ATLAS amplitudes use the Gaia synthetic SDSS magnitudes.
   - Existing classifications of the first seven: SIMBAD WD* with spectral type DA, MWDD DA, Gaia XP class DA (Vincent et al. 2024); two have SDSS-V DR20 spectra classified DA by SnowWhite (2883364038621038208, sdss_id 72169571; 2888030331609338240, sdss_id 72210484); none has an SDSS DR19 or LAMOST DR10 spectrum.

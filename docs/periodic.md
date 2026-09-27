@@ -41,9 +41,9 @@ SDSS-V coadd and the line profiles of each visit:
 
 <img src="../figures/periodic/3107374277060584064_spectrum.png" width="850">
 
-## Fourteen white dwarfs with a Gaia DR3 GLS frequency
+## Sixteen white dwarfs with ground-based periods
 
-`tables/periodic_white_dwarfs.csv` covers fourteen white dwarfs selected by their Gaia DR3 GLS frequency. Each frequency was recovered in ATLAS or ZTF. For each star the table gives the Gaia amplitude and time of maximum at that frequency, plus the TESS values where TESS data exist, and for ZTF the amplitudes per filter. Each figure shows the ground-based periodogram (left) and the ground-based and Gaia light curves folded on the adopted frequency (right).
+`tables/periodic_white_dwarfs.csv` covers sixteen white dwarfs. Fifteen were selected by their Gaia DR3 GLS frequency, and each of those frequencies was recovered in ATLAS or ZTF. WDJ080026.64+633414.85 has no Gaia DR3 epoch photometry; its period comes from ZTF. For each star the table gives the Gaia amplitude and time of maximum at that frequency, plus the TESS values where TESS data exist, and for ZTF the amplitudes per filter. Each figure shows the ground-based periodogram (left) and the ground-based and Gaia light curves folded on the adopted frequency (right).
 
 **Gaia DR3 2883364038621038208** (GALEX J060343.7-380911): P = 10.80225 h
 
@@ -81,7 +81,7 @@ SDSS-V coadd and the line profiles of each visit:
 
 <img src="../figures/periodic/3890059941364406144.png" width="700">
 
-**Gaia DR3 974895286283420160** (WDJ072009.19+464840.48): P = 19.14313 h. DA at 51 pc. The same frequency is the highest peak in TESS sectors 20, 47 and 60 (1.3%).
+**Gaia DR3 974895286283420160** (WDJ072009.19+464840.48): P = 19.14313 h. DA at 51 pc. The same frequency is the highest peak in TESS sectors 20, 47 and 60 (1.3%). Oliveira da Rosa et al. (2024) list a TESS period of 19.185 ± 0.014 h (TIC 407569944).
 
 <img src="../figures/periodic/974895286283420160.png" width="700">
 
@@ -104,3 +104,19 @@ SDSS-V coadd and the line profiles of each visit:
 **Gaia DR3 3354819845628139904**: P = 12.58907 h. Hot-subdwarf candidate in Geier et al. (2019).
 
 <img src="../figures/periodic/3354819845628139904.png" width="700">
+
+**Gaia DR3 3230486971974872192** (WDJ043832.74+003117.01): P = 26.09254 h.
+- DO white dwarf: Teff 105.6 kK, log g 8.0 (Kilic et al. 2026a, via the Montreal White Dwarf Database).
+- The semi-amplitude is 2.6% in ZTF g and 2.5% in ZTF r.
+- TESS sector 98 (120 s): the same frequency is the highest peak between 0.2 and 50 c/d (semi-amplitude 3.7% after the SPOC crowding correction).
+- The Gaia DR3 signal carries a scan-angle significance of 3.2 in the spurious-signal table (Holl et al. 2023). Jestin et al. (2026) list the star as not variable.
+
+<img src="../figures/periodic/3230486971974872192.png" width="700">
+
+**Gaia DR3 1094376947131876352** (WDJ080026.64+633414.85): P = 21.41901 h, from ZTF (2018-2025).
+- DESI DR1 class DOA, Teff 78.2 kK (Swan et al. 2026).
+- The semi-amplitude is 2.4% in ZTF g and 1.6% in ZTF r.
+- There is no Gaia DR3 epoch photometry. Jestin et al. (2026) list the star as not variable.
+
+<img src="../figures/periodic/1094376947131876352.png" width="700">
+

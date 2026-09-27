@@ -221,7 +221,9 @@ def periodic_white_dwarfs():
         p = ((x - t0) * f) % 1; edges = np.linspace(0, 1, 21); c = (edges[1:] + edges[:-1]) / 2
         m = [np.sum(y[(p >= lo) & (p < hi)] / e[(p >= lo) & (p < hi)] ** 2) / np.sum(1 / e[(p >= lo) & (p < hi)] ** 2) for lo, hi in zip(edges[:-1], edges[1:])]
         se = [1 / np.sqrt(np.sum(1 / e[(p >= lo) & (p < hi)] ** 2)) for lo, hi in zip(edges[:-1], edges[1:])]
-        tg, yg, eg = PW.load_gaia(gid); pg = ((tg - t0) * f) % 1
+        has_gaia = os.path.exists(os.path.join(PW.D, f"gaia_dr3_epoch_photometry_{gid}.csv"))
+        if has_gaia:
+            tg, yg, eg = PW.load_gaia(gid); pg = ((tg - t0) * f) % 1
         sets = [(f"{s.ground} (20 bins)", np.ones(len(x), bool), "C0")] if s.ground == "ATLAS" else \
                [(f"ZTF {b[1]} (20 bins)", np.array([q.startswith(f"ZTF {b}") for q in g]), col) for b, col in (("zg", "C2"), ("zr", "C3"))]
         for lab, sel, col in sets:
@@ -232,7 +234,7 @@ def periodic_white_dwarfs():
             sb = [1 / np.sqrt(np.sum(1 / es[(ps >= lo) & (ps < hi)] ** 2)) if o else np.nan for (lo, hi), o in zip(zip(edges[:-1], edges[1:]), ok)]
             for k in (0, 1):
                 ax[1].errorbar(c + k, mb, sb, fmt="o", ms=3, color=col, label=lab if k == 0 else None)
-        for k in (0, 1):
+        for k in (0, 1) if has_gaia else ():
             ax[1].errorbar(pg + k, yg, eg, fmt=".", ms=3, color="0.4", alpha=0.7, label="Gaia DR3 G" if k == 0 else None)
         ax[1].set_ylabel("fractional flux"); ax[1].legend(fontsize=7); ax[1].set_xlabel("phase (0 = t_max of the ground-based fit)")
         plt.tight_layout(); plt.savefig(out("periodic", f"{gid}.png"), dpi=90); plt.close()
