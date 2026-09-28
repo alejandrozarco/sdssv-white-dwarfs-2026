@@ -82,7 +82,7 @@ One page per object with the measurement and its supporting data (tables, input 
 | [GALEX J040038.6-615458](docs/objects/4679463733391272448.md) \*\* | DA white dwarf, G = 18.514; catalogued: SnowWhite DA; SIMBAD WD*/DA; MWDD DA. Common proper motion with Gaia DR3 4679466653969618816 (G 9.83) at 86 arcsec. | **B = 4.28 MG** |
 | [GALEX J050006.8+080244](docs/objects/3290180587821828480.md) \*\* | DA white dwarf, G = 18.906; catalogued: SnowWhite DA; SIMBAD WD*/DA; MWDD DA. | **B = 5.3 MG** |
 
-### Photometric periods (18)
+### Photometric periods (20)
 
 | object | description | measurement |
 |---|---|---|
@@ -102,6 +102,8 @@ One page per object with the measurement and its supporting data (tables, input 
 | [Gaia DR3 3354819845628139904](docs/objects/3354819845628139904.md) \*\* | Hot-subdwarf candidate in Geier et al. (2019). | **P = 12.58907 h, 4.0% (ZTF)** |
 | [WDJ043832.74+003117.01](docs/objects/3230486971974872192.md) \*\*\* | DO white dwarf, Teff 105.6 kK, log g 8.0 (Kilic et al. 2026a, via the MWDD). | **P = 26.09254 h, 2.6% (ZTF)** |
 | [WDJ080026.64+633414.85](docs/objects/1094376947131876352.md) \*\*\* | DESI DR1 class DOA, Teff 78.2 kK (Swan et al. 2026). | **P = 21.41901 h, 2.1% (ZTF)** |
+| [WDJ183850.84-411333.59](docs/objects/6722639595190126208.md) \*\*\*\* | Hot massive DA white dwarf (GF21 H-atmosphere 36.0 kK, 1.20 Msun; Gaia XP fit in the MWDD 63.7 kK, 1.30 Msun), G = 16.79, 120 pc; the period was found in TESS 2-min light curves (sectors 93 and 104) and recovered in ATLAS. | **P = 0.6428 h, 4.0% (ATLAS)** |
+| [WDJ072758.87+101157.08](docs/objects/3161618477052648192.md) \*\*\* | DC white dwarf (GF21 H-atmosphere 7.6 kK, 0.77 Msun), G = 17.40, 59 pc; the period was found in ZTF and recovered in three TESS sectors and in ATLAS; the highest TESS peak (7.52 c/d) belongs to another star in the aperture. | **P = 0.48155 h, 2.5% (ZTF)** |
 | [Gaia DR3 6021870154194477312](docs/objects/6021870154194477312.md) \*\*\*\* | White dwarf with a 103.4-min period; three Gaia sources within 13 arcsec are fitted separately. | **103.4-min period (ATLAS, Gaia, TESS)** |
 | [WDJ064438.09-004550.51](docs/objects/3107374277060584064.md) \*\*\*\* | Hot white dwarf with He II 4686 absorption (SIMBAD WD* DO:, MWDD DO:, SDSS-V SnowWhite DA:; VSX type WD without a period); H-alpha, H-beta and Ca II emission whose velocity follows the photometric phase. | **P = 14.229 h; emission follows the phase** |
 
@@ -115,11 +117,12 @@ One page per object with the measurement and its supporting data (tables, input 
 | [[OHD2001] WD J2324-595](docs/objects/6492083311194727168.md) \*\*\* | White dwarf, G = 16.809; SnowWhite DA (Teff 11600 K, log g 7.89); catalogued: SIMBAD WD*/DA; MWDD DA. | **pulsations, 1049.3 s (sector 102, FAP 1.5e-27)** |
 | [GALEX J214927.5-515827](docs/objects/6558472750993181568.md) \*\*\* | White dwarf, G = 17.084; SnowWhite DA (Teff 11817 K, log g 8.12); catalogued: SIMBAD WD*/DA; MWDD DA. | **pulsations, 947.5 s (sector 102, FAP 3.3e-05)** |
 
-### Eclipse and Balmer emission (3)
+### Eclipse and Balmer emission (4)
 
 | object | description | measurement |
 |---|---|---|
 | [Gaia DR3 4731701084150029824](docs/objects/4731701084150029824.md) \*\*\* | Star with M-dwarf colours (BP-RP 2.817, M_G 13.17), G = 18.373; the eclipsed object is not identified; catalogued: none found. | **eclipses, P = 0.14786971 d** |
+| [WDJ030317.61-420658.71](docs/objects/4851800979770492544.md) \*\*\*\* | DA white dwarf (GF21 H-atmosphere 13.9 kK, 0.35 Msun; Gaia XP fit in the MWDD 14.5 kK, 0.31 Msun), G = 17.95, 322 pc; no other Gaia source within 28 arcsec. | **eclipses, P = 108.03582 min** |
 | [Gaia DR3 2002597083798483200](docs/objects/2002597083798483200.md) \*\* | G = 18.816; catalogued: SIMBAD WD*/DQ:; MWDD DQ:. | **Balmer emission, EW 318.3 A** |
 | [Gaia DR3 1977447164064222976](docs/objects/1977447164064222976.md) \*\* | G = 19.454; catalogued: SIMBAD WD*/DC:; MWDD DC:. | **Balmer emission, EW 45.9 A** |
 
@@ -134,7 +137,7 @@ One page per object with the measurement and its supporting data (tables, input 
 | [GALEX J190659.9-755815](docs/objects/6365804611201098368.md) \*\*\* | Hot white dwarf; no earlier spectrum found. | **DAO (He II 4686 + Balmer); Teff not constrained** |
 | [WDJ095852.35-175833.41](docs/objects/5671975077144346112.md) \*\*\* | Hot white dwarf; no earlier spectrum found. | **DAO (He II 4686 + Balmer); Teff not constrained** |
 
-### Short-period white dwarfs with irradiated companions (6)
+### Short-period white dwarfs with irradiated companions (11)
 
 | object | description | measurement |
 |---|---|---|
@@ -144,6 +147,11 @@ One page per object with the measurement and its supporting data (tables, input 
 | [WDJ040444.35-395043.1](docs/objects/4844023064578952320.md) \*\*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 20562 K, 0.243 Msun; G = 17.663, 632 pc. | P = 117.319 min; **W1 2.02x model** |
 | [WDJ194901.41+673005.59](docs/objects/2249098833310553728.md) \*\*\*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 16817 K, 0.143 Msun; G = 18.027, 739 pc. | P = 63.68 min; red/blue amplitude 1.6 ± 0.3 |
 | [WDJ005615.18-661731.98](docs/objects/4705562733524591232.md) \*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 15358 K, 0.255 Msun; G = 18.801, 714 pc. | P = 73.522 min; **W1 1.69x model** |
+| [WDJ001049.73-402029.49](docs/objects/4996506979251027584.md) \*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 18795 K, 0.247 Msun; G = 18.328, 745 pc. | **P = 112.225 min**; red/blue amplitude 1.61 |
+| [WDJ013915.33+312419.24](docs/objects/303768056000635776.md) \*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 21412 K, 0.209 Msun; G = 18.016, 925 pc. | **P = 213.157 min**; **W1 2.12x model** |
+| [WDJ103039.63-275438.60](docs/objects/5467851842959399808.md) \*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 13101 K, 0.119 Msun; G = 18.315, 761 pc. | **P = 240.493 min**; **W1 6.38x model** |
+| [WDJ140056.81-264218.70](docs/objects/6177529630243170432.md) \*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 36036 K, 0.411 Msun; G = 18.301, 898 pc. | **P = 130.045 min**; **W1 2.75x model** |
+| [WDJ011651.58-044046.82](docs/objects/2482810406432480512.md) \*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 21670 K, 0.23 Msun; G = 18.343, 978 pc. | **P = 426.153 min**; **W1 3.48x model** |
 
 ### Day-scale periods of hot white dwarfs (9)
 
@@ -208,6 +216,7 @@ python galex_colours.py 4847399905305694080 --window -0.25 0.05 --target-galex 2
 python tess_periodogram.py 2055170284 102 120
 python tess_pixel_test.py 6492083311194727168 2055170284 102 82.34 120
 python j0353_eclipse.py
+python eclipse_4851800979770492544.py
 python cv_balmer.py 65701864
 python periodic_6021870154194477312.py
 python tess_periodogram.py 1251484163 65 120 0.5 50

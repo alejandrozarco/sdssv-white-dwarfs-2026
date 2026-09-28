@@ -5,6 +5,9 @@ Light curves:
   curve converted to fractional flux about its median; light curves with fewer than 15 points dropped.
 - Gaia DR3 epoch photometry (data/gaia_dr3_epoch_photometry_<gaia_dr3>.csv; VizieR I/355/epphot): G, BP and RP transits without the
   variability-rejection flag; fractional flux about the median; TimeG/BP/RP + 2455197.5 used as BJD.
+- ATLAS forced photometry (data/atlas_forced_photometry_<gaia_dr3>.txt; c and o bands) where it exists: duJy > 0, err == 0, chi/N < 10,
+  duJy below three times the band median; per-season (365.25-d) median flux subtracted; fractional flux relative to the G-band flux
+  3631e6 x 10^(-0.4 G) uJy; MJD (UTC) converted to BJD_TDB at the star's position.
 - TESS: SPOC 120-s PDCSAP light curves (QUALITY == 0) where they exist; otherwise TESScut full-frame-image cutouts (7 x 7 pixels):
   3 x 3-pixel aperture on the target pixel, per-cadence background = median of the outer ring of pixels, times 9. A 1-day running median
   is subtracted and points beyond 5 sigma are clipped. PDCSAP fractions include the SPOC crowding correction; FFI fractions are relative
@@ -23,6 +26,9 @@ Zero points (Jy): W1 309.54, W2 171.787, J 1594, Ks 666.7 (2MASS values used for
 magnitude of the companion with d = 1/parallax.
 Usage: python irradiated_companions.py (writes ../tables/irradiated_companions.csv and ../tables/irradiated_companions_periods.csv)."""
 import os, io, numpy as np, pandas as pd, requests, warnings
+from astropy.time import Time
+from astropy.coordinates import SkyCoord, EarthLocation
+import astropy.units as u
 from astropy.io import fits
 from astropy.wcs import WCS
 from astropy.timeseries import LombScargle
@@ -50,7 +56,10 @@ def gaia_info(gid):
 def gaia_epochs(gid):
     p = os.path.join(D, f"gaia_dr3_epoch_photometry_{gid}.csv")
     if not os.path.exists(p):
-        V.query_constraints(catalog="I/355/epphot", Source=gid)[0].to_pandas().to_csv(p, index=False)
+        q = V.query_constraints(catalog="I/355/epphot", Source=gid)
+        if not q:
+            return {}
+        q[0].to_pandas().to_csv(p, index=False)
     e = pd.read_csv(p); out = {}
     for b, tc, fc, ec, fl in (("G", "TimeG", "FG", "e_FG", "GrVFlag"), ("BP", "TimeBP", "FBP", "e_FBP", "BPrVFlag"), ("RP", "TimeRP", "FRP", "e_FRP", "RPrVFlag")):
         m = np.isfinite(e[tc]) & np.isfinite(e[fc]) & (e[fc] > 0) & (e[fl] == 0)
@@ -72,6 +81,28 @@ def ztf(gid):
             t += list(s.hjd.values); y += list(fl - np.mean(fl)); e += list(0.921 * s.magerr.values * (fl + 1))
         if t:
             out[f"ZTF {band}"] = tuple(map(np.array, (t, y, e)))
+    return out
+
+
+def atlas(gid, ra, dec, G):
+    p = os.path.join(D, f"atlas_forced_photometry_{gid}.txt")
+    if not os.path.exists(p):
+        return {}
+    L = [l for l in open(p).read().splitlines() if l.strip()]; hdr = L[0].lstrip("#").split(); R = [dict(zip(hdr, l.split())) for l in L[1:]]
+    ok = [x for x in R if float(x["duJy"]) > 0 and float(x["err"]) == 0 and float(x["chi/N"]) < 10]; ref = 3631e6 * 10 ** (-0.4 * G); out = {}
+    c0 = SkyCoord(ra * u.deg, dec * u.deg); geo = EarthLocation.from_geodetic(lon=-156.2569 * u.deg, lat=20.7075 * u.deg, height=3055 * u.m)
+    for b in ("c", "o"):
+        x = [r for r in ok if r["F"] == b]
+        if len(x) < 15:
+            continue
+        med = np.median([float(r["duJy"]) for r in x]); x = [r for r in x if float(r["duJy"]) < 3 * med]
+        mjd = np.array([float(r["MJD"]) for r in x]); f = np.array([float(r["uJy"]) for r in x]); e = np.array([float(r["duJy"]) for r in x])
+        season = np.floor((mjd - 57000) / 365.25 + 0.3).astype(int)
+        for sv in np.unique(season):
+            f[season == sv] -= np.median(f[season == sv])
+        clip = np.abs(f) < 5 * 1.4826 * np.median(np.abs(f)) + 3 * np.median(e)
+        t = Time(mjd[clip], format="mjd", scale="utc", location=geo); bjd = (t.tdb + t.light_travel_time(c0)).jd
+        out[f"ATLAS {b}"] = (np.array(bjd), f[clip] / ref, e[clip] / ref)
     return out
 
 
@@ -186,20 +217,20 @@ def main():
     colour = wd_colours(); rows, prow = [], []
     for gid, s in SRC.iterrows():
         info = gaia_info(gid); sets = {}
-        sets.update(ztf(gid))
+        sets.update(ztf(gid)); sets.update(atlas(gid, info["ra"], info["dec"], info["G"]))
         secs = [int(x) for x in str(s.tess_sectors).split()]
         sets.update(tess_spoc(s.tic, secs) if s.tess_mode == "spoc" else tess_ffi(info["ra"], info["dec"], secs))
         gaia = gaia_epochs(gid)
         tt = np.concatenate([sets[k][0] for k in sets]); yy = np.concatenate([sets[k][1] for k in sets]); ee = np.concatenate([sets[k][2] for k in sets])
         fr = np.linspace(2, 50, 480001); f_guess = fr[np.argmax(LombScargle(tt, yy, ee).power(fr))]
-        f0, ef, tmax, af, adchi, chir = adopted_frequency({**sets, "Gaia G": gaia["Gaia G"]}, f_guess); allsets = {**sets, **gaia}
+        f0, ef, tmax, af, adchi, chir = adopted_frequency({**sets, **({"Gaia G": gaia["Gaia G"]} if "Gaia G" in gaia else {})}, f_guess); allsets = {**sets, **gaia}
         for k, (t, y, e) in allsets.items():
             lo = 2 if k.startswith("TESS") else 0.5; fq = np.linspace(lo, 50, 400001); ls = LombScargle(t, y, e); pw = ls.power(fq); j = np.argmax(pw)
             a, ea = harmonic_fit(t, y, e, f0)
             prow.append(dict(gaia_dr3=gid, dataset=k, n=len(t), peak_cd=round(float(fq[j]), 5), peak_fap=float(f"{ls.false_alarm_probability(pw[j], minimum_frequency=lo, maximum_frequency=50):.2g}"),
                              semi_amplitude_pct=round(100 * a, 2), e_semi_amplitude_pct=round(100 * ea, 2)))
         amp = {r["dataset"]: r["semi_amplitude_pct"] for r in prow if r["gaia_dr3"] == gid}
-        red = amp.get("ZTF zr", np.nan) / amp.get("ZTF zg", np.nan) if "ZTF zr" in amp else amp.get("Gaia RP", np.nan) / amp.get("Gaia BP", np.nan)
+        red = amp.get("ZTF zr", np.nan) / amp.get("ZTF zg", np.nan) if "ZTF zr" in amp else (amp.get("Gaia RP", np.nan) / amp.get("Gaia BP", np.nan) if "Gaia RP" in amp else amp.get("ATLAS o", np.nan) / amp.get("ATLAS c", np.nan))
         rows.append(dict(gaia_dr3=gid, name=s["name"], ra_deg=round(info["ra"], 6), dec_deg=round(info["dec"], 6), G=round(info["G"], 3), bp_rp=round(info["bp_rp"], 3),
                          parallax_mas=round(info["plx"], 3), e_parallax_mas=round(info["e_plx"], 3), distance_pc=round(1000 / info["plx"]), M_G=round(info["G"] + 5 * np.log10(info["plx"] / 100), 2),
                          gf21_teff_H=round(info["teff"]), gf21_logg_H=round(info["logg"], 2), gf21_mass_H=round(info["mass"], 3),

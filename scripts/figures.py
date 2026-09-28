@@ -150,6 +150,31 @@ def eclipse():
     plt.tight_layout(); plt.savefig(out("eclipse", "4731701084150029824_atlas_phase.png"), dpi=90); plt.close()
 
 
+def eclipse_4851800979770492544():
+    """TESS SAP profile (1-min bins from the profile table) and ATLAS folds on the TESS ephemeris."""
+    ns = {}; src = open("eclipse_4851800979770492544.py").read()
+    row = pd.read_csv(f"{T}/eclipsing_4851800979770492544.csv", dtype={"gaia_dr3": str}).iloc[0]; prof = pd.read_csv(f"{T}/eclipsing_4851800979770492544_profile.csv")
+    P, T0 = float(row.period_d), float(row.T0_bjd_tdb)
+    exec(src.split("# --- ATLAS")[1].split("row = dict(")[0].replace("T0, P", "T0_, P_") if False else "", ns)
+    fig, ax = plt.subplots(3, 1, figsize=(8, 8.5))
+    ax[0].step(prof.minutes_from_mid, prof.flux_fraction, where="mid", color="k"); ax[0].set_xlabel("minutes from mid-eclipse"); ax[0].set_ylabel("TESS SAP flux (star's share)"); ax[0].set_title(f"WDJ030317.61-420658.71: P = {P:.8f} d, T0 = BJD_TDB {T0:.5f}", fontsize=9)
+    L = [l for l in open("../data/atlas_forced_photometry_4851800979770492544.txt").read().splitlines() if l.strip()]; hdr = L[0].lstrip("#").split(); R = [dict(zip(hdr, l.split())) for l in L[1:]]
+    ok = [x for x in R if float(x["duJy"]) > 0 and float(x["err"]) == 0 and float(x["chi/N"]) < 10]
+    from astropy.time import Time; from astropy.coordinates import SkyCoord, EarthLocation; import astropy.units as u
+    c0 = SkyCoord(45.82364258397 * u.deg, -42.11636797807 * u.deg); geo = EarthLocation.from_geocentric(0, 0, 0, unit="m"); ref = {"c": 3631e6 * 10 ** (-0.4 * (17.815 + 18.1213) / 2), "o": 3631e6 * 10 ** (-0.4 * (18.1213 + 18.3554) / 2)}
+    for a, b in zip(ax[1:], ("o", "c")):
+        x = [r for r in ok if r["F"] == b]; med = np.median([float(r["duJy"]) for r in x]); x = [r for r in x if float(r["duJy"]) < 3 * med]
+        mjd = np.array([float(r["MJD"]) for r in x]); f = np.array([float(r["uJy"]) for r in x]); e = np.array([float(r["duJy"]) for r in x])
+        season = np.floor((mjd - 57000) / 365.25 + 0.3).astype(int)
+        for sv in np.unique(season): f[season == sv] -= np.median(f[season == sv])
+        tb = Time(mjd, format="mjd", scale="utc", location=geo); bjd = (tb.tdb + tb.light_travel_time(c0)).jd; ph = ((bjd - T0) / P + 0.5) % 1 - 0.5
+        a.errorbar(ph, f / ref[b], e / ref[b], fmt=".", ms=2, color="0.6", elinewidth=0.3, alpha=0.5)
+        edges = np.linspace(-0.5, 0.5, 61); c = 0.5 * (edges[1:] + edges[:-1]); idx = np.digitize(ph, edges) - 1
+        mb = [np.average((f / ref[b])[idx == i], weights=1 / (e / ref[b])[idx == i] ** 2) if np.any(idx == i) else np.nan for i in range(60)]
+        a.plot(c, mb, "k-", lw=1); a.set_ylabel(f"ATLAS {b} flux (fraction of star)"); a.set_ylim(-1.5, 1.0)
+    ax[2].set_xlabel("phase"); plt.tight_layout(); plt.savefig(out("eclipse", "4851800979770492544.png"), dpi=90); plt.close()
+
+
 def balmer():
     rows = [("2002597083798483200", "65701864"), ("1977447164064222976", "65312747")]
     fig, ax = plt.subplots(len(rows), 2, figsize=(11, 3.2 * len(rows)))
@@ -512,18 +537,18 @@ def irradiated_companions():
     import irradiated_companions as IC
     t = pd.read_csv(f"{T}/irradiated_companions.csv", dtype={"gaia_dr3": str}).set_index("gaia_dr3")
     for gid, s in IC.SRC.iterrows():
-        r = t.loc[gid]; sets = {}; sets.update(IC.ztf(gid)); secs = [int(x) for x in str(s.tess_sectors).split()]
+        r = t.loc[gid]; sets = {}; sets.update(IC.ztf(gid)); sets.update(IC.atlas(gid, float(r.ra_deg), float(r.dec_deg), float(r.G))); secs = [int(x) for x in str(s.tess_sectors).split()]
         sets.update(IC.tess_spoc(s.tic, secs) if s.tess_mode == "spoc" else IC.tess_ffi(r.ra_deg, r.dec_deg, secs)); gaia = IC.gaia_epochs(gid)
         f, t0 = float(r.frequency_cd), float(r.t_max_bjd); fig, ax = plt.subplots(1, 2, figsize=(11, 3.2))
         tt = np.concatenate([sets[k][0] for k in sets]); yy = np.concatenate([sets[k][1] for k in sets]); ee = np.concatenate([sets[k][2] for k in sets])
         fr = np.linspace(2, 50, 200001); ax[0].plot(fr, LombScargle(tt, yy, ee).power(fr), "k", lw=0.4); ax[0].axvline(f, color="r", lw=0.6, alpha=0.5)
         ax[0].set_xlabel("frequency (c/d)"); ax[0].set_ylabel("GLS power (" + " + ".join(sorted({k.split()[0] for k in sets})) + ")"); ax[0].set_title(f"Gaia DR3 {gid} ({s['name']}): P = {1440 / f:.3f} min", fontsize=8)
         edges = np.linspace(0, 1, 21); c = (edges[1:] + edges[:-1]) / 2
-        groups = [(k, sets[k], col) for k, col in (("ZTF zg", "C2"), ("ZTF zr", "C3")) if k in sets]
+        groups = [(k, sets[k], col) for k, col in (("ZTF zg", "C2"), ("ZTF zr", "C3"), ("ATLAS c", "C4"), ("ATLAS o", "C5")) if k in sets]
         tess = [k for k in sets if k.startswith("TESS")]
         if tess:
             groups.append(("TESS " + ",".join(k.split()[1] for k in tess), tuple(np.concatenate([sets[k][i] for k in tess]) for i in range(3)), "C0"))
-        groups += [(k, gaia[k], col) for k, col in (("Gaia G", "0.3"), ("Gaia BP", "C9"), ("Gaia RP", "C1"))]
+        groups += [(k, gaia[k], col) for k, col in (("Gaia G", "0.3"), ("Gaia BP", "C9"), ("Gaia RP", "C1")) if k in gaia]
         for lab, (x, y, e), col in groups:
             p = ((x - t0) * f) % 1; mb, sb = [], []
             for lo, hi in zip(edges[:-1], edges[1:]):
@@ -547,7 +572,7 @@ def irradiated_companions():
 if __name__ == "__main__":
     import sys
     ALL = dict(zeeman=zeeman, carbon_optical=carbon_optical, carbon_screen_spectra=carbon_screen_spectra, carbon_cos=carbon_cos, galex=galex,
-               eclipse=eclipse, balmer=balmer, zz=zz, periodic=periodic, periodic_white_dwarfs=periodic_white_dwarfs,
+               eclipse=eclipse, eclipse_4851800979770492544=eclipse_4851800979770492544, balmer=balmer, zz=zz, periodic=periodic, periodic_white_dwarfs=periodic_white_dwarfs,
                hot_dq_comparison=hot_dq_comparison, hot_dq_comparison_sdssv=lambda: hot_dq_comparison(extra=True), gas_discs=gas_discs, gas_discs_narrow=gas_discs_narrow, gas_discs_desi=gas_discs_desi, reflection=reflection, hot_white_dwarfs=hot_white_dwarfs, irradiated_companions=irradiated_companions, hot_dae_wd_periods=hot_dae_wd_periods)
     for name in (sys.argv[1:] or ALL):
         ALL[name](); print(name, "done", flush=True)

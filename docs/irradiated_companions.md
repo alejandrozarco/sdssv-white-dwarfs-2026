@@ -1,6 +1,6 @@
 # Short-period white dwarfs with irradiated companions
 
-`tables/irradiated_companions.csv` lists six white dwarfs with photometric periods of 64-130 min. In each, the amplitude is larger in red than in blue light. For five of them the WISE photometry (and VISTA photometry, where available) exceeds the white-dwarf prediction; WDJ194901.41+673005.59 has no infrared measurement.
+`tables/irradiated_companions.csv` lists eleven white dwarfs with photometric periods of 64-426 min. In each, the amplitude is larger in red than in blue light. For nine of them the WISE photometry (and VISTA photometry, where available) exceeds the white-dwarf prediction; WDJ194901.41+673005.59 has no infrared measurement, and WDJ001049.73−402029.49 has no CatWISE source within 2″ (its VHS J band is 1.8 times the prediction).
 
 `tables/irradiated_companions_periods.csv` gives the highest periodogram peak and the semi-amplitude at the adopted period for each data set. `tables/desi_halpha_6914922055508553984.csv` gives the H-alpha emission fit of WDJ205249.27−032419.53. The method is in [METHODS.md](../METHODS.md#methods).
 
@@ -12,6 +12,11 @@
 | WDJ040444.35−395043.1 | 4844023064578952320 | 17.66 | 632 | 20.6 kK, 0.24 Msun | 117.319 | Gaia G 9.8%, BP 3.9 ± 1.9%, RP 22 ± 3% | 2.0, 1.3 | 9.33 |
 | WDJ194901.41+673005.59 | 2249098833310553728 | 18.03 | 739 | 16.8 kK, 0.14 Msun | 63.680 | Gaia G 15.6%, BP 16 ± 3%, RP 27 ± 3%; TESS 27-51% | – | – |
 | WDJ005615.18−661731.98 | 4705562733524591232 | 18.80 | 714 | 15.4 kK, 0.25 Msun | 73.522 | Gaia G 8.2%, BP 4.9 ± 2.9%, RP 22 ± 5% | 1.7, 1.8 | 10.39 |
+| WDJ001049.73−402029.49 | 4996506979251027584 | 18.33 | 745 | 18.8 kK, 0.25 Msun | 112.225 | ATLAS c 7.8%, o 12.4%; TESS 16.1-23.4% | – (J 1.8x) | – |
+| WDJ013915.33+312419.24 | 303768056000635776 | 18.02 | 925 | 21.4 kK, 0.21 Msun | 213.157 | ZTF g 4.8%; TESS 20.7% | 2.1, 2.1 | 8.78 |
+| WDJ103039.63−275438.60 | 5467851842959399808 | 18.31 | 761 | 13.1 kK, 0.12 Msun | 240.493 | ZTF g 4.0%, r 10.0%; TESS 14.1% | 6.4, 8.1 | 7.39 |
+| WDJ140056.81−264218.70 | 6177529630243170432 | 18.30 | 898 | 36.0 kK, 0.41 Msun | 130.045 | ZTF g 5.4%, r 11.2%; TESS 27.4% | 2.8, 4.6 | 8.97 |
+| WDJ011651.58−044046.82 | 2482810406432480512 | 18.34 | 978 | 21.7 kK, 0.23 Msun | 426.153 | ZTF g 3.0%, r 7.4%; TESS 9.0-10.1% | 3.5, 3.9 | 8.13 |
 
 - **Temperatures and masses:** Gentile Fusillo et al. (2021) H-atmosphere fits to Gaia photometry.
 - **Distance:** 1/parallax.
@@ -81,3 +86,47 @@
 
 <img src="../figures/irradiated_companions/4705562733524591232.png" width="800">
 
+## WDJ001049.73−402029.49 (Gaia DR3 4996506979251027584)
+- **Period:** P = 112.225 min in ATLAS (c and o, 2015-2026) and TESS (sectors 103 and 105, 120 s). The nearest alias has Δχ² = 2849.
+- **Amplitudes:** ATLAS c 7.8%, o 12.4%; TESS 16.1% and 23.4% (PDCSAP, CROWDSAP 0.45).
+- **Existing classifications:** Stringer et al. (2019, DES) list an RR Lyrae candidate period of 0.486748 d at this position; VSX none; Gavras et al. (2023) constant.
+- **Infrared:** no CatWISE source within 2″ (AllWISE W1 17.67 at 1.4″); VHS J is 1.83 times the white-dwarf model.
+- **Spectra:** none found.
+
+<img src="../figures/irradiated_companions/4996506979251027584.png" width="800">
+
+## WDJ013915.33+312419.24 (Gaia DR3 303768056000635776)
+- **Period:** P = 213.157 min in ZTF g (71 points) and TESS (sector 85, 120 s). The nearest alias has Δχ² = 57.
+- **Amplitudes:** ZTF g 4.8%, ZTF i 21.4% (51 points; not in the tables); TESS 20.7% (PDCSAP, CROWDSAP 0.26).
+- **Existing classifications:** the Ritter & Kolb catalogue, Abrahams et al. (2020) and Gavras et al. (2023) attach the dwarf nova TU Tri (P = 0.0724 d) to this Gaia source. The VSX and Downes et al. (2001) positions of TU Tri fall 6.9″ away on Gaia DR3 303768060296004864 (G = 20.57), whose ZTF light curve shows outbursts (g 20.6 to 15.4); the white dwarf's ZTF light curve shows none (2018-2023).
+- **Infrared:** W1 and W2 are 2.1 times the white-dwarf model.
+- **Spectra:** none found.
+
+<img src="../figures/irradiated_companions/303768056000635776.png" width="800">
+
+## WDJ103039.63−275438.60 (Gaia DR3 5467851842959399808)
+- **Period:** P = 240.493 min in ZTF r and TESS (sector 99, 120 s); the ZTF g and r peaks at 6.990 and 4.985 c/d are the +1 and −1 c/d aliases. The nearest alias has Δχ² = 233.
+- **Amplitudes:** ZTF g 4.0%, r 10.0%; TESS 14.1% (PDCSAP, CROWDSAP 0.016; a G = 14.3 star 22″ away dominates the aperture).
+- **Existing classifications:** Pelisoli & Vos (2019) Gaia DR2 ELM candidate; Madurga Favieres et al. (2024) list the W1 excess (photometric, no spectral type); Gavras et al. (2023) constant; VSX none.
+- **Infrared:** W1 6.4 and W2 8.1 times the white-dwarf model; VHS J 2.0 and Ks 3.1 times.
+- **Spectra:** none found.
+
+<img src="../figures/irradiated_companions/5467851842959399808.png" width="800">
+
+## WDJ140056.81−264218.70 (Gaia DR3 6177529630243170432)
+- **Period:** P = 130.045 min in ZTF g, r and TESS (sector 102, 120 s). The nearest alias has Δχ² = 441.
+- **Amplitudes:** ZTF g 5.4%, r 11.2%; TESS 27.4% (PDCSAP, CROWDSAP 0.11).
+- **Existing classifications:** Gavras et al. (2023) constant; VSX none; not in the MWDD.
+- **Infrared:** W1 2.8 and W2 4.6 times the white-dwarf model; VHS J 1.6 times.
+- **Spectra:** none found.
+
+<img src="../figures/irradiated_companions/6177529630243170432.png" width="800">
+
+## WDJ011651.58−044046.82 (Gaia DR3 2482810406432480512)
+- **Period:** P = 426.153 min in ZTF g, r and TESS (sectors 70 and 97, 120 s). The nearest alias has Δχ² = 869.
+- **Amplitudes:** ZTF g 3.0%, r 7.4%; TESS 9.0-10.1% (PDCSAP, CROWDSAP 0.72).
+- **Existing classifications:** Stringer et al. (2019, DES) list an RR Lyrae candidate period of 0.640697 d; Gavras et al. (2023) constant; Wang et al. (2025) no period; VSX none.
+- **Infrared:** W1 3.5 and W2 3.9 times the white-dwarf model; VHS J 1.5 and Ks 1.9 times.
+- **Spectra:** none found.
+
+<img src="../figures/irradiated_companions/2482810406432480512.png" width="800">

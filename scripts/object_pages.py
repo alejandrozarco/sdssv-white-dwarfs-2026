@@ -29,6 +29,9 @@ DESC = {
     "6021870154194477312": "White dwarf with a 103.4-min period; three Gaia sources within 13 arcsec are fitted separately.",
     "3107374277060584064": "Hot white dwarf with He II 4686 absorption (SIMBAD WD* DO:, MWDD DO:, SDSS-V SnowWhite DA:; VSX type WD without a period); H-alpha, H-beta and Ca II emission whose velocity follows the photometric phase.",
     "2883364038621038208": "White dwarf selected by its Gaia DR3 GLS frequency (GALEX J060343.7-380911).",
+    "6722639595190126208": "Hot massive DA white dwarf (GF21 H-atmosphere 36.0 kK, 1.20 Msun; Gaia XP fit in the MWDD 63.7 kK, 1.30 Msun), G = 16.79, 120 pc; the period was found in TESS 2-min light curves (sectors 93 and 104) and recovered in ATLAS.",
+    "3161618477052648192": "DC white dwarf (GF21 H-atmosphere 7.6 kK, 0.77 Msun), G = 17.40, 59 pc; the period was found in ZTF and recovered in three TESS sectors and in ATLAS; the highest TESS peak (7.52 c/d) belongs to another star in the aperture.",
+    "4851800979770492544": "DA white dwarf (GF21 H-atmosphere 13.9 kK, 0.35 Msun; Gaia XP fit in the MWDD 14.5 kK, 0.31 Msun), G = 17.95, 322 pc; no other Gaia source within 28 arcsec.",
     "178685757799822080": "White dwarf selected by its Gaia DR3 GLS frequency (GALEX J043613.3+383720).",
     "6456720612064924928": "White dwarf selected by its Gaia DR3 GLS frequency (GALEX J211204.8-571801).",
     "2888030331609338240": "White dwarf selected by its Gaia DR3 GLS frequency (GALEX J054140.8-362248).",
@@ -108,6 +111,7 @@ add("3107374277060584064", "WDJ064438.09-004550.51", Entry(
 
 # Irradiated companions.
 d = T("irradiated_companions.csv"); dp = T("irradiated_companions_periods.csv")
+NEW_PERIOD = {"4996506979251027584", "303768056000635776", "5467851842959399808", "6177529630243170432", "2482810406432480512"}
 def ratio_err(gaia):
     q = dp[dp.gaia_dr3 == gaia].set_index("dataset")
     if "Gaia RP" not in q.index or "Gaia BP" not in q.index: return ""
@@ -120,7 +124,7 @@ for _, r in d.iterrows():
     rerr = ratio_err(r.gaia_dr3) or str(r.red_to_blue_amplitude)
     obs = f"P = {r.period_min} min; red-to-blue (Gaia RP/BP) semi-amplitude ratio {rerr}{w1}"
     add(r.gaia_dr3, r["name"], Entry("irradiated_companions", "Short-period white dwarfs with irradiated companions",
-        "irradiated_companions.md", desc, obs, f"P = {r.period_min} min; " + (f"**W1 {r.W1_ratio}x model**" if r.W1_ratio else f"red/blue amplitude {rerr}"),
+        "irradiated_companions.md", desc, obs, (f"**P = {r.period_min} min**; " if r.gaia_dr3 in NEW_PERIOD else f"P = {r.period_min} min; ") + (f"**W1 {r.W1_ratio}x model**" if r.W1_ratio else f"red/blue amplitude {rerr}"),
         ["irradiated_companions.csv", "irradiated_companions_periods.csv"], None, ["irradiated_companions.py"], None))
 
 # Gaseous discs.
@@ -179,6 +183,12 @@ add(r.gaia_dr3, r["name"], Entry("eclipse_and_emission", "Eclipse and Balmer emi
     f"Star with M-dwarf colours (BP-RP {r.bp_rp}, M_G {float(r.G) - 5 * np.log10(1000 / float(r.parallax_mas)) + 5:.2f}), G = {r.G}; the eclipsed object is not identified; catalogued: {cat(r, ('simbad_type', 'SIMBAD'), ('mwdd_spectype', 'MWDD'))}.",
     f"Eclipses in ATLAS: P = {r.period_d} ± {r.e_period_d} d, total duration {r.total_duration_min} min, depths {r.depth_o_uJy}/{r.depth_c_uJy} uJy (o/c)",
     f"eclipses, P = {r.period_d} d", ["eclipsing_4731701084150029824.csv"], None, ["j0353_eclipse.py"], None))
+r = T("eclipsing_4851800979770492544.csv").iloc[0]
+add(r.gaia_dr3, r["name"], Entry("eclipse_and_emission", "Eclipse and Balmer emission", "eclipse_and_emission.md",
+    DESC.get(r.gaia_dr3, "White dwarf."),
+    f"Eclipses in TESS (sectors {r.sectors}; {r.n_eclipses_timed} eclipses timed) and ATLAS: P = {r.period_d} ± {r.e_period_d} d, T0 = BJD_TDB {r.T0_bjd_tdb}, "
+    f"depth {r.depth_fraction} of the star's flux in the 1-min TESS profile ({r.minutes_below_half} min below half flux); ATLAS in-eclipse flux {r.atlas_o_in_eclipse_mean} ± {r.atlas_o_in_eclipse_err} (o), {r.atlas_c_in_eclipse_mean} ± {r.atlas_c_in_eclipse_err} (c) of the star",
+    f"eclipses, P = {r.period_min} min", ["eclipsing_4851800979770492544.csv", "eclipsing_4851800979770492544_profile.csv"], None, ["eclipse_4851800979770492544.py"], None))
 for _, r in T("balmer_emission.csv").iterrows():
     obs = (f"H-alpha emission EW {r.Halpha_EW_A} ± {r.e_Halpha_EW_A} A (peak separation {r.Halpha_peak_sep_kms} km/s); "
            f"H-beta EW {r.Hbeta_EW_A} ± {r.e_Hbeta_EW_A} A")
@@ -238,6 +248,7 @@ TITLES = {"gas_discs": "Ca II triplet emission (gaseous discs)", "carbon": "Carb
           "irradiated_companions": "Short-period white dwarfs with irradiated companions",
           "hot_wd_periods": "Day-scale periods of hot white dwarfs", "dae_wd_periods": "Periods of DA white dwarfs with emission lines"}
 MARK = {
+    "4851800979770492544": 4, "6722639595190126208": 4, "3161618477052648192": 3, "4996506979251027584": 3, "303768056000635776": 3, "5467851842959399808": 3, "6177529630243170432": 3, "2482810406432480512": 3,
     "2249098833310553728": 5,
     "578709631539357440": 4, "6914922055508553984": 4, "6021870154194477312": 4, "1980205739970324224": 4,
     "3107374277060584064": 4, "2191618770599895296": 4, "5503429908930455808": 4, "4844023064578952320": 4,

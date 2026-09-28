@@ -1,4 +1,5 @@
-"""Photometric periods of white dwarfs with a Gaia DR3 GLS frequency (data/periodic_white_dwarfs_sources.csv).
+"""Photometric periods of white dwarfs with a Gaia DR3 GLS frequency, plus two white dwarfs whose period was found in TESS 2-min light
+curves and confirmed in ATLAS or ZTF (data/periodic_white_dwarfs_sources.csv; these have no Gaia GLS entry).
 
 Ground-based light curves:
 - ATLAS forced photometry (data/atlas_forced_photometry_<gaia_dr3>.txt; positions propagated to 2020.5): cuts duJy > 0, err == 0,
@@ -24,7 +25,7 @@ import astropy.units as u
 D = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
 T0 = 2458000.0; GEO = EarthLocation.from_geocentric(0, 0, 0, unit="m")
 SRC = pd.read_csv(os.path.join(D, "periodic_white_dwarfs_sources.csv"), dtype={"gaia_dr3": str}).set_index("gaia_dr3")
-TESS = {"2883364038621038208": ("705345754", (87, 98)), "2888030331609338240": ("705508671", (98,)), "6639666736903611136": ("201655627", (27, 67, 94, 103, 104)),
+TESS = {"6722639595190126208": ("1697348546", (93, 104)), "3161618477052648192": ("761696261", (71, 72, 87)), "2883364038621038208": ("705345754", (87, 98)), "2888030331609338240": ("705508671", (98,)), "6639666736903611136": ("201655627", (27, 67, 94, 103, 104)),
         "974895286283420160": ("407569944", (20, 47, 60)), "2795150147707769728": ("611449439", (57,)),
         "3230486971974872192": ("672345277", (98,))}
 fl = lambda m: 3631e6 * 10 ** (-0.4 * m)
