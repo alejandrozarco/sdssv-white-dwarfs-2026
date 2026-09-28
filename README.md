@@ -61,7 +61,7 @@ One page per object with the measurement and its supporting data (tables, input 
 | [GALEX J060732.0-390139](docs/objects/2883030508640778752.md) \*\* | DA white dwarf, G = 17.582; catalogued: SnowWhite DAH; SIMBAD WD*/DA:; MWDD DA:. | **B = 8.83 MG** |
 | [GALEX J215736.7-574324](docs/objects/6412133010376770560.md) \*\* | DA white dwarf, G = 18.645; catalogued: SnowWhite DAH; SIMBAD WD*/DA; MWDD DA. | **B = 7.96 MG** |
 | [GALEX J203016.2-620507](docs/objects/6430762242043644032.md) \*\* | DA white dwarf, G = 18.771; catalogued: SnowWhite DAH/DA; SIMBAD WD*/DA; MWDD DA. | **B = 6.96 MG** |
-| [Gaia DR3 5848754492268362624](docs/objects/5848754492268362624.md) \*\* | DA white dwarf, G = 17.888; catalogued: SnowWhite DAH/DA; SIMBAD WD*/DA; MWDD DA:. | **B = 7.11 MG** |
+| [Gaia DR3 5848754492268362624](docs/objects/5848754492268362624.md) \*\* | DA white dwarf, G = 17.888; catalogued: SnowWhite DAH/DA; SIMBAD WD*/DA; MWDD DA:. | B = 7.11 MG (H-alpha) vs 5.93 MG (H-beta): inconsistent |
 | [Gaia DR3 428300220431345536](docs/objects/428300220431345536.md) \*\* | DA white dwarf, G = 17.572; catalogued: SnowWhite DA/DAH; SIMBAD WD*/DA; MWDD DA:. | **B = 6.51 MG** |
 | [GALEX J195006.0+015739](docs/objects/4241409569220727424.md) \*\* | DA white dwarf, G = 18.226; catalogued: SnowWhite DA/DAH; SIMBAD WD*/DA; MWDD DA. | **B = 9.74 MG** |
 | [Cl* Melotte   25  REIDA     503](docs/objects/50526755482496000.md) \*\* | DA white dwarf, G = 18.333; catalogued: SnowWhite DAH; SIMBAD WD*/DA:; MWDD DA:. | **B = 10.02 MG** |
@@ -74,10 +74,10 @@ One page per object with the measurement and its supporting data (tables, input 
 | [GALEX J035849.5-605233](docs/objects/4680104332056706304.md) \*\* | DA white dwarf, G = 18.697; catalogued: SnowWhite DAH/DA; SIMBAD WD*/DA; MWDD DA. | **B = 6.04 MG** |
 | [GALEX J052137.6-425430](docs/objects/4800536829945050752.md) \*\* | DA white dwarf, G = 19.525; catalogued: SnowWhite DA/DAH; SIMBAD WD?. | **B = 6.93 MG** |
 | [Gaia DR3 4187365308538865792](docs/objects/4187365308538865792.md) \*\* | DA white dwarf, G = 19.421; catalogued: SnowWhite DA/DAH; SIMBAD WD*/DA; MWDD DA. | **B = 5.47 MG** |
-| [GALEX J004807.2+433940](docs/objects/375892788968158848.md) \*\* | DA white dwarf, G = 19.121; catalogued: SnowWhite DAH; SIMBAD WD*/DA:; MWDD DA:. | **B = 8.76 MG** |
+| [GALEX J004807.2+433940](docs/objects/375892788968158848.md) \*\* | DA white dwarf, G = 19.121; catalogued: SnowWhite DAH; SIMBAD WD*/DA:; MWDD DA:. | B = 8.76 MG (H-alpha) vs 3.74 MG (H-beta): inconsistent |
 | [GALEX J033920.8-475633](docs/objects/4833309388918586624.md) \*\* | DA white dwarf, G = 19.696; catalogued: SnowWhite DA/DAH; SIMBAD WD?. | **B = 7.27 MG** |
 | [GALEX J213436.2-521245](docs/objects/6465559379883395328.md) \*\* | DA white dwarf, G = 19.088; catalogued: SnowWhite DA; SIMBAD WD*/DA; MWDD DA. | **B = 4.16 MG** |
-| [Gaia DR3 5665371272869153152](docs/objects/5665371272869153152.md) \*\* | DA white dwarf, G = 19.297; catalogued: SnowWhite DA; SIMBAD WD?. | **B = 8.5 MG** |
+| [Gaia DR3 5665371272869153152](docs/objects/5665371272869153152.md) \*\* | DA white dwarf, G = 19.297; catalogued: SnowWhite DA; SIMBAD WD?. | B = 8.5 MG (H-alpha) vs 4.15 MG (H-beta): inconsistent |
 | [Gaia DR3 3327361677328480256](docs/objects/3327361677328480256.md) \*\* | DA white dwarf, G = 17.835; catalogued: SnowWhite DA; SIMBAD WD*/DA; MWDD DA. | **B = 3.57 MG** |
 | [GALEX J040038.6-615458](docs/objects/4679463733391272448.md) \*\* | DA white dwarf, G = 18.514; catalogued: SnowWhite DA; SIMBAD WD*/DA; MWDD DA. Common proper motion with Gaia DR3 4679466653969618816 (G 9.83) at 86 arcsec. | **B = 4.28 MG** |
 | [GALEX J050006.8+080244](docs/objects/3290180587821828480.md) \*\* | DA white dwarf, G = 18.906; catalogued: SnowWhite DA; SIMBAD WD*/DA; MWDD DA. | **B = 5.3 MG** |
@@ -109,17 +109,17 @@ One page per object with the measurement and its supporting data (tables, input 
 
 | object | description | measurement |
 |---|---|---|
-| [GALEX J054243.4-261011](docs/objects/2908195134345338496.md) \*\* | White dwarf, G = 17.634; SnowWhite DA (Teff 12173 K, log g 7.93); catalogued: SIMBAD WD*/DA; MWDD DA. | **pulsations, 692.1 s** |
-| [GALEX J033619.1-564435](docs/objects/4729763229265811328.md) \*\* | White dwarf, G = 17.493; SnowWhite DA (Teff 11626 K, log g 8.07); catalogued: SIMBAD WD*/DA; MWDD DA. | **pulsations, 605.1 s** |
-| [L  210-25](docs/objects/6472153670805656832.md) \*\* | White dwarf, G = 16.402; SnowWhite DA (Teff 11191 K, log g 8.16); catalogued: SIMBAD WD*/DA; MWDD DA. | **pulsations, 817.3 s** |
-| [[OHD2001] WD J2324-595](docs/objects/6492083311194727168.md) \*\*\* | White dwarf, G = 16.809; SnowWhite DA (Teff 11600 K, log g 7.89); catalogued: SIMBAD WD*/DA; MWDD DA. | **pulsations, 170.4 s** |
-| [GALEX J214927.5-515827](docs/objects/6558472750993181568.md) \*\*\* | White dwarf, G = 17.084; SnowWhite DA (Teff 11817 K, log g 8.12); catalogued: SIMBAD WD*/DA; MWDD DA. | **pulsations, 1067.1 s** |
+| [GALEX J054243.4-261011](docs/objects/2908195134345338496.md) \*\* | White dwarf, G = 17.634; SnowWhite DA (Teff 12173 K, log g 7.93); catalogued: SIMBAD WD*/DA; MWDD DA. | **pulsations, 692.1 s (sector 98, FAP 9.5e-05)** |
+| [GALEX J033619.1-564435](docs/objects/4729763229265811328.md) \*\* | White dwarf, G = 17.493; SnowWhite DA (Teff 11626 K, log g 8.07); catalogued: SIMBAD WD*/DA; MWDD DA. | **pulsations, 971.4 s (sector 96, FAP 6.4e-05)** |
+| [L  210-25](docs/objects/6472153670805656832.md) \*\* | White dwarf, G = 16.402; SnowWhite DA (Teff 11191 K, log g 8.16); catalogued: SIMBAD WD*/DA; MWDD DA. | **pulsations, 940.9 s (sector 105, FAP 0.0012)** |
+| [[OHD2001] WD J2324-595](docs/objects/6492083311194727168.md) \*\*\* | White dwarf, G = 16.809; SnowWhite DA (Teff 11600 K, log g 7.89); catalogued: SIMBAD WD*/DA; MWDD DA. | **pulsations, 1049.3 s (sector 102, FAP 1.5e-27)** |
+| [GALEX J214927.5-515827](docs/objects/6558472750993181568.md) \*\*\* | White dwarf, G = 17.084; SnowWhite DA (Teff 11817 K, log g 8.12); catalogued: SIMBAD WD*/DA; MWDD DA. | **pulsations, 947.5 s (sector 102, FAP 3.3e-05)** |
 
 ### Eclipse and Balmer emission (3)
 
 | object | description | measurement |
 |---|---|---|
-| [Gaia DR3 4731701084150029824](docs/objects/4731701084150029824.md) \*\*\* | White dwarf, G = 18.373; catalogued: none found. | **eclipses, P = 0.14786971 d** |
+| [Gaia DR3 4731701084150029824](docs/objects/4731701084150029824.md) \*\*\* | Star with M-dwarf colours (BP-RP 2.817, M_G 13.17), G = 18.373; the eclipsed object is not identified; catalogued: none found. | **eclipses, P = 0.14786971 d** |
 | [Gaia DR3 2002597083798483200](docs/objects/2002597083798483200.md) \*\* | G = 18.816; catalogued: SIMBAD WD*/DQ:; MWDD DQ:. | **Balmer emission, EW 318.3 A** |
 | [Gaia DR3 1977447164064222976](docs/objects/1977447164064222976.md) \*\* | G = 19.454; catalogued: SIMBAD WD*/DC:; MWDD DC:. | **Balmer emission, EW 45.9 A** |
 
@@ -127,12 +127,12 @@ One page per object with the measurement and its supporting data (tables, input 
 
 | object | description | measurement |
 |---|---|---|
-| [GALEX J055029.7-155446](docs/objects/2995107164834343680.md) \*\*\* | Hot white dwarf; no earlier spectrum found. | **DAO, Teff ~60-110 kK (TMAP)** |
-| [GALEX J062928.9-415857](docs/objects/5570041179495992704.md) \*\*\* | Hot white dwarf; no earlier spectrum found. | **DAO, Teff ~60-110 kK (TMAP)** |
-| [SDSS J081413.43+022524.7](docs/objects/3090786872841030016.md) \*\*\* | Hot white dwarf; no earlier spectrum found. | **DAO, Teff ~60-110 kK (TMAP)** |
-| [Gaia DR3 4036084504408126976](docs/objects/4036084504408126976.md) \*\*\* | Hot white dwarf; no earlier spectrum found. | **DAO, Teff ~60-110 kK (TMAP)** |
-| [GALEX J190659.9-755815](docs/objects/6365804611201098368.md) \*\*\* | Hot white dwarf; no earlier spectrum found. | **DAO, Teff ~60-110 kK (TMAP)** |
-| [WDJ095852.35-175833.41](docs/objects/5671975077144346112.md) \*\*\* | Hot white dwarf; no earlier spectrum found. | **DAO, Teff ~60-110 kK (TMAP)** |
+| [GALEX J055029.7-155446](docs/objects/2995107164834343680.md) \*\*\* | Hot white dwarf; no earlier spectrum found. | **DAO (He II 4686 + Balmer); Teff 110 kK (He-only TMAP fit, 100-120)** |
+| [GALEX J062928.9-415857](docs/objects/5570041179495992704.md) \*\*\* | Hot white dwarf; no earlier spectrum found. | **DAO (He II 4686 + Balmer); Teff 100 kK (He-only TMAP fit)** |
+| [SDSS J081413.43+022524.7](docs/objects/3090786872841030016.md) \*\*\* | Hot white dwarf; no earlier spectrum found. | **DAO (He II 4686 + Balmer); Teff 90 kK (He-only TMAP fit)** |
+| [Gaia DR3 4036084504408126976](docs/objects/4036084504408126976.md) \*\*\* | Hot white dwarf; no earlier spectrum found. | **DAO (He II 4686 + Balmer); Teff 90 kK (He-only TMAP fit)** |
+| [GALEX J190659.9-755815](docs/objects/6365804611201098368.md) \*\*\* | Hot white dwarf; no earlier spectrum found. | **DAO (He II 4686 + Balmer); Teff not constrained** |
+| [WDJ095852.35-175833.41](docs/objects/5671975077144346112.md) \*\*\* | Hot white dwarf; no earlier spectrum found. | **DAO (He II 4686 + Balmer); Teff not constrained** |
 
 ### Short-period white dwarfs with irradiated companions (6)
 
@@ -142,7 +142,7 @@ One page per object with the measurement and its supporting data (tables, input 
 | [WDJ212738.67+593755.72](docs/objects/2191618770599895296.md) \*\*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 13777 K, 0.263 Msun; G = 16.871, 241 pc. | P = 130.182 min; **W1 3.61x model** |
 | [WDJ070106.16-534811.37](docs/objects/5503429908930455808.md) \*\*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 16240 K, 0.256 Msun; G = 18.426, 602 pc. | P = 81.493 min; **W1 2.21x model** |
 | [WDJ040444.35-395043.1](docs/objects/4844023064578952320.md) \*\*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 20562 K, 0.243 Msun; G = 17.663, 632 pc. | P = 117.319 min; **W1 2.02x model** |
-| [WDJ194901.41+673005.59](docs/objects/2249098833310553728.md) \*\*\*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 16817 K, 0.143 Msun; G = 18.027, 739 pc. | P = 63.68 min; **red/blue amplitude 1.61** |
+| [WDJ194901.41+673005.59](docs/objects/2249098833310553728.md) \*\*\*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 16817 K, 0.143 Msun; G = 18.027, 739 pc. | P = 63.68 min; red/blue amplitude 1.6 ± 0.3 |
 | [WDJ005615.18-661731.98](docs/objects/4705562733524591232.md) \*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 15358 K, 0.255 Msun; G = 18.801, 714 pc. | P = 73.522 min; **W1 1.69x model** |
 
 ### Day-scale periods of hot white dwarfs (9)
@@ -151,9 +151,9 @@ One page per object with the measurement and its supporting data (tables, input 
 |---|---|---|
 | [WDJ091433.60+581238.12](docs/objects/1038176780370360576.md) \*\*\* | SBSS 0910+584; spectral type DO (MWDD). G = 17.73, 810 pc. | **P = 27.23048 h, 3.8% (ZTF)** |
 | [WDJ151215.73+065156.43](docs/objects/1157401396015448960.md) \* | GALEX J151215.7+065156; UHE white dwarf, DOZ (Reindl et al. 2021, where the period is published). G = 17.22, 990 pc. | P = 5.4245 h, 1.8% (ZTF) |
-| [WDJ221519.86+253059.05](docs/objects/1879989790567353344.md) \*\*\* | GALEX J221519.8+253059; spectral type DOZ (MWDD). G = 17.05, 1190 pc. | **P = 18.54001 h, 2.2% (ZTF)** |
+| [WDJ221519.86+253059.05](docs/objects/1879989790567353344.md) \*\*\* | GALEX J221519.8+253059; spectral type DOZ (MWDD). G = 17.05, 1190 pc. | **P = 37.07929 h, 1.4% (ZTF)** |
 | [WDJ075540.94+400917.91](docs/objects/920621124593362816.md) \* | KUV 07523+4017; DOZ / PG 1159 (Reindl et al. 2021, where the period is published). G = 17.80, 1052 pc. | P = 20.78523 h, 2.5% (ZTF) |
-| [WDJ065819.86+441438.40](docs/objects/953685015492787456.md) \*\*\* | Gaia XP class DO (Vincent et al. 2024). G = 17.53, 483 pc. | **P = 14.74481 h, 2.8% (ZTF)** |
+| [WDJ065819.86+441438.40](docs/objects/953685015492787456.md) \*\*\* | Gaia XP class DO (Vincent et al. 2024). G = 17.53, 483 pc. | **P = 29.49088 h, 0.9% (ZTF)** |
 | [WDJ025657.85-145029.92](docs/objects/5157333438398813824.md) \*\*\* | Spectral type DA with a photometric temperature above 100 kK (MWDD). G = 17.37, 1072 pc. | **P = 28.51831 h, 3.4% (ZTF)** |
 | [WDJ171743.52+515840.07](docs/objects/1415911839725510528.md) \*\* | Spectral type DA, 68.0 kK (Kilic et al. 2026, via the MWDD). G = 17.59, 833 pc. | **P = 30.1191 h, 1.9% (ZTF)** |
 | [WDJ234931.84-353916.52](docs/objects/2311285729210966144.md) \*\* | GALEX J234931.8-353916; SDSS-V DR20 SnowWhite class DA. G = 17.88, 882 pc. | **P = 26.4793 h, 2.6% (ATLAS)** |

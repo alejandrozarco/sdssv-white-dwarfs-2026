@@ -6,6 +6,7 @@ All numbers are taken verbatim from tables/*.csv; descriptions repeat the topic 
 Usage: python object_pages.py (run from scripts/)."""
 import os, glob, collections
 import pandas as pd
+import numpy as np
 
 R = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 OUT = os.path.join(R, "docs", "objects")
@@ -106,14 +107,20 @@ add("3107374277060584064", "WDJ064438.09-004550.51", Entry(
     ["reflection_3107374277060584064.py"], None))
 
 # Irradiated companions.
-d = T("irradiated_companions.csv")
+d = T("irradiated_companions.csv"); dp = T("irradiated_companions_periods.csv")
+def ratio_err(gaia):
+    q = dp[dp.gaia_dr3 == gaia].set_index("dataset")
+    if "Gaia RP" not in q.index or "Gaia BP" not in q.index: return ""
+    rp, bp = q.loc["Gaia RP"], q.loc["Gaia BP"]; ar, er, ab, eb = (float(x) for x in (rp.semi_amplitude_pct, rp.e_semi_amplitude_pct, bp.semi_amplitude_pct, bp.e_semi_amplitude_pct))
+    v = ar / ab; return f"{v:.1f} ± {v * ((er / ar) ** 2 + (eb / ab) ** 2) ** 0.5:.1f}"
 for _, r in d.iterrows():
     desc = (f"Low-mass white dwarf: GF21 H-atmosphere Teff {r.gf21_teff_H} K, {r.gf21_mass_H} Msun; "
             f"G = {r.G}, {r.distance_pc} pc.")
     w1 = f"; W1 {r.W1_ratio}x the white-dwarf model (companion M_W1 = {r.M_W1_companion})" if r.W1_ratio else ""
-    obs = f"P = {r.period_min} min; red-to-blue semi-amplitude ratio {r.red_to_blue_amplitude}{w1}"
+    rerr = ratio_err(r.gaia_dr3) or str(r.red_to_blue_amplitude)
+    obs = f"P = {r.period_min} min; red-to-blue (Gaia RP/BP) semi-amplitude ratio {rerr}{w1}"
     add(r.gaia_dr3, r["name"], Entry("irradiated_companions", "Short-period white dwarfs with irradiated companions",
-        "irradiated_companions.md", desc, obs, f"P = {r.period_min} min; " + (f"**W1 {r.W1_ratio}x model**" if r.W1_ratio else f"**red/blue amplitude {r.red_to_blue_amplitude}**"),
+        "irradiated_companions.md", desc, obs, f"P = {r.period_min} min; " + (f"**W1 {r.W1_ratio}x model**" if r.W1_ratio else f"red/blue amplitude {rerr}"),
         ["irradiated_companions.csv", "irradiated_companions_periods.csv"], None, ["irradiated_companions.py"], None))
 
 # Gaseous discs.
@@ -144,8 +151,11 @@ for _, r in d.iterrows():
     desc = f"DA white dwarf, G = {r.G}; catalogued: {cat(r, ('snowwhite_class', 'SnowWhite'), ('simbad_type', 'SIMBAD'), ('mwdd_spectype', 'MWDD'))}." + (f" {r.note[0].upper() + r.note[1:]}{'' if r.note.endswith('.') else '.'}" if r.note else "")
     obs = (f"Zeeman-split Balmer lines: B = {r.B_split_Ha_MG} ± {r.e_B_split_Ha_MG} MG (H-alpha), "
            f"{r.B_split_Hb_MG} ± {r.e_B_split_Hb_MG} MG (H-beta); spectrum S/N {r.snr}")
+    inconsistent = abs(float(r.B_split_Ha_MG) - float(r.B_split_Hb_MG)) > 1.0
+    if inconsistent: obs += "; the two lines disagree by more than 1 MG, so the field is not established"
     add(r.gaia_dr3, r["name"], Entry("zeeman", "Zeeman splitting", "zeeman.md", desc, obs,
-        f"B = {r.B_split_Ha_MG} MG", ["magnetic_zeeman.csv"], None, ["zeeman_split.py"], None))
+        f"B = {r.B_split_Ha_MG} MG (H-alpha) vs {r.B_split_Hb_MG} MG (H-beta): inconsistent" if inconsistent else f"B = {r.B_split_Ha_MG} MG",
+        ["magnetic_zeeman.csv"], None, ["zeeman_split.py"], None))
 
 # TESS amplitude spectra (ZZ Ceti candidates).
 zo, zs = T("zz_ceti_objects.csv"), T("zz_ceti_tess_sectors.csv")
@@ -158,14 +168,15 @@ for _, r in zo.iterrows():
     pix = "; ".join(f"pixel-level test (sector {x.sector}): chi2 {x.pixel_chi2_target} at the target vs {x.pixel_chi2_best_other} "
                     f"at the best other star (G = {x.pixel_best_other_G}, {x.pixel_best_other_sep_arcsec} arcsec)" for _, x in px.iterrows())
     obs = f"TESS pulsation signal(s): {per}" + (f"; {pix}" if pix else "")
+    best = (px if len(px) else g[g.cadence_s == 120]).sort_values("fap_baluev").iloc[0]
     add(r.gaia_dr3, r["name"], Entry("zz_ceti", "TESS amplitude spectra", "zz_ceti.md", desc, obs,
-        f"pulsations, {g.iloc[0].period_s} s", ["zz_ceti_objects.csv", "zz_ceti_tess_sectors.csv"],
+        f"pulsations, {best.period_s} s (sector {best.sector}, FAP {best.fap_baluev})", ["zz_ceti_objects.csv", "zz_ceti_tess_sectors.csv"],
         None, ["tess_periodogram.py", "tess_pixel_test.py"], None))
 
 # Eclipses and Balmer emission.
 r = T("eclipsing_4731701084150029824.csv").iloc[0]
 add(r.gaia_dr3, r["name"], Entry("eclipse_and_emission", "Eclipse and Balmer emission", "eclipse_and_emission.md",
-    f"White dwarf, G = {r.G}; catalogued: {cat(r, ('simbad_type', 'SIMBAD'), ('mwdd_spectype', 'MWDD'))}.",
+    f"Star with M-dwarf colours (BP-RP {r.bp_rp}, M_G {float(r.G) - 5 * np.log10(1000 / float(r.parallax_mas)) + 5:.2f}), G = {r.G}; the eclipsed object is not identified; catalogued: {cat(r, ('simbad_type', 'SIMBAD'), ('mwdd_spectype', 'MWDD'))}.",
     f"Eclipses in ATLAS: P = {r.period_d} ± {r.e_period_d} d, total duration {r.total_duration_min} min, depths {r.depth_o_uJy}/{r.depth_c_uJy} uJy (o/c)",
     f"eclipses, P = {r.period_d} d", ["eclipsing_4731701084150029824.csv"], None, ["j0353_eclipse.py"], None))
 for _, r in T("balmer_emission.csv").iterrows():
@@ -177,19 +188,25 @@ for _, r in T("balmer_emission.csv").iterrows():
 
 # Hot white dwarfs with He II lines (targets; the table also carries the control stars).
 d = T("hot_white_dwarfs.csv")
+for c in ("teff_kK", "teff_min_kK", "teff_max_kK"): d[c] = d[c].astype(float)
+TEFF_NOT_CONSTRAINED = {"6365804611201098368", "5671975077144346112"}  # as judged on docs/hot_white_dwarfs.md (grid ceiling; S/N)
 for gaia, g in d[d.role == "target"].groupby("gaia_dr3", sort=False):
+    he = g[g.line_set == "He only"].iloc[0]
     fits = "; ".join(f"{x.line_set}: Teff {x.teff_kK} kK ({x.teff_min_kK}-{x.teff_max_kK}), log g {x.logg}" for _, x in g.iterrows())
     lit = g.iloc[0].lit_teff_kK
     obs = f"He II 4686 and Balmer absorption (DAO); TMAP model fits - {fits}" + (f"; literature Teff {lit} kK" if str(lit).strip() else "")
     add(gaia, g.iloc[0]["name"], Entry("hot_white_dwarfs", "Hot white dwarfs with He II lines", "hot_white_dwarfs.md",
-        "Hot white dwarf; no earlier spectrum found.", obs, "DAO, Teff ~60-110 kK (TMAP)",
+        "Hot white dwarf; no earlier spectrum found.", obs,
+        "DAO (He II 4686 + Balmer); " + ("Teff not constrained" if gaia in TEFF_NOT_CONSTRAINED else f"Teff {he.teff_kK:g} kK (He-only TMAP fit" + (f", {he.teff_min_kK:g}-{he.teff_max_kK:g}" if he.teff_min_kK != he.teff_max_kK else "") + ")"),
         ["hot_white_dwarfs.csv"], None, ["hot_white_dwarfs.py"], None))
 
 # Write the object pages.
 PAGE_LEAD = {
-    "2249098833310553728": "A catalogued but unclassified 63.7-minute variable, identified here as a low-mass white dwarf "
-    "with an irradiated, near-Roche-filling companion — potentially the shortest-period detached white dwarf + brown dwarf "
-    "system known (the shortest published period is 68.2 min; Casewell et al. 2018).",
+    "2249098833310553728": "A catalogued but unclassified 63.7-minute variable: a coherent modulation on an over-luminous "
+    "low-mass white dwarf, 1.6 ± 0.3 times larger in Gaia RP than in BP. With the GF21 parameters (16.8 kK, 0.14 Msun) the "
+    "15.6% G-band semi-amplitude is more than a passive companion inside its Roche lobe can reflect, so either the companion "
+    "is at or beyond its Roche lobe or the primary is hotter than the photometric fit; no spectrum and no infrared "
+    "measurement (a red source 3.7 arcsec away dominates WISE) exist, so the companion's nature is open.",
 }
 ORDER = ["gas_discs", "carbon", "zeeman", "periodic", "zz_ceti", "eclipse_and_emission", "hot_white_dwarfs",
          "irradiated_companions", "hot_wd_periods", "dae_wd_periods"]
@@ -262,7 +279,7 @@ for topic in ORDER:
     for name, g, e in rows:
         m = MARK.get(g, 0)
         marks = " " + "\\*" * m if m else ""
-        s = e.short if g in NOBOLD or "**" in e.short else f"**{e.short}**"
+        s = e.short if g in NOBOLD or "**" in e.short or "inconsistent" in e.short or "red/blue amplitude" in e.short else f"**{e.short}**"
         idx.append(f"| [{name}](docs/objects/{g}.md){marks} | {e.desc} | {s} |")
     idx.append("")
 p = os.path.join(R, "README.md"); t = open(p).read()
