@@ -49,7 +49,7 @@
   - Third set (two stars):
     - Gaia DR3 3230486971974872192: Gentile Fusillo et al. (2021) Pwd > 0.75, TeffH > 40 kK or (BP-RP < −0.35 and M_G < 9.5), Gaia GLS 0.25-5 c/d with false-alarm probability < 1e-2; the Gaia frequency is the highest peak in ZTF.
     - Gaia DR3 1094376947131876352: no Gaia DR3 epoch photometry; the frequency is the highest ZTF peak.
-    - No period in Oliveira da Rosa et al. (2024, ApJ 974, 314; source table), Gao et al. (2025, ApJS 276, 57), Wang et al. (2025, ApJS 281, 52), Jestin et al. (2026), Chen et al. (2020), Reindl et al. (2021, A&A 647, A184), the MWDD or VSX (checked 2026-09-27).
+    - No period in Oliveira da Rosa et al. (2024, ApJ 974, 314; source table), Gao et al. (2025, ApJS 276, 57), Wang et al. (2025, ApJS 281, 52), Jestin et al. (2026), Chen et al. (2020), Reindl et al. (2021, A&A 647, A184), the MWDD or VSX (checked 2026-09-27). Steen et al. (2024) were not checked for this set; they list 3230486971974872192 with the same period.
   - The table lists the stars whose frequency is recovered in an independent survey (`data/periodic_white_dwarfs_sources.csv`).
   - ATLAS as above; ZTF light curves from the IRSA light-curve service (2″; 1.5″ for 1094376947131876352; catflags = 0), one offset per ZTF object and filter.
   - Frequency: generalised Lomb-Scargle over 0.05-50 c/d, refined by a sinusoid fit; uncertainty from chi2 ≤ chi2_min + chi2_r.

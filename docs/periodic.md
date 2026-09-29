@@ -109,6 +109,7 @@ SDSS-V coadd and the line profiles of each visit:
 <img src="../figures/periodic/3354819845628139904.png" width="700">
 
 **Gaia DR3 3230486971974872192** (WDJ043832.74+003117.01): P = 26.09254 h.
+- Steen et al. (2024, ApJ 967, 166) list the star as a likely binary with P = 26.0146 h from Gaia DR3 and 26.07 ± 0.12 h from ZTF, the same period.
 - DO white dwarf: Teff 105.6 kK, log g 8.0 (Kilic et al. 2026a, via the Montreal White Dwarf Database).
 - The semi-amplitude is 2.6% in ZTF g and 2.5% in ZTF r.
 - TESS sector 98 (120 s): the same frequency is the highest peak between 0.2 and 50 c/d (semi-amplitude 3.7% after the SPOC crowding correction).
