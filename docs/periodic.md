@@ -4,6 +4,8 @@
 
 `tables/periodic_6021870154194477312.csv` gives the frequency, amplitudes and times of maximum from ATLAS, Gaia DR3 epoch photometry and TESS, and fits for the three Gaia sources within 13″.
 
+Gaia DR3 lists the same frequency (13.92979 c/d) in its spurious-signal table (Holl et al. 2023, A&A 674, A25). VSX lists the star as type WD without a period.
+
 SDSS-V spectrum (all visits):
 
 <img src="../figures/periodic/6021870154194477312_spectrum.png" width="700">

@@ -26,7 +26,7 @@ def cat(r, *cols):
 
 # Descriptions as on the topic pages (docs/periodic.md, docs/hot_wd_periods.md, docs/dae_wd_periods.md).
 DESC = {
-    "6021870154194477312": "White dwarf with a 103.4-min period; three Gaia sources within 13 arcsec are fitted separately.",
+    "6021870154194477312": "White dwarf with a 103.4-min period; three Gaia sources within 13 arcsec are fitted separately. Gaia DR3 lists the same frequency in its spurious-signal table (Holl et al. 2023); VSX lists type WD without a period.",
     "3107374277060584064": "Hot white dwarf with He II 4686 absorption (SIMBAD WD* DO:, MWDD DO:, SDSS-V SnowWhite DA:; VSX type WD without a period); H-alpha, H-beta and Ca II emission whose velocity follows the photometric phase.",
     "2883364038621038208": "White dwarf selected by its Gaia DR3 GLS frequency (GALEX J060343.7-380911).",
     "6722639595190126208": "Hot massive DA white dwarf (GF21 H-atmosphere 36.0 kK, 1.20 Msun; Gaia XP fit in the MWDD 63.7 kK, 1.30 Msun), G = 16.79, 120 pc; the period was found in TESS 2-min light curves (sectors 93 and 104) and recovered in ATLAS.",
@@ -113,7 +113,7 @@ add("3107374277060584064", "WDJ064438.09-004550.51", Entry(
 d = T("irradiated_companions.csv"); dp = T("irradiated_companions_periods.csv")
 SPEC_FIT = {"2482810406432480512": "Spectroscopic fits: 45,500 K, log g 7.58 (Kosakowski et al. 2023); 39,572 K, 0.47 Msun (Kepler et al. 2019, SDSS); 38,673 K (Kilic et al. 2026, DESI).",
             "5467851842959399808": "Spectroscopic fit 32,020 K, log g 7.75 (Kosakowski et al. 2023).",
-            "4844023064578952320": "Spectroscopic fit 35,120 K, log g 7.54 (Kosakowski et al. 2023)."}
+            "4844023064578952320": "Spectroscopic fit 35,120 K, log g 7.54 (Kosakowski et al. 2023). VSX lists the Gaia period (0.0814713 d); the period is also in Ranaivomanana et al. (2025)."}
 NEW_PERIOD = {"4996506979251027584", "303768056000635776", "5467851842959399808", "6177529630243170432", "2482810406432480512"}
 def ratio_err(gaia):
     q = dp[dp.gaia_dr3 == gaia].set_index("dataset")
