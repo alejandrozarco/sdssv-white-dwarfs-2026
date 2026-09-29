@@ -93,7 +93,7 @@ One page per object with the measurement and its supporting data (tables, input 
 | [GALEX J124819.8-261413](docs/objects/3496637913394359680.md) \*\* | White dwarf selected by its Gaia DR3 GLS frequency (GALEX J124819.8-261413). | **P = 141.25536 h, 4.5% (ATLAS)** |
 | [WDJ025503.24+475833.96](docs/objects/437628614520520320.md) \*\* | White dwarf selected by its Gaia DR3 GLS frequency (WDJ025503.24+475833.96). | **P = 121.00599 h, 4.5% (ZTF)** |
 | [GALEX J191430.4-572023](docs/objects/6639666736903611136.md) \*\* | White dwarf selected by its Gaia DR3 GLS frequency (GALEX J191430.4-572023). | **P = 89.07682 h, 1.8% (ATLAS)** |
-| [SDSS J102251.62+161151.6](docs/objects/3890059941364406144.md) \*\*\* | DA with narrow Balmer lines; Gentile Fusillo et al. (2021) H-atmosphere fit 22,100 K, 0.32 Msun. | **P = 1.45554 h, 2.9% (ZTF)** |
+| [SDSS J102251.62+161151.6](docs/objects/3890059941364406144.md) \*\*\* | DA with narrow Balmer lines; Gentile Fusillo et al. (2021) H-atmosphere fit 22,100 K, 0.32 Msun; Kepler et al. (2019) fit the SDSS spectrum with 29,277 K, 0.43 Msun. | **P = 1.45554 h, 2.9% (ZTF)** |
 | [WDJ072009.19+464840.48](docs/objects/974895286283420160.md) \* | DA at 51 pc; the TESS period is listed by Oliveira da Rosa et al. (2024). | P = 19.14313 h, 1.8% (ZTF) |
 | [GALEX J003750.4+190136](docs/objects/2795150147707769728.md) \*\*\* | DA; Gentile Fusillo et al. (2021) H-atmosphere fit 27,000 K, 1.08 Msun. | **P = 18.24064 h, 3.0% (ZTF)** |
 | [Gaia DR3 6170660401283991680](docs/objects/6170660401283991680.md) \*\*\* | Gaia XP class DO (Vincent et al. 2024). | **P = 27.00552 h, 3.2% (ATLAS)** |
@@ -101,7 +101,7 @@ One page per object with the measurement and its supporting data (tables, input 
 | [Gaia DR3 3123625093275668736](docs/objects/3123625093275668736.md) \*\* | White dwarf and M dwarf in Rebassa-Mansergas et al. (2025); SDSS-V SnowWhite DA_MS. | **P = 10.39275 h, 2.9% (ZTF)** |
 | [Gaia DR3 3354819845628139904](docs/objects/3354819845628139904.md) \*\* | Hot-subdwarf candidate in Geier et al. (2019). | **P = 12.58907 h, 4.0% (ZTF)** |
 | [WDJ043832.74+003117.01](docs/objects/3230486971974872192.md) \*\*\* | DO white dwarf, Teff 105.6 kK, log g 8.0 (Kilic et al. 2026a, via the MWDD). | **P = 26.09254 h, 2.6% (ZTF)** |
-| [WDJ080026.64+633414.85](docs/objects/1094376947131876352.md) \*\*\* | DESI DR1 class DOA, Teff 78.2 kK (Swan et al. 2026). | **P = 21.41901 h, 2.1% (ZTF)** |
+| [WDJ080026.64+633414.85](docs/objects/1094376947131876352.md) \*\*\* | DESI DR1 class DOA, Teff 78.2 kK (Swan et al. 2026); Kilic et al. (2026) classify it DO with Teff 98.6 kK. | **P = 21.41901 h, 2.1% (ZTF)** |
 | [WDJ183850.84-411333.59](docs/objects/6722639595190126208.md) \*\*\*\* | Hot massive DA white dwarf (GF21 H-atmosphere 36.0 kK, 1.20 Msun; Gaia XP fit in the MWDD 63.7 kK, 1.30 Msun), G = 16.79, 120 pc; the period was found in TESS 2-min light curves (sectors 93 and 104) and recovered in ATLAS. | **P = 0.6428 h, 4.0% (ATLAS)** |
 | [WDJ072758.87+101157.08](docs/objects/3161618477052648192.md) \*\*\* | DC white dwarf (GF21 H-atmosphere 7.6 kK, 0.77 Msun), G = 17.40, 59 pc; the period was found in ZTF and recovered in three TESS sectors and in ATLAS; the highest TESS peak (7.52 c/d) belongs to another star in the aperture. Steen et al. (2024) list it as a likely spotted variable at P = 0.4914 h, the one-cycle-per-day alias of this period. | **P = 0.48155 h, 2.5% (ZTF)** |
 | [Gaia DR3 6021870154194477312](docs/objects/6021870154194477312.md) \*\*\*\* | White dwarf with a 103.4-min period; three Gaia sources within 13 arcsec are fitted separately. | **103.4-min period (ATLAS, Gaia, TESS)** |
@@ -144,22 +144,22 @@ One page per object with the measurement and its supporting data (tables, input 
 | [WDJ205249.27-032419.53](docs/objects/6914922055508553984.md) \*\*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 16231 K, 0.301 Msun; G = 17.466, 334 pc. | P = 97.703 min; **W1 3.74x model** |
 | [WDJ212738.67+593755.72](docs/objects/2191618770599895296.md) \*\*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 13777 K, 0.263 Msun; G = 16.871, 241 pc. | P = 130.182 min; **W1 3.61x model** |
 | [WDJ070106.16-534811.37](docs/objects/5503429908930455808.md) \*\*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 16240 K, 0.256 Msun; G = 18.426, 602 pc. | P = 81.493 min; **W1 2.21x model** |
-| [WDJ040444.35-395043.1](docs/objects/4844023064578952320.md) \*\*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 20562 K, 0.243 Msun; G = 17.663, 632 pc. | P = 117.319 min; **W1 2.02x model** |
+| [WDJ040444.35-395043.1](docs/objects/4844023064578952320.md) \*\*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 20562 K, 0.243 Msun; G = 17.663, 632 pc. Spectroscopic fit 35,120 K, log g 7.54 (Kosakowski et al. 2023). | P = 117.319 min; **W1 2.02x model** |
 | [WDJ194901.41+673005.59](docs/objects/2249098833310553728.md) \*\*\*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 16817 K, 0.143 Msun; G = 18.027, 739 pc. | P = 63.68 min; red/blue amplitude 1.6 ± 0.3 |
 | [WDJ005615.18-661731.98](docs/objects/4705562733524591232.md) \*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 15358 K, 0.255 Msun; G = 18.801, 714 pc. | P = 73.522 min; **W1 1.69x model** |
 | [WDJ001049.73-402029.49](docs/objects/4996506979251027584.md) \*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 18795 K, 0.247 Msun; G = 18.328, 745 pc. | **P = 112.225 min**; red/blue amplitude 1.61 |
 | [WDJ013915.33+312419.24](docs/objects/303768056000635776.md) \*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 21412 K, 0.209 Msun; G = 18.016, 925 pc. | **P = 213.157 min**; **W1 2.12x model** |
-| [WDJ103039.63-275438.60](docs/objects/5467851842959399808.md) \*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 13101 K, 0.119 Msun; G = 18.315, 761 pc. | **P = 240.493 min**; **W1 6.38x model** |
+| [WDJ103039.63-275438.60](docs/objects/5467851842959399808.md) \*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 13101 K, 0.119 Msun; G = 18.315, 761 pc. Spectroscopic fit 32,020 K, log g 7.75 (Kosakowski et al. 2023). | **P = 240.493 min**; **W1 6.38x model** |
 | [WDJ140056.81-264218.70](docs/objects/6177529630243170432.md) \*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 36036 K, 0.411 Msun; G = 18.301, 898 pc. | **P = 130.045 min**; **W1 2.75x model** |
-| [WDJ011651.58-044046.82](docs/objects/2482810406432480512.md) \*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 21670 K, 0.23 Msun; G = 18.343, 978 pc. | **P = 426.153 min**; **W1 3.48x model** |
+| [WDJ011651.58-044046.82](docs/objects/2482810406432480512.md) \*\*\* | Low-mass white dwarf: GF21 H-atmosphere Teff 21670 K, 0.23 Msun; G = 18.343, 978 pc. Spectroscopic fits: 45,500 K, log g 7.58 (Kosakowski et al. 2023); 39,572 K, 0.47 Msun (Kepler et al. 2019, SDSS); 38,673 K (Kilic et al. 2026, DESI). | **P = 426.153 min**; **W1 3.48x model** |
 
 ### Day-scale periods of hot white dwarfs (9)
 
 | object | description | measurement |
 |---|---|---|
-| [WDJ091433.60+581238.12](docs/objects/1038176780370360576.md) \*\*\* | SBSS 0910+584; spectral type DO (MWDD). G = 17.73, 810 pc. | **P = 27.23048 h, 3.8% (ZTF)** |
+| [WDJ091433.60+581238.12](docs/objects/1038176780370360576.md) \*\* | SBSS 0910+584; spectral type DO (MWDD). G = 17.73, 810 pc. Chen et al. (2020) list it as a suspected ZTF variable with P = 1.1348 d, the same period. | P = 27.23048 h, 3.8% (ZTF) |
 | [WDJ151215.73+065156.43](docs/objects/1157401396015448960.md) \* | GALEX J151215.7+065156; UHE white dwarf, DOZ (Reindl et al. 2021, where the period is published). G = 17.22, 990 pc. | P = 5.4245 h, 1.8% (ZTF) |
-| [WDJ221519.86+253059.05](docs/objects/1879989790567353344.md) \*\*\* | GALEX J221519.8+253059; spectral type DOZ (MWDD). G = 17.05, 1190 pc. | **P = 37.07929 h, 1.4% (ZTF)** |
+| [WDJ221519.86+253059.05](docs/objects/1879989790567353344.md) \*\*\* | GALEX J221519.8+253059; spectral type DOZ (MWDD). G = 17.05, 1190 pc. Ranaivomanana et al. (2025) list different periods (Gaia 0.077198 d, TESS 18.565 d, type unclear); the Gaia DR3 spurious-signal table lists 1.29438 c/d, the first harmonic of this period. | **P = 37.07929 h, 1.4% (ZTF)** |
 | [WDJ075540.94+400917.91](docs/objects/920621124593362816.md) \* | KUV 07523+4017; DOZ / PG 1159 (Reindl et al. 2021, where the period is published). G = 17.80, 1052 pc. | P = 20.78523 h, 2.5% (ZTF) |
 | [WDJ065819.86+441438.40](docs/objects/953685015492787456.md) \*\*\* | Gaia XP class DO (Vincent et al. 2024). G = 17.53, 483 pc. | **P = 29.49088 h, 0.9% (ZTF)** |
 | [WDJ025657.85-145029.92](docs/objects/5157333438398813824.md) \*\*\* | Spectral type DA with a photometric temperature above 100 kK (MWDD). G = 17.37, 1072 pc. | **P = 28.51831 h, 3.4% (ZTF)** |
@@ -171,13 +171,13 @@ One page per object with the measurement and its supporting data (tables, input 
 
 | object | description | measurement |
 |---|---|---|
-| [WDJ172406.13+562003.08](docs/objects/1420761029600606592.md) \*\*\* | DESI DR1 class DAe; GF21 15.0 kK, 0.11 Msun; W1, W2 excess 1.8, 1.9 mag. G = 16.26, 403 pc. SDSS J1724+5620, post-common-envelope binary with the orbital period published by Rebassa-Mansergas et al. (2008). | P = 7.99238 h, 6.5% (ZTF) |
-| [WDJ170125.28+343530.59](docs/objects/1337970174853051392.md) \*\*\* | DESI DR1 class DAE; GF21 12.1 kK, 0.17 Msun; W1, W2 excess 2.0, 1.7 mag. G = 18.94, 741 pc. | **P = 2.73751 h, 3.9% (ZTF)** |
-| [WDJ161752.97+015840.92](docs/objects/4409006786607484672.md) \*\*\* | DESI DR1 class DAE; GF21 22.4 kK, 0.24 Msun; W1, W2 excess 2.1, 2.6 mag. G = 18.95, 1233 pc. | **P = 2.04723 h, 5.7% (ZTF)** |
-| [WDJ132308.63+055900.97](docs/objects/3717349170269867520.md) \*\*\* | DESI DR1 class DAe; GF21 22.8 kK, 0.34 Msun; W1, W2 excess 1.9, 2.0 mag. G = 18.99, 955 pc. | **P = 2.68284 h, 7.4% (ZTF)** |
-| [WDJ214656.86+143125.17](docs/objects/1769157090045264128.md) \*\*\* | DESI DR1 class DAE; GF21 16.0 kK, 0.24 Msun; W1, W2 excess 1.9, 1.6 mag. G = 19.45, 1010 pc. | **P = 6.83088 h, 3.9% (ZTF)** |
-| [WDJ083531.69+315503.31](docs/objects/709815329316284928.md) \*\*\* | DESI DR1 class DAE; GF21 13.2 kK, 0.25 Msun; W1, W2 excess 2.1, 2.4 mag. G = 19.26, 742 pc. | **P = 4.42399 h, 4.9% (ZTF)** |
-| [WDJ075449.34+442357.52](docs/objects/926161868627454976.md) \*\*\* | DESI DR1 class DAe; GF21 18.9 kK, 0.21 Msun; W1, W2 excess 2.2, 2.9 mag. G = 19.40, 1449 pc. | **P = 3.82105 h, 3.9% (ZTF)** |
+| [WDJ172406.13+562003.08](docs/objects/1420761029600606592.md) \*\*\* | DESI DR1 class DAe; GF21 15.0 kK, 0.11 Msun; W1, W2 excess 1.8, 1.9 mag. G = 16.26, 403 pc. SDSS J1724+5620, post-common-envelope binary with the orbital period published by Rebassa-Mansergas et al. (2008). Spectroscopic fit 34,733 K, log g 7.22, 0.36 Msun (Bédard et al. 2020). | P = 7.99238 h, 6.5% (ZTF) |
+| [WDJ170125.28+343530.59](docs/objects/1337970174853051392.md) \*\*\* | DESI DR1 class DAE; GF21 12.1 kK, 0.17 Msun; W1, W2 excess 2.0, 1.7 mag. G = 18.94, 741 pc. Spectroscopic fit 17,748 K, 0.41 Msun (Brown et al. 2022); Kosakowski et al. (2023) note periodic ZTF variability without a period. | **P = 2.73751 h, 3.9% (ZTF)** |
+| [WDJ161752.97+015840.92](docs/objects/4409006786607484672.md) \*\*\* | DESI DR1 class DAE; GF21 22.4 kK, 0.24 Msun; W1, W2 excess 2.1, 2.6 mag. G = 18.95, 1233 pc. Spectroscopic fit 34,134 K, log g 7.50 (Kilic et al. 2026). | **P = 2.04723 h, 5.7% (ZTF)** |
+| [WDJ132308.63+055900.97](docs/objects/3717349170269867520.md) \*\* | DESI DR1 class DAe; GF21 22.8 kK, 0.34 Msun; W1, W2 excess 1.9, 2.0 mag. G = 18.99, 955 pc. Spectroscopic fit 38,685 K, log g 7.48 (Bédard et al. 2020). Swan et al. (2026) list the same ZTF period (0.11178495 d) and attribute the Ca II and H-alpha emission to an irradiated companion. | P = 2.68284 h, 7.4% (ZTF) |
+| [WDJ214656.86+143125.17](docs/objects/1769157090045264128.md) \*\* | DESI DR1 class DAE; GF21 16.0 kK, 0.24 Msun; W1, W2 excess 1.9, 1.6 mag. G = 19.45, 1010 pc. Spectroscopic fit 40,446 K, log g 7.85 (Kilic et al. 2026). Swan et al. (2026) list the same ZTF period (0.2846190 d). | P = 6.83088 h, 3.9% (ZTF) |
+| [WDJ083531.69+315503.31](docs/objects/709815329316284928.md) \*\* | DESI DR1 class DAE; GF21 13.2 kK, 0.25 Msun; W1, W2 excess 2.1, 2.4 mag. G = 19.26, 742 pc. Spectroscopic fit 32,873 K, log g 8.08 (Bédard et al. 2020). Swan et al. (2026) list the same ZTF period (0.184333083 d). | P = 4.42399 h, 4.9% (ZTF) |
+| [WDJ075449.34+442357.52](docs/objects/926161868627454976.md) \*\*\* | DESI DR1 class DAe; GF21 18.9 kK, 0.21 Msun; W1, W2 excess 2.2, 2.9 mag. G = 19.40, 1449 pc. Spectroscopic fit 32,019 K, log g 7.22 (Kilic et al. 2026). | **P = 3.82105 h, 3.9% (ZTF)** |
 <!-- object-index:end -->
 
 <img src="figures/gas_discs/578709631539357440_epochs.png" width="720">

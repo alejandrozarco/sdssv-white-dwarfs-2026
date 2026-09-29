@@ -38,7 +38,7 @@ DESC = {
     "3496637913394359680": "White dwarf selected by its Gaia DR3 GLS frequency (GALEX J124819.8-261413).",
     "437628614520520320": "White dwarf selected by its Gaia DR3 GLS frequency (WDJ025503.24+475833.96).",
     "6639666736903611136": "White dwarf selected by its Gaia DR3 GLS frequency (GALEX J191430.4-572023).",
-    "3890059941364406144": "DA with narrow Balmer lines; Gentile Fusillo et al. (2021) H-atmosphere fit 22,100 K, 0.32 Msun.",
+    "3890059941364406144": "DA with narrow Balmer lines; Gentile Fusillo et al. (2021) H-atmosphere fit 22,100 K, 0.32 Msun; Kepler et al. (2019) fit the SDSS spectrum with 29,277 K, 0.43 Msun.",
     "974895286283420160": "DA at 51 pc; the TESS period is listed by Oliveira da Rosa et al. (2024).",
     "2795150147707769728": "DA; Gentile Fusillo et al. (2021) H-atmosphere fit 27,000 K, 1.08 Msun.",
     "6170660401283991680": "Gaia XP class DO (Vincent et al. 2024).",
@@ -46,23 +46,23 @@ DESC = {
     "3123625093275668736": "White dwarf and M dwarf in Rebassa-Mansergas et al. (2025); SDSS-V SnowWhite DA_MS.",
     "3354819845628139904": "Hot-subdwarf candidate in Geier et al. (2019).",
     "3230486971974872192": "DO white dwarf, Teff 105.6 kK, log g 8.0 (Kilic et al. 2026a, via the MWDD).",
-    "1094376947131876352": "DESI DR1 class DOA, Teff 78.2 kK (Swan et al. 2026).",
-    "1038176780370360576": "SBSS 0910+584; spectral type DO (MWDD). G = 17.73, 810 pc.",
+    "1094376947131876352": "DESI DR1 class DOA, Teff 78.2 kK (Swan et al. 2026); Kilic et al. (2026) classify it DO with Teff 98.6 kK.",
+    "1038176780370360576": "SBSS 0910+584; spectral type DO (MWDD). G = 17.73, 810 pc. Chen et al. (2020) list it as a suspected ZTF variable with P = 1.1348 d, the same period.",
     "1157401396015448960": "GALEX J151215.7+065156; UHE white dwarf, DOZ (Reindl et al. 2021, where the period is published). G = 17.22, 990 pc.",
-    "1879989790567353344": "GALEX J221519.8+253059; spectral type DOZ (MWDD). G = 17.05, 1190 pc.",
+    "1879989790567353344": "GALEX J221519.8+253059; spectral type DOZ (MWDD). G = 17.05, 1190 pc. Ranaivomanana et al. (2025) list different periods (Gaia 0.077198 d, TESS 18.565 d, type unclear); the Gaia DR3 spurious-signal table lists 1.29438 c/d, the first harmonic of this period.",
     "920621124593362816": "KUV 07523+4017; DOZ / PG 1159 (Reindl et al. 2021, where the period is published). G = 17.80, 1052 pc.",
     "953685015492787456": "Gaia XP class DO (Vincent et al. 2024). G = 17.53, 483 pc.",
     "5157333438398813824": "Spectral type DA with a photometric temperature above 100 kK (MWDD). G = 17.37, 1072 pc.",
     "1415911839725510528": "Spectral type DA, 68.0 kK (Kilic et al. 2026, via the MWDD). G = 17.59, 833 pc.",
     "2311285729210966144": "GALEX J234931.8-353916; SDSS-V DR20 SnowWhite class DA. G = 17.88, 882 pc.",
     "3365371721281530880": "No spectrum found. G = 18.10, 1100 pc.",
-    "1420761029600606592": "DESI DR1 class DAe; GF21 15.0 kK, 0.11 Msun; W1, W2 excess 1.8, 1.9 mag. G = 16.26, 403 pc. SDSS J1724+5620, post-common-envelope binary with the orbital period published by Rebassa-Mansergas et al. (2008).",
-    "1337970174853051392": "DESI DR1 class DAE; GF21 12.1 kK, 0.17 Msun; W1, W2 excess 2.0, 1.7 mag. G = 18.94, 741 pc.",
-    "4409006786607484672": "DESI DR1 class DAE; GF21 22.4 kK, 0.24 Msun; W1, W2 excess 2.1, 2.6 mag. G = 18.95, 1233 pc.",
-    "3717349170269867520": "DESI DR1 class DAe; GF21 22.8 kK, 0.34 Msun; W1, W2 excess 1.9, 2.0 mag. G = 18.99, 955 pc.",
-    "1769157090045264128": "DESI DR1 class DAE; GF21 16.0 kK, 0.24 Msun; W1, W2 excess 1.9, 1.6 mag. G = 19.45, 1010 pc.",
-    "709815329316284928": "DESI DR1 class DAE; GF21 13.2 kK, 0.25 Msun; W1, W2 excess 2.1, 2.4 mag. G = 19.26, 742 pc.",
-    "926161868627454976": "DESI DR1 class DAe; GF21 18.9 kK, 0.21 Msun; W1, W2 excess 2.2, 2.9 mag. G = 19.40, 1449 pc.",
+    "1420761029600606592": "DESI DR1 class DAe; GF21 15.0 kK, 0.11 Msun; W1, W2 excess 1.8, 1.9 mag. G = 16.26, 403 pc. SDSS J1724+5620, post-common-envelope binary with the orbital period published by Rebassa-Mansergas et al. (2008). Spectroscopic fit 34,733 K, log g 7.22, 0.36 Msun (Bédard et al. 2020).",
+    "1337970174853051392": "DESI DR1 class DAE; GF21 12.1 kK, 0.17 Msun; W1, W2 excess 2.0, 1.7 mag. G = 18.94, 741 pc. Spectroscopic fit 17,748 K, 0.41 Msun (Brown et al. 2022); Kosakowski et al. (2023) note periodic ZTF variability without a period.",
+    "4409006786607484672": "DESI DR1 class DAE; GF21 22.4 kK, 0.24 Msun; W1, W2 excess 2.1, 2.6 mag. G = 18.95, 1233 pc. Spectroscopic fit 34,134 K, log g 7.50 (Kilic et al. 2026).",
+    "3717349170269867520": "DESI DR1 class DAe; GF21 22.8 kK, 0.34 Msun; W1, W2 excess 1.9, 2.0 mag. G = 18.99, 955 pc. Spectroscopic fit 38,685 K, log g 7.48 (Bédard et al. 2020). Swan et al. (2026) list the same ZTF period (0.11178495 d) and attribute the Ca II and H-alpha emission to an irradiated companion.",
+    "1769157090045264128": "DESI DR1 class DAE; GF21 16.0 kK, 0.24 Msun; W1, W2 excess 1.9, 1.6 mag. G = 19.45, 1010 pc. Spectroscopic fit 40,446 K, log g 7.85 (Kilic et al. 2026). Swan et al. (2026) list the same ZTF period (0.2846190 d).",
+    "709815329316284928": "DESI DR1 class DAE; GF21 13.2 kK, 0.25 Msun; W1, W2 excess 2.1, 2.4 mag. G = 19.26, 742 pc. Spectroscopic fit 32,873 K, log g 8.08 (Bédard et al. 2020). Swan et al. (2026) list the same ZTF period (0.184333083 d).",
+    "926161868627454976": "DESI DR1 class DAe; GF21 18.9 kK, 0.21 Msun; W1, W2 excess 2.2, 2.9 mag. G = 19.40, 1449 pc. Spectroscopic fit 32,019 K, log g 7.22 (Kilic et al. 2026).",
 }
 
 Entry = collections.namedtuple("Entry", "topic title page desc obs short tables datafiles scripts extra")
@@ -111,6 +111,9 @@ add("3107374277060584064", "WDJ064438.09-004550.51", Entry(
 
 # Irradiated companions.
 d = T("irradiated_companions.csv"); dp = T("irradiated_companions_periods.csv")
+SPEC_FIT = {"2482810406432480512": "Spectroscopic fits: 45,500 K, log g 7.58 (Kosakowski et al. 2023); 39,572 K, 0.47 Msun (Kepler et al. 2019, SDSS); 38,673 K (Kilic et al. 2026, DESI).",
+            "5467851842959399808": "Spectroscopic fit 32,020 K, log g 7.75 (Kosakowski et al. 2023).",
+            "4844023064578952320": "Spectroscopic fit 35,120 K, log g 7.54 (Kosakowski et al. 2023)."}
 NEW_PERIOD = {"4996506979251027584", "303768056000635776", "5467851842959399808", "6177529630243170432", "2482810406432480512"}
 def ratio_err(gaia):
     q = dp[dp.gaia_dr3 == gaia].set_index("dataset")
@@ -119,7 +122,7 @@ def ratio_err(gaia):
     v = ar / ab; return f"{v:.1f} ± {v * ((er / ar) ** 2 + (eb / ab) ** 2) ** 0.5:.1f}"
 for _, r in d.iterrows():
     desc = (f"Low-mass white dwarf: GF21 H-atmosphere Teff {r.gf21_teff_H} K, {r.gf21_mass_H} Msun; "
-            f"G = {r.G}, {r.distance_pc} pc.")
+            f"G = {r.G}, {r.distance_pc} pc." + (" " + SPEC_FIT[r.gaia_dr3] if r.gaia_dr3 in SPEC_FIT else ""))
     w1 = f"; W1 {r.W1_ratio}x the white-dwarf model (companion M_W1 = {r.M_W1_companion})" if r.W1_ratio else ""
     rerr = ratio_err(r.gaia_dr3) or str(r.red_to_blue_amplitude)
     obs = f"P = {r.period_min} min; red-to-blue (Gaia RP/BP) semi-amplitude ratio {rerr}{w1}"
@@ -259,9 +262,9 @@ MARK = {
     "1094376947131876352": 3, "6492083311194727168": 3, "6558472750993181568": 3, "4731701084150029824": 3,
     "2995107164834343680": 3, "5570041179495992704": 3, "3090786872841030016": 3, "4036084504408126976": 3,
     "6365804611201098368": 3, "5671975077144346112": 3, "4705562733524591232": 3,
-    "1038176780370360576": 3, "1879989790567353344": 3, "953685015492787456": 3, "5157333438398813824": 3,
-    "1420761029600606592": 3, "1337970174853051392": 3, "4409006786607484672": 3, "3717349170269867520": 3,
-    "1769157090045264128": 3, "709815329316284928": 3, "926161868627454976": 3,
+    "1038176780370360576": 2, "1879989790567353344": 3, "953685015492787456": 3, "5157333438398813824": 3,
+    "1420761029600606592": 3, "1337970174853051392": 3, "4409006786607484672": 3, "3717349170269867520": 2,
+    "1769157090045264128": 2, "709815329316284928": 2, "926161868627454976": 3,
     "1379988076130545536": 2, "6465542891501713408": 2, "343958710690034944": 2, "6466745168812781568": 2,
     "2883364038621038208": 2, "178685757799822080": 2, "6456720612064924928": 2, "2888030331609338240": 2,
     "3496637913394359680": 2, "437628614520520320": 2, "6639666736903611136": 2, "6136817910121524096": 2,
@@ -280,7 +283,8 @@ MARK = {
     "974895286283420160": 1, "1157401396015448960": 1, "920621124593362816": 1,
 }
 
-NOBOLD = {"974895286283420160", "1157401396015448960", "920621124593362816", "1420761029600606592"}
+NOBOLD = {"974895286283420160", "1157401396015448960", "920621124593362816", "1420761029600606592",
+          "3717349170269867520", "1769157090045264128", "709815329316284928", "1038176780370360576"}
 
 idx = []
 for topic in ORDER:

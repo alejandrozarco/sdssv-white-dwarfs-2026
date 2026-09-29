@@ -6,7 +6,7 @@ Checks applied to every star: VSX, the Montreal White Dwarf Database, Chen et al
 
 | star | Gaia DR3 | G | distance (pc) | spectral information | P (h) | semi-amplitude |
 |---|---|---|---|---|---|---|
-| WDJ091433.60+581238.12 | 1038176780370360576 | 17.73 | 810 | SBSS 0910+584; spectral type DO (MWDD) | 27.2305 | ZTF g 4.0%, r 3.4% |
+| WDJ091433.60+581238.12 | 1038176780370360576 | 17.73 | 810 | SBSS 0910+584; spectral type DO (MWDD) | 27.2305 (published: Chen et al. 2020, 1.1348 d) | ZTF g 4.0%, r 3.4% |
 | WDJ151215.73+065156.43 | 1157401396015448960 | 17.22 | 990 | GALEX J151215.7+065156; UHE white dwarf, DOZ (Reindl et al. 2021); period published there: 0.226022 d | 5.4245 | ZTF g 1.9%, r 1.8% |
 | WDJ221519.86+253059.05 | 1879989790567353344 | 17.05 | 1190 | GALEX J221519.8+253059; spectral type DOZ (MWDD) | 37.0793 | fundamental: ZTF g 1.4%, r 1.4%; first harmonic (18.54 h): g 2.3%, r 2.0% |
 | WDJ075540.94+400917.91 | 920621124593362816 | 17.80 | 1052 | KUV 07523+4017; DOZ / PG 1159 (Reindl et al. 2021); period published there: 0.866092 d | 20.7852 | ZTF g 2.2%, r 2.7% |
@@ -18,6 +18,7 @@ Checks applied to every star: VSX, the Montreal White Dwarf Database, Chen et al
 
 - **Distance:** 1/parallax.
 - WDJ221519.86+253059.05 and WDJ065819.86+441438.40 were first listed here at 18.5400 h and 14.7448 h, the strongest Lomb-Scargle peaks. Both light curves also carry a coherent component at half that frequency (semi-amplitude 1.4% and 0.9%, 22-25 and 15 sigma, present in g and r at the same phase), and folded at twice the first period alternate maxima and minima differ by 20-30 mmag. The photometric periods are therefore 37.0793 h and 29.4909 h, with the earlier value being the first harmonic; `adopt_frequency_cd` in `data/hot_dae_wd_periods_sources.csv` records this. Whether the longer period is orbital (ellipsoidal or double-spotted rotation would give exactly this pattern) is not decided by the photometry.
+- Chen et al. (2020) list WDJ091433.60+581238.12 as a suspected ZTF variable with P = 1.1348 d (27.235 h), the same period. Ranaivomanana et al. (2025) list WDJ221519.86+253059.05 with different periods (Gaia 0.077198 d, TESS 18.565 d, type unclear), and the Gaia DR3 spurious-signal table lists 1.29438 c/d for it, the first harmonic of the period here.
 - Jestin et al. (2026) list the seven ZTF stars as not variable (their table A1); the periodograms above give false-alarm probabilities of 1e-63 to 1e-252.
 - The periods of WDJ151215.73+065156.43 and KUV 07523+4017 are in the period tables of Reindl et al. (2021, A&A 647, A184); those tables are not in VizieR and were matched by name after the first version of this page.
 - WDJ234931.84-353916.52 and WDJ065134.01+185201.09 carry Gaia DR3 `vari_spurious_signals` frequencies; ATLAS shows the same frequency as the highest peak in both bands.

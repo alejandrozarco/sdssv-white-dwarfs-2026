@@ -7,15 +7,16 @@
 | WDJ172406.13+562003.08 | 1420761029600606592 | 16.26 | 403 | DAe | 15.0 kK, 0.11 Msun | 1.8, 1.9 | 7.9924 (published: Rebassa-Mansergas et al. 2008) | 3.9%, 9.2% |
 | WDJ170125.28+343530.59 | 1337970174853051392 | 18.94 | 741 | DAE | 12.1 kK, 0.17 Msun | 2.0, 1.7 | 2.7375 | 2.6%, 5.8% |
 | WDJ161752.97+015840.92 | 4409006786607484672 | 18.95 | 1233 | DAE | 22.4 kK, 0.24 Msun | 2.1, 2.6 | 2.0472 | 3.4%, 8.8% |
-| WDJ132308.63+055900.97 | 3717349170269867520 | 18.99 | 955 | DAe | 22.8 kK, 0.34 Msun | 1.9, 2.0 | 2.6828 | 4.5%, 11.8% |
-| WDJ214656.86+143125.17 | 1769157090045264128 | 19.45 | 1010 | DAE | 16.0 kK, 0.24 Msun | 1.9, 1.6 | 6.8309 | 2.6%, 6.4% |
-| WDJ083531.69+315503.31 | 709815329316284928 | 19.26 | 742 | DAE | 13.2 kK, 0.25 Msun | 2.1, 2.4 | 4.4240 | 2.3%, 8.9% |
+| WDJ132308.63+055900.97 | 3717349170269867520 | 18.99 | 955 | DAe | 22.8 kK, 0.34 Msun | 1.9, 2.0 | 2.6828 (published: Swan et al. 2026) | 4.5%, 11.8% |
+| WDJ214656.86+143125.17 | 1769157090045264128 | 19.45 | 1010 | DAE | 16.0 kK, 0.24 Msun | 1.9, 1.6 | 6.8309 (published: Swan et al. 2026) | 2.6%, 6.4% |
+| WDJ083531.69+315503.31 | 709815329316284928 | 19.26 | 742 | DAE | 13.2 kK, 0.25 Msun | 2.1, 2.4 | 4.4240 (published: Swan et al. 2026) | 2.3%, 8.9% |
 | WDJ075449.34+442357.52 | 926161868627454976 | 19.40 | 1449 | DAe | 18.9 kK, 0.21 Msun | 2.2, 2.9 | 3.8211 | 2.8%, 5.7% |
 
 - **DESI class:** Amorim et al. (2026), DESI DR1.
 - **GF21 Teff, mass:** Gentile Fusillo et al. (2021) H-atmosphere fits to the combined photometry; with a companion contributing red flux they are indicative only.
 - **W1, W2 excess:** how much brighter the observed CatWISE2020 magnitude is than the pure-H Montreal model prediction scaled to Gaia G.
-- No period for any of these stars in VSX, the MWDD, Chen et al. (2020), Oliveira da Rosa et al. (2024) or the catalogues listed on the [hot-white-dwarf page](hot_wd_periods.md).
+- Swan et al. (2026, the DESI DR1 white-dwarf catalogue) list ZTF periods identical to these for WDJ132308.63+055900.97, WDJ214656.86+143125.17 and WDJ083531.69+315503.31. Kosakowski et al. (2023) note periodic ZTF variability of WDJ170125.28+343530.59 without a period. No period for WDJ161752.97+015840.92 or WDJ075449.34+442357.52 in VSX, the MWDD, Chen et al. (2020), Oliveira da Rosa et al. (2024), Swan et al. (2026) or the catalogues listed on the [hot-white-dwarf page](hot_wd_periods.md).
+- **Spectroscopic fits** (hotter and more massive than the GF21 photometric values): WDJ172406.13+562003.08 34,733 K, log g 7.22 (Bédard et al. 2020); WDJ170125.28+343530.59 17,748 K, 0.41 Msun (Brown et al. 2022); WDJ161752.97+015840.92 34,134 K, log g 7.50 (Kilic et al. 2026); WDJ132308.63+055900.97 38,685 K, log g 7.48 (Bédard et al. 2020); WDJ214656.86+143125.17 40,446 K, log g 7.85 (Kilic et al. 2026); WDJ083531.69+315503.31 32,873 K, log g 8.08 (Bédard et al. 2020); WDJ075449.34+442357.52 32,019 K, log g 7.22 (Kilic et al. 2026).
 - WDJ172406.13+562003.08 is SDSS J1724+5620, a post-common-envelope binary with a published orbital period of 7.9924632 ± 0.0000312 h (Rebassa-Mansergas et al. 2008, MNRAS 390, 1635, from 13 nights of IAC80/AIP photometry, with H-alpha radial velocities in phase); VSX lists it as type CV without a period. The highest masked ZTF peak, 4.0055 c/d (5.9917 h), is the 1-day alias of the published frequency, 3.0028 c/d, which lies inside the 3 c/d exclusion band and has the higher ZTF power (g 0.76 against 0.49, r 0.93 against 0.67); TESS 2-minute data (14 sectors) give 7.9882 h. The table uses the published frequency (data/hot_dae_wd_periods_sources.csv, adopt_frequency_cd); the earlier value 5.9917 h on this page was the alias.
 
 <img src="../figures/dae_wd_periods/1420761029600606592.png" width="700">

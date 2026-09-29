@@ -44,3 +44,5 @@ One figure per star (H-alpha and H-beta):
 | 3290180587821828480 | GALEX J050006.8+080244 | 5.3 | 5.1 | 10.3 | [png](../figures/zeeman/3290180587821828480.png) |
 
 Consistency between the two lines: for 27 of the 30 stars the H-alpha and H-beta fields agree to within 1 MG. For three (Gaia DR3 375892788968158848, 5665371272869153152 and 5848754492268362624) the H-beta fit gives a field 1.2 to 5 MG below the H-alpha value, with the H-beta sigma components far closer to the central component than the H-alpha field requires; the field of these three is not established and they are marked as inconsistent in the index. The formal errors in the table come from the line-centre fits alone: 10 of the 30 stars differ between the two lines by more than three formal sigma, so the real uncertainty of a single-line field is a few tenths of a MG, not the tabulated hundredths.
+
+Context: GALEX J231613.4-552927 (Gaia DR3 6499095244738784128) is listed by Rebassa-Mansergas et al. (2019) as an infrared-excess white dwarf with a disk-type SED (10,250 K, 0.81 Msun).

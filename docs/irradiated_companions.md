@@ -65,7 +65,7 @@
 ## WDJ040444.35−395043.1 (Gaia DR3 4844023064578952320)
 - **Period:** P = 117.319 min in Gaia DR3 and TESS full-frame images (sectors 106 and 107). The nearest alias has Δχ² = 1366.
 - **Existing classifications:** VSX lists type WD with the Gaia period (0.0814713 d); the period is also in Ranaivomanana et al. (2025).
-- **Spectrum:** SDSS-V DR20 has one visit (S/N 14), classified DA by SnowWhite (sdss_id 93071386).
+- **Spectrum:** SDSS-V DR20 has one visit (S/N 14), classified DA by SnowWhite (sdss_id 93071386); Kosakowski et al. (2023) fit a spectrum with T_eff = 35,120 K, log g = 7.54.
 
 <img src="../figures/irradiated_companions/4844023064578952320.png" width="800">
 
@@ -127,6 +127,6 @@
 - **Amplitudes:** ZTF g 3.0%, r 7.4%; TESS 9.0-10.1% (PDCSAP, CROWDSAP 0.72).
 - **Existing classifications:** Stringer et al. (2019, DES) list an RR Lyrae candidate period of 0.640697 d; Kosakowski et al. (2023, ELM Survey South II) mark it as periodically variable in ZTF DR16 without giving a period; Gavras et al. (2023) constant; Wang et al. (2025) no period; VSX none.
 - **Infrared:** W1 3.5 and W2 3.9 times the white-dwarf model; VHS J 1.5 and Ks 1.9 times. The white-dwarf model uses the Gentile Fusillo et al. (2021) photometric parameters; the spectroscopic fit below is hotter.
-- **Spectra:** Kosakowski et al. (2023): one optical spectrum, pure-hydrogen fit T_eff = 45,500 ± 870 K, log g = 7.58 ± 0.10 (public Zenodo archive).
+- **Spectra:** Kosakowski et al. (2023): one optical spectrum, pure-hydrogen fit T_eff = 45,500 ± 870 K, log g = 7.58 ± 0.10 (public Zenodo archive); Kepler et al. (2019): DA, 39,572 K, 0.47 Msun from the SDSS spectrum; Kilic et al. (2026): 38,673 K from the DESI spectrum.
 
 <img src="../figures/irradiated_companions/2482810406432480512.png" width="800">

@@ -76,6 +76,8 @@ SDSS-V coadd and the line profiles of each visit:
 
 **Gaia DR3 3890059941364406144** (SDSS J102251.62+161151.6): P = 1.45554 h (87.33 min)
 
+- Kepler et al. (2019) fit the SDSS spectrum with T_eff = 29,277 K and 0.43 Msun (DA).
+
 - The semi-amplitude is 1.8% in ZTF g and 4.6% in ZTF r.
 - TESS full-frame images (sectors 45, 46 and 72; `tables/tess_ffi_3890059941364406144.csv`): the same frequency is the highest peak between 5 and 30 c/d in each sector, with 5-6.5% of the expected flux of the star.
 - The SDSS and BOSS spectra show a DA with narrow Balmer lines, with no emission lines. Gentile Fusillo et al. (2021) H-atmosphere fit: 22,100 K, 0.32 Msun.
