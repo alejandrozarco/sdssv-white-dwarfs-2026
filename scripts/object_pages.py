@@ -36,7 +36,7 @@ DESC = {
     "6456720612064924928": "White dwarf selected by its Gaia DR3 GLS frequency (GALEX J211204.8-571801).",
     "2888030331609338240": "White dwarf selected by its Gaia DR3 GLS frequency (GALEX J054140.8-362248).",
     "3496637913394359680": "White dwarf selected by its Gaia DR3 GLS frequency (GALEX J124819.8-261413).",
-    "437628614520520320": "White dwarf selected by its Gaia DR3 GLS frequency (WDJ025503.24+475833.96).",
+    "437628614520520320": "White dwarf selected by its Gaia DR3 GLS frequency (WDJ025503.24+475833.96). Chen et al. (2020) list it as a suspected ZTF variable with P = 5.04903 d, the same period.",
     "6639666736903611136": "White dwarf selected by its Gaia DR3 GLS frequency (GALEX J191430.4-572023).",
     "3890059941364406144": "DA with narrow Balmer lines; Gentile Fusillo et al. (2021) H-atmosphere fit 22,100 K, 0.32 Msun; Kepler et al. (2019) fit the SDSS spectrum with 29,277 K, 0.43 Msun.",
     "974895286283420160": "DA at 51 pc; the TESS period is listed by Oliveira da Rosa et al. (2024).",
@@ -44,7 +44,7 @@ DESC = {
     "6170660401283991680": "Gaia XP class DO (Vincent et al. 2024).",
     "6136817910121524096": "Hot-subdwarf candidate in Geier et al. (2019); GALEX J132200.5-422412.",
     "3123625093275668736": "White dwarf and M dwarf in Rebassa-Mansergas et al. (2025); SDSS-V SnowWhite DA_MS.",
-    "3354819845628139904": "Hot-subdwarf candidate in Geier et al. (2019).",
+    "3354819845628139904": "Hot-subdwarf candidate in Geier et al. (2019). Heinze et al. (2018, ATLAS variables) list P = 1.04909 d, twice this period.",
     "3230486971974872192": "DO white dwarf, Teff 105.6 kK, log g 8.0 (Kilic et al. 2026a, via the MWDD). Steen et al. (2024) list it as a likely binary with P = 26.01 h (Gaia) and 26.07 h (ZTF), the same period.",
     "1094376947131876352": "DESI DR1 class DOA, Teff 78.2 kK (Swan et al. 2026); Kilic et al. (2026) classify it DO with Teff 98.6 kK.",
     "1038176780370360576": "SBSS 0910+584; spectral type DO (MWDD). G = 17.73, 810 pc. Chen et al. (2020) list it as a suspected ZTF variable with P = 1.1348 d, the same period.",
@@ -105,7 +105,7 @@ add("3107374277060584064", "WDJ064438.09-004550.51", Entry(
     "periodic", "Photometric periods", "periodic.md", DESC["3107374277060584064"],
     "P = 0.59288582 d (14.2293 h) in CoRoT (2007-2012), Gaia DR3 epoch photometry and ZTF; semi-amplitude 11.6% (ZTF r), "
     "3.9% (ZTF g), 10.2% (Gaia G); emission velocities +242/-166/+152 km/s (H-alpha) at phases 0.67/0.23/0.90 from maximum light.",
-    "P = 14.229 h; emission follows the phase",
+    "P = 14.229 h; **emission follows the phase**",
     ["reflection_3107374277060584064.csv", "reflection_3107374277060584064_visits.csv"], None,
     ["reflection_3107374277060584064.py"], None))
 
@@ -285,7 +285,24 @@ MARK = {
 
 NOBOLD = {"974895286283420160", "1157401396015448960", "920621124593362816", "1420761029600606592",
           "3717349170269867520", "1769157090045264128", "709815329316284928", "1038176780370360576",
-          "3230486971974872192"}
+          "3230486971974872192",
+          "2883364038621038208",
+          "178685757799822080",
+          "6456720612064924928",
+          "2888030331609338240",
+          "3496637913394359680",
+          "437628614520520320",
+          "6639666736903611136",
+          "3890059941364406144",
+          "2795150147707769728",
+          "6170660401283991680",
+          "6136817910121524096",
+          "3123625093275668736",
+          "3354819845628139904",
+          "6021870154194477312",
+          "1879989790567353344",
+          "2311285729210966144",
+          "3365371721281530880"}
 
 idx = []
 for topic in ORDER:

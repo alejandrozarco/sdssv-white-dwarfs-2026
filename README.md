@@ -86,26 +86,26 @@ One page per object with the measurement and its supporting data (tables, input 
 
 | object | description | measurement |
 |---|---|---|
-| [GALEX J060343.7-380911](docs/objects/2883364038621038208.md) \*\* | White dwarf selected by its Gaia DR3 GLS frequency (GALEX J060343.7-380911). | **P = 10.80225 h, 5.0% (ATLAS)** |
-| [GALEX J043613.3+383720](docs/objects/178685757799822080.md) \*\* | White dwarf selected by its Gaia DR3 GLS frequency (GALEX J043613.3+383720). | **P = 175.15604 h, 5.0% (ZTF)** |
-| [GALEX J211204.8-571801](docs/objects/6456720612064924928.md) \*\* | White dwarf selected by its Gaia DR3 GLS frequency (GALEX J211204.8-571801). | **P = 1.02224 h, 3.5% (ATLAS)** |
-| [GALEX J054140.8-362248](docs/objects/2888030331609338240.md) \*\* | White dwarf selected by its Gaia DR3 GLS frequency (GALEX J054140.8-362248). | **P = 16.35274 h, 2.4% (ATLAS)** |
-| [GALEX J124819.8-261413](docs/objects/3496637913394359680.md) \*\* | White dwarf selected by its Gaia DR3 GLS frequency (GALEX J124819.8-261413). | **P = 141.25536 h, 4.5% (ATLAS)** |
-| [WDJ025503.24+475833.96](docs/objects/437628614520520320.md) \*\* | White dwarf selected by its Gaia DR3 GLS frequency (WDJ025503.24+475833.96). | **P = 121.00599 h, 4.5% (ZTF)** |
-| [GALEX J191430.4-572023](docs/objects/6639666736903611136.md) \*\* | White dwarf selected by its Gaia DR3 GLS frequency (GALEX J191430.4-572023). | **P = 89.07682 h, 1.8% (ATLAS)** |
-| [SDSS J102251.62+161151.6](docs/objects/3890059941364406144.md) \*\*\* | DA with narrow Balmer lines; Gentile Fusillo et al. (2021) H-atmosphere fit 22,100 K, 0.32 Msun; Kepler et al. (2019) fit the SDSS spectrum with 29,277 K, 0.43 Msun. | **P = 1.45554 h, 2.9% (ZTF)** |
+| [GALEX J060343.7-380911](docs/objects/2883364038621038208.md) \*\* | White dwarf selected by its Gaia DR3 GLS frequency (GALEX J060343.7-380911). | P = 10.80225 h, 5.0% (ATLAS) |
+| [GALEX J043613.3+383720](docs/objects/178685757799822080.md) \*\* | White dwarf selected by its Gaia DR3 GLS frequency (GALEX J043613.3+383720). | P = 175.15604 h, 5.0% (ZTF) |
+| [GALEX J211204.8-571801](docs/objects/6456720612064924928.md) \*\* | White dwarf selected by its Gaia DR3 GLS frequency (GALEX J211204.8-571801). | P = 1.02224 h, 3.5% (ATLAS) |
+| [GALEX J054140.8-362248](docs/objects/2888030331609338240.md) \*\* | White dwarf selected by its Gaia DR3 GLS frequency (GALEX J054140.8-362248). | P = 16.35274 h, 2.4% (ATLAS) |
+| [GALEX J124819.8-261413](docs/objects/3496637913394359680.md) \*\* | White dwarf selected by its Gaia DR3 GLS frequency (GALEX J124819.8-261413). | P = 141.25536 h, 4.5% (ATLAS) |
+| [WDJ025503.24+475833.96](docs/objects/437628614520520320.md) \*\* | White dwarf selected by its Gaia DR3 GLS frequency (WDJ025503.24+475833.96). Chen et al. (2020) list it as a suspected ZTF variable with P = 5.04903 d, the same period. | P = 121.00599 h, 4.5% (ZTF) |
+| [GALEX J191430.4-572023](docs/objects/6639666736903611136.md) \*\* | White dwarf selected by its Gaia DR3 GLS frequency (GALEX J191430.4-572023). | P = 89.07682 h, 1.8% (ATLAS) |
+| [SDSS J102251.62+161151.6](docs/objects/3890059941364406144.md) \*\*\* | DA with narrow Balmer lines; Gentile Fusillo et al. (2021) H-atmosphere fit 22,100 K, 0.32 Msun; Kepler et al. (2019) fit the SDSS spectrum with 29,277 K, 0.43 Msun. | P = 1.45554 h, 2.9% (ZTF) |
 | [WDJ072009.19+464840.48](docs/objects/974895286283420160.md) \* | DA at 51 pc; the TESS period is listed by Oliveira da Rosa et al. (2024). | P = 19.14313 h, 1.8% (ZTF) |
-| [GALEX J003750.4+190136](docs/objects/2795150147707769728.md) \*\*\* | DA; Gentile Fusillo et al. (2021) H-atmosphere fit 27,000 K, 1.08 Msun. | **P = 18.24064 h, 3.0% (ZTF)** |
-| [Gaia DR3 6170660401283991680](docs/objects/6170660401283991680.md) \*\*\* | Gaia XP class DO (Vincent et al. 2024). | **P = 27.00552 h, 3.2% (ATLAS)** |
-| [GALEX J132200.5-422412](docs/objects/6136817910121524096.md) \*\* | Hot-subdwarf candidate in Geier et al. (2019); GALEX J132200.5-422412. | **P = 18.45593 h, 3.5% (ATLAS)** |
-| [Gaia DR3 3123625093275668736](docs/objects/3123625093275668736.md) \*\* | White dwarf and M dwarf in Rebassa-Mansergas et al. (2025); SDSS-V SnowWhite DA_MS. | **P = 10.39275 h, 2.9% (ZTF)** |
-| [Gaia DR3 3354819845628139904](docs/objects/3354819845628139904.md) \*\* | Hot-subdwarf candidate in Geier et al. (2019). | **P = 12.58907 h, 4.0% (ZTF)** |
+| [GALEX J003750.4+190136](docs/objects/2795150147707769728.md) \*\*\* | DA; Gentile Fusillo et al. (2021) H-atmosphere fit 27,000 K, 1.08 Msun. | P = 18.24064 h, 3.0% (ZTF) |
+| [Gaia DR3 6170660401283991680](docs/objects/6170660401283991680.md) \*\*\* | Gaia XP class DO (Vincent et al. 2024). | P = 27.00552 h, 3.2% (ATLAS) |
+| [GALEX J132200.5-422412](docs/objects/6136817910121524096.md) \*\* | Hot-subdwarf candidate in Geier et al. (2019); GALEX J132200.5-422412. | P = 18.45593 h, 3.5% (ATLAS) |
+| [Gaia DR3 3123625093275668736](docs/objects/3123625093275668736.md) \*\* | White dwarf and M dwarf in Rebassa-Mansergas et al. (2025); SDSS-V SnowWhite DA_MS. | P = 10.39275 h, 2.9% (ZTF) |
+| [Gaia DR3 3354819845628139904](docs/objects/3354819845628139904.md) \*\* | Hot-subdwarf candidate in Geier et al. (2019). Heinze et al. (2018, ATLAS variables) list P = 1.04909 d, twice this period. | P = 12.58907 h, 4.0% (ZTF) |
 | [WDJ043832.74+003117.01](docs/objects/3230486971974872192.md) \*\* | DO white dwarf, Teff 105.6 kK, log g 8.0 (Kilic et al. 2026a, via the MWDD). Steen et al. (2024) list it as a likely binary with P = 26.01 h (Gaia) and 26.07 h (ZTF), the same period. | P = 26.09254 h, 2.6% (ZTF) |
 | [WDJ080026.64+633414.85](docs/objects/1094376947131876352.md) \*\*\* | DESI DR1 class DOA, Teff 78.2 kK (Swan et al. 2026); Kilic et al. (2026) classify it DO with Teff 98.6 kK. | **P = 21.41901 h, 2.1% (ZTF)** |
 | [WDJ183850.84-411333.59](docs/objects/6722639595190126208.md) \*\*\*\* | Hot massive DA white dwarf (GF21 H-atmosphere 36.0 kK, 1.20 Msun; Gaia XP fit in the MWDD 63.7 kK, 1.30 Msun), G = 16.79, 120 pc; the period was found in TESS 2-min light curves (sectors 93 and 104) and recovered in ATLAS. | **P = 0.6428 h, 4.0% (ATLAS)** |
 | [WDJ072758.87+101157.08](docs/objects/3161618477052648192.md) \*\*\* | DC white dwarf (GF21 H-atmosphere 7.6 kK, 0.77 Msun), G = 17.40, 59 pc; the period was found in ZTF and recovered in three TESS sectors and in ATLAS; the highest TESS peak (7.52 c/d) belongs to another star in the aperture. Steen et al. (2024) list it as a likely spotted variable at P = 0.4914 h, the one-cycle-per-day alias of this period. | **P = 0.48155 h, 2.5% (ZTF)** |
-| [Gaia DR3 6021870154194477312](docs/objects/6021870154194477312.md) \*\*\*\* | White dwarf with a 103.4-min period; three Gaia sources within 13 arcsec are fitted separately. Gaia DR3 lists the same frequency in its spurious-signal table (Holl et al. 2023); VSX lists type WD without a period. | **103.4-min period (ATLAS, Gaia, TESS)** |
-| [WDJ064438.09-004550.51](docs/objects/3107374277060584064.md) \*\*\*\* | Hot white dwarf with He II 4686 absorption (SIMBAD WD* DO:, MWDD DO:, SDSS-V SnowWhite DA:; VSX type WD without a period); H-alpha, H-beta and Ca II emission whose velocity follows the photometric phase. | **P = 14.229 h; emission follows the phase** |
+| [Gaia DR3 6021870154194477312](docs/objects/6021870154194477312.md) \*\*\*\* | White dwarf with a 103.4-min period; three Gaia sources within 13 arcsec are fitted separately. Gaia DR3 lists the same frequency in its spurious-signal table (Holl et al. 2023); VSX lists type WD without a period. | 103.4-min period (ATLAS, Gaia, TESS) |
+| [WDJ064438.09-004550.51](docs/objects/3107374277060584064.md) \*\*\*\* | Hot white dwarf with He II 4686 absorption (SIMBAD WD* DO:, MWDD DO:, SDSS-V SnowWhite DA:; VSX type WD without a period); H-alpha, H-beta and Ca II emission whose velocity follows the photometric phase. | P = 14.229 h; **emission follows the phase** |
 
 ### TESS amplitude spectra (pulsation candidates) (5)
 
@@ -159,13 +159,13 @@ One page per object with the measurement and its supporting data (tables, input 
 |---|---|---|
 | [WDJ091433.60+581238.12](docs/objects/1038176780370360576.md) \*\* | SBSS 0910+584; spectral type DO (MWDD). G = 17.73, 810 pc. Chen et al. (2020) list it as a suspected ZTF variable with P = 1.1348 d, the same period. | P = 27.23048 h, 3.8% (ZTF) |
 | [WDJ151215.73+065156.43](docs/objects/1157401396015448960.md) \* | GALEX J151215.7+065156; UHE white dwarf, DOZ (Reindl et al. 2021, where the period is published). G = 17.22, 990 pc. | P = 5.4245 h, 1.8% (ZTF) |
-| [WDJ221519.86+253059.05](docs/objects/1879989790567353344.md) \*\*\* | GALEX J221519.8+253059; spectral type DOZ (MWDD). G = 17.05, 1190 pc. Ranaivomanana et al. (2025) list different periods (Gaia 0.077198 d, TESS 18.565 d, type unclear); the Gaia DR3 spurious-signal table lists 1.29438 c/d, the first harmonic of this period. | **P = 37.07929 h, 1.4% (ZTF)** |
+| [WDJ221519.86+253059.05](docs/objects/1879989790567353344.md) \*\*\* | GALEX J221519.8+253059; spectral type DOZ (MWDD). G = 17.05, 1190 pc. Ranaivomanana et al. (2025) list different periods (Gaia 0.077198 d, TESS 18.565 d, type unclear); the Gaia DR3 spurious-signal table lists 1.29438 c/d, the first harmonic of this period. | P = 37.07929 h, 1.4% (ZTF) |
 | [WDJ075540.94+400917.91](docs/objects/920621124593362816.md) \* | KUV 07523+4017; DOZ / PG 1159 (Reindl et al. 2021, where the period is published). G = 17.80, 1052 pc. | P = 20.78523 h, 2.5% (ZTF) |
 | [WDJ065819.86+441438.40](docs/objects/953685015492787456.md) \*\*\* | Gaia XP class DO (Vincent et al. 2024). G = 17.53, 483 pc. | **P = 29.49088 h, 0.9% (ZTF)** |
 | [WDJ025657.85-145029.92](docs/objects/5157333438398813824.md) \*\*\* | Spectral type DA with a photometric temperature above 100 kK (MWDD). G = 17.37, 1072 pc. | **P = 28.51831 h, 3.4% (ZTF)** |
 | [WDJ171743.52+515840.07](docs/objects/1415911839725510528.md) \*\* | Spectral type DA, 68.0 kK (Kilic et al. 2026, via the MWDD). G = 17.59, 833 pc. | **P = 30.1191 h, 1.9% (ZTF)** |
-| [WDJ234931.84-353916.52](docs/objects/2311285729210966144.md) \*\* | GALEX J234931.8-353916; SDSS-V DR20 SnowWhite class DA. G = 17.88, 882 pc. | **P = 26.4793 h, 2.6% (ATLAS)** |
-| [WDJ065134.01+185201.09](docs/objects/3365371721281530880.md) \*\* | No spectrum found. G = 18.10, 1100 pc. | **P = 20.17182 h, 3.6% (ATLAS)** |
+| [WDJ234931.84-353916.52](docs/objects/2311285729210966144.md) \*\* | GALEX J234931.8-353916; SDSS-V DR20 SnowWhite class DA. G = 17.88, 882 pc. | P = 26.4793 h, 2.6% (ATLAS) |
+| [WDJ065134.01+185201.09](docs/objects/3365371721281530880.md) \*\* | No spectrum found. G = 18.10, 1100 pc. | P = 20.17182 h, 3.6% (ATLAS) |
 
 ### Periods of DA white dwarfs with emission lines (7)
 

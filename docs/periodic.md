@@ -46,7 +46,7 @@ SDSS-V coadd and the line profiles of each visit:
 
 ## Eighteen white dwarfs with ground-based periods
 
-`tables/periodic_white_dwarfs.csv` covers eighteen white dwarfs. Fifteen were selected by their Gaia DR3 GLS frequency, and each of those frequencies was recovered in ATLAS or ZTF. Two (WDJ183850.84-411333.59 and WDJ072758.87+101157.08) have periods found in TESS 2-min light curves and recovered in ATLAS or ZTF; they have no Gaia DR3 epoch photometry. WDJ080026.64+633414.85 has no Gaia DR3 epoch photometry; its period comes from ZTF. For each star the table gives the Gaia amplitude and time of maximum at that frequency, plus the TESS values where TESS data exist, and for ZTF the amplitudes per filter. Each figure shows the ground-based periodogram (left) and the ground-based and Gaia light curves folded on the adopted frequency (right).
+`tables/periodic_white_dwarfs.csv` covers eighteen white dwarfs. Fifteen were selected by their Gaia DR3 GLS frequency, and each of those frequencies was recovered in ATLAS or ZTF. These frequencies are listed in the Gaia DR3 spurious-signal table (Holl et al. 2023, A&A 674, A25). Two (WDJ183850.84-411333.59 and WDJ072758.87+101157.08) have periods found in TESS 2-min light curves and recovered in ATLAS or ZTF; they have no Gaia DR3 epoch photometry. WDJ080026.64+633414.85 has no Gaia DR3 epoch photometry; its period comes from ZTF. For each star the table gives the Gaia amplitude and time of maximum at that frequency, plus the TESS values where TESS data exist, and for ZTF the amplitudes per filter. Each figure shows the ground-based periodogram (left) and the ground-based and Gaia light curves folded on the adopted frequency (right).
 
 **Gaia DR3 2883364038621038208** (GALEX J060343.7-380911): P = 10.80225 h
 
@@ -69,6 +69,8 @@ SDSS-V coadd and the line profiles of each visit:
 <img src="../figures/periodic/3496637913394359680.png" width="700">
 
 **Gaia DR3 437628614520520320** (WDJ025503.24+475833.96): P = 121.00599 h
+
+- Chen et al. (2020, ApJS 249, 18) list it as a suspected ZTF variable with P = 5.04903 d, the same period.
 
 <img src="../figures/periodic/437628614520520320.png" width="700">
 
@@ -107,6 +109,7 @@ SDSS-V coadd and the line profiles of each visit:
 <img src="../figures/periodic/3123625093275668736.png" width="700">
 
 **Gaia DR3 3354819845628139904**: P = 12.58907 h. Hot-subdwarf candidate in Geier et al. (2019).
+- Heinze et al. (2018, AJ 156, 241; ATLAS variable stars) list P = 1.04909 d, twice this period.
 
 <img src="../figures/periodic/3354819845628139904.png" width="700">
 
