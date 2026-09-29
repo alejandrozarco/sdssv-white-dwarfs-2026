@@ -107,9 +107,9 @@
 ## WDJ103039.63−275438.60 (Gaia DR3 5467851842959399808)
 - **Period:** P = 240.493 min in ZTF r and TESS (sector 99, 120 s); the ZTF g and r peaks at 6.990 and 4.985 c/d are the +1 and −1 c/d aliases. The nearest alias has Δχ² = 233.
 - **Amplitudes:** ZTF g 4.0%, r 10.0%; TESS 14.1% (PDCSAP, CROWDSAP 0.016; a G = 14.3 star 22″ away dominates the aperture).
-- **Existing classifications:** Pelisoli & Vos (2019) Gaia DR2 ELM candidate; Madurga Favieres et al. (2024) list the W1 excess (photometric, no spectral type); Gavras et al. (2023) constant; VSX none.
-- **Infrared:** W1 6.4 and W2 8.1 times the white-dwarf model; VHS J 2.0 and Ks 3.1 times.
-- **Spectra:** none found.
+- **Existing classifications:** Pelisoli & Vos (2019) Gaia DR2 ELM candidate; Kosakowski et al. (2023, ELM Survey South II) mark it as periodically variable in ZTF DR16 and TESS without giving a period; Madurga Favieres et al. (2024) list the W1 excess (photometric, no spectral type); Gavras et al. (2023) constant; VSX none.
+- **Infrared:** W1 6.4 and W2 8.1 times the white-dwarf model; VHS J 2.0 and Ks 3.1 times. The white-dwarf model uses the Gentile Fusillo et al. (2021) photometric parameters; the spectroscopic fit below is hotter.
+- **Spectra:** Kosakowski et al. (2023): one optical spectrum, pure-hydrogen fit T_eff = 32,020 ± 800 K, log g = 7.75 ± 0.16 (public Zenodo archive).
 
 <img src="../figures/irradiated_companions/5467851842959399808.png" width="800">
 
@@ -125,8 +125,8 @@
 ## WDJ011651.58−044046.82 (Gaia DR3 2482810406432480512)
 - **Period:** P = 426.153 min in ZTF g, r and TESS (sectors 70 and 97, 120 s). The nearest alias has Δχ² = 869.
 - **Amplitudes:** ZTF g 3.0%, r 7.4%; TESS 9.0-10.1% (PDCSAP, CROWDSAP 0.72).
-- **Existing classifications:** Stringer et al. (2019, DES) list an RR Lyrae candidate period of 0.640697 d; Gavras et al. (2023) constant; Wang et al. (2025) no period; VSX none.
-- **Infrared:** W1 3.5 and W2 3.9 times the white-dwarf model; VHS J 1.5 and Ks 1.9 times.
-- **Spectra:** none found.
+- **Existing classifications:** Stringer et al. (2019, DES) list an RR Lyrae candidate period of 0.640697 d; Kosakowski et al. (2023, ELM Survey South II) mark it as periodically variable in ZTF DR16 without giving a period; Gavras et al. (2023) constant; Wang et al. (2025) no period; VSX none.
+- **Infrared:** W1 3.5 and W2 3.9 times the white-dwarf model; VHS J 1.5 and Ks 1.9 times. The white-dwarf model uses the Gentile Fusillo et al. (2021) photometric parameters; the spectroscopic fit below is hotter.
+- **Spectra:** Kosakowski et al. (2023): one optical spectrum, pure-hydrogen fit T_eff = 45,500 ± 870 K, log g = 7.58 ± 0.10 (public Zenodo archive).
 
 <img src="../figures/irradiated_companions/2482810406432480512.png" width="800">

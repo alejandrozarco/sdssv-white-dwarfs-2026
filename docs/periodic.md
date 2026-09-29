@@ -127,4 +127,6 @@ SDSS-V coadd and the line profiles of each visit:
 
 **Gaia DR3 3161618477052648192** (WDJ072758.87+101157.08): P = 0.48155 h (28.89 min); ZTF g 2.4%, r 2.6%; TESS PDCSAP 2.9-4.8%
 
+Steen et al. (2024) list this white dwarf as a likely spotted variable with P = 0.4914 h from Gaia DR3 and ZTF photometry; that period is the one-cycle-per-day alias of the TESS, ZTF and ATLAS period given here.
+
 <img src="../figures/periodic/3161618477052648192.png" width="700">

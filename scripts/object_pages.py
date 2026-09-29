@@ -30,7 +30,7 @@ DESC = {
     "3107374277060584064": "Hot white dwarf with He II 4686 absorption (SIMBAD WD* DO:, MWDD DO:, SDSS-V SnowWhite DA:; VSX type WD without a period); H-alpha, H-beta and Ca II emission whose velocity follows the photometric phase.",
     "2883364038621038208": "White dwarf selected by its Gaia DR3 GLS frequency (GALEX J060343.7-380911).",
     "6722639595190126208": "Hot massive DA white dwarf (GF21 H-atmosphere 36.0 kK, 1.20 Msun; Gaia XP fit in the MWDD 63.7 kK, 1.30 Msun), G = 16.79, 120 pc; the period was found in TESS 2-min light curves (sectors 93 and 104) and recovered in ATLAS.",
-    "3161618477052648192": "DC white dwarf (GF21 H-atmosphere 7.6 kK, 0.77 Msun), G = 17.40, 59 pc; the period was found in ZTF and recovered in three TESS sectors and in ATLAS; the highest TESS peak (7.52 c/d) belongs to another star in the aperture.",
+    "3161618477052648192": "DC white dwarf (GF21 H-atmosphere 7.6 kK, 0.77 Msun), G = 17.40, 59 pc; the period was found in ZTF and recovered in three TESS sectors and in ATLAS; the highest TESS peak (7.52 c/d) belongs to another star in the aperture. Steen et al. (2024) list it as a likely spotted variable at P = 0.4914 h, the one-cycle-per-day alias of this period.",
     "4851800979770492544": "DA white dwarf (GF21 H-atmosphere 13.9 kK, 0.35 Msun; Gaia XP fit in the MWDD 14.5 kK, 0.31 Msun), G = 17.95, 322 pc; no other Gaia source within 28 arcsec.",
     "178685757799822080": "White dwarf selected by its Gaia DR3 GLS frequency (GALEX J043613.3+383720).",
     "6456720612064924928": "White dwarf selected by its Gaia DR3 GLS frequency (GALEX J211204.8-571801).",
